@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "030e7f5c-aa32-4a95-a424-b9a242083dce",
+		"name": "story",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12074833"
+	},
+	"item": [
+		{
+			"name": "list",
+			"item": [
+				{
+					"name": "categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "themes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/themes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"themes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "languages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/languages",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"languages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "avatars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/avatars?gender=female",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"avatars"
+							],
+							"query": [
+								{
+									"key": "gender",
+									"value": "female"
+								}
+							]
+						},
+						"description": "?gender={value}\n\nvalue = male / female"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://story.test/api/v1",
+			"type": "string"
+		}
+	]
+}
