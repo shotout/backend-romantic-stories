@@ -18,5 +18,26 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \App\Models\Story::factory(10)->create([
+            "category_id" => 1,
+            "title" => "Relationship",
+            "content" => "Story About Relationship",
+            "created_at" => now(),
+        ]);
+
+        \App\Models\Story::factory(10)->create([
+            "category_id" => 2,
+            "title" => "I Miss You",
+            "content" => "Story About I Miss You",
+            "created_at" => now(),
+        ]);
+
+        \App\Models\Story::factory(10)->create([
+            "category_id" => 1,
+            "title" => "Dirty Mind",
+            "content" => "Story About Dirty Mind",
+            "created_at" => now(),
+        ]);
     }
 }

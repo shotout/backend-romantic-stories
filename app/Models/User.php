@@ -42,4 +42,44 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function icon()
+    {
+        return $this->belongsTo('\App\Models\Icon')->with('image');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('\App\Models\Category')->with('image');
+    }
+
+    public function get_avatar_male()
+    {
+        return $this->belongsTo('\App\Models\Avatar', 'avatar_male', 'id')->with('image');
+    }
+
+    public function get_avatar_female()
+    {
+        return $this->belongsTo('\App\Models\Avatar', 'avatar_female', 'id')->with('image');
+    }
+
+    public function theme()
+    {
+        return $this->belongsTo('\App\Models\Theme');
+    }
+
+    public function language()
+    {
+        return $this->belongsTo('\App\Models\Language');
+    }
+
+    public function schedule()
+    {
+        return $this->hasOne('\App\Models\Schedule');
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne('\App\Models\Subscription')->where('status', 2)->with('plan');
+    }
 }

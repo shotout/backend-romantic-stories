@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('medias', function (Blueprint $table) {
+        Schema::create('versions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('owner_id')->nullable();
-            $table->string('type')->nullable();
-            $table->string('name')->nullable();
-            $table->string('url')->nullable();
+            $table->string('no')->nullable();
+            $table->text('desc')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medias');
+        Schema::dropIfExists('versions');
     }
 };

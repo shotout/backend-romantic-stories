@@ -46,6 +46,24 @@
 					"response": []
 				},
 				{
+					"name": "icons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/icons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"icons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "languages",
 					"request": {
 						"method": "GET",
@@ -85,6 +103,219 @@
 							]
 						},
 						"description": "?gender={value}\n\nvalue = male / female"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Padli Yulian",
+									"type": "text"
+								},
+								{
+									"key": "device_id",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "schedule notif",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "anytime",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "often",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "start",
+									"value": "08:00",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "23:00",
+									"type": "text"
+								},
+								{
+									"key": "jeda",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "jeda",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "fcm_token",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "timezone",
+									"value": "Asia/Jakarta",
+									"type": "text"
+								},
+								{
+									"key": "jeda",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "avatar_male",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "avatar_female",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "theme_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "language_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_id",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/check",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"check"
+							]
+						},
+						"description": "body :\n\ndevice_id = string\n\ninfo :\n\n1.  saat aplikasi pertama buka nembak api ini\n2.  jika belum terdaftar redirect ke register/setup awal\n3.  jika sudah terdaftar cek subscription nya type, started dan renewal\n4.  jika masih aktif redirect ke dashboard/ list quote\n5.  jika expire redirect ke halaman pembaruan subsrciption"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stories",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|c2hMAgx9ofgV9UIxd3XkNHcv7TGSIhtx2ZjkeOyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stories?length=10&notif=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories"
+							],
+							"query": [
+								{
+									"key": "length",
+									"value": "10"
+								},
+								{
+									"key": "notif",
+									"value": ""
+								}
+							]
+						},
+						"description": "pagination :\n\ndefautnya 1\n\n/api/v1/quotes?length={int}\n\nuntuk detail notif saat di klik\n\nbody notif={id}\n\n/api/v1/quote?length={int}¬if={id}"
 					},
 					"response": []
 				}

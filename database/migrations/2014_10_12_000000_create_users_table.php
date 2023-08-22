@@ -27,7 +27,16 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+
+            $table->boolean('is_member')->default(false);
+            $table->string('purchasely_id')->nullable();
+            $table->string('device_id')->nullable();
+            $table->string('fcm_token')->nullable();
+            $table->integer('notif_count')->default(0);
+            $table->integer('notif_ads_count')->default(0);
+
+            $table->tinyInteger('status')->default(2);
             $table->rememberToken();
             $table->timestamps();
         });
