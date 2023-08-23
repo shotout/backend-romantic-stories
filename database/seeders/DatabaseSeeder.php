@@ -22,21 +22,21 @@ class DatabaseSeeder extends Seeder
         \App\Models\Story::factory(10)->create([
             "category_id" => 1,
             "title" => "Relationship",
-            "content" => "Story About Relationship",
+            "content" => "<p>Story About Relationship</p>",
             "created_at" => now(),
         ]);
 
         \App\Models\Story::factory(10)->create([
             "category_id" => 2,
             "title" => "I Miss You",
-            "content" => "Story About I Miss You",
+            "content" => "<p>Story About I Miss You</p>",
             "created_at" => now(),
         ]);
 
         \App\Models\Story::factory(10)->create([
             "category_id" => 3,
             "title" => "Dirty Mind",
-            "content" => "Story About Dirty Mind",
+            "content" => "<p>Story About Dirty Mind</p>",
             "created_at" => now(),
         ]);
     }

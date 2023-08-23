@@ -132,7 +132,7 @@
 								},
 								{
 									"key": "device_id",
-									"value": "12345678",
+									"value": "1",
 									"type": "text"
 								},
 								{
@@ -316,6 +316,403 @@
 							]
 						},
 						"description": "pagination :\n\n/api/v1/stories?notif={id}\n\nuntuk detail notif saat di klik"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "collection",
+			"item": [
+				{
+					"name": "detail collection",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|lzM1ONjEpxLQhd59bTvg5wenwNcZmCEIy5FCR8Xp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/collection/1?length=10&search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"1"
+							],
+							"query": [
+								{
+									"key": "length",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						},
+						"description": "defaultnya /api/v1/collection/{id_collection}\n\npagination :\n\ndefaultnya 10\n\nlength={int}\n\nsearching :\n\ndefaultnya kosong\n\nsearch={keyword}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete collection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/collection/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add collection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|lzM1ONjEpxLQhd59bTvg5wenwNcZmCEIy5FCR8Xp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "work",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/collection",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection"
+							]
+						},
+						"description": "body :\n\nname = {nama collection}"
+					},
+					"response": []
+				},
+				{
+					"name": "update collection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|lzM1ONjEpxLQhd59bTvg5wenwNcZmCEIy5FCR8Xp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "work edit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/collection/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"1"
+							]
+						},
+						"description": "/api/v1/collection/{id_collection}\n\nbody :\n\nname = {nama collection}"
+					},
+					"response": []
+				},
+				{
+					"name": "list collection",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/collection?column=id&dir=desc&search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection"
+							],
+							"query": [
+								{
+									"key": "column",
+									"value": "id"
+								},
+								{
+									"key": "dir",
+									"value": "desc"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add story to collection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/collection/story/2/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"story",
+								"2",
+								"3"
+							]
+						},
+						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+					},
+					"response": []
+				},
+				{
+					"name": "add story",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/collection/story/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"story",
+								"1"
+							]
+						},
+						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete story from collection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/collection/story/1/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"story",
+								"1",
+								"1"
+							]
+						},
+						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete story",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/collection/story/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"collection",
+								"story",
+								"1"
+							]
+						},
+						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
 					},
 					"response": []
 				}

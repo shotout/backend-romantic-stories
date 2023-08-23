@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ListController;
 use App\Http\Controllers\Api\v1\StoryController;
+use App\Http\Controllers\Api\v1\UserCollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,21 @@ Route::prefix('v1/list')->name('list.')->group(
 Route::middleware('auth:sanctum')->prefix('v1/stories')->name('stories.')->group(
     function() {
         Route::get('/', [StoryController::class, 'index'])->name('index');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/collection')->name('collection.')->group(
+    function() {
+        Route::get('/', [UserCollectionController::class, 'index'])->name('index');
+        Route::get('/{id}', [UserCollectionController::class, 'show'])->name('show');
+        Route::post('/', [UserCollectionController::class, 'store'])->name('store');
+        Route::patch('/{id}', [UserCollectionController::class, 'update'])->name('update');
+        Route::delete('/{id}', [UserCollectionController::class, 'destroy'])->name('destroy');
+
+        Route::post('/story/{story}', [UserCollectionController::class, 'storeStoryOutside'])->name('story.store.outside');
+        Route::delete('/story/{story}', [UserCollectionController::class, 'destroyStoryOutside'])->name('story.destroy.outside');
+
+        Route::post('/story/{collection}/{story}', [UserCollectionController::class, 'storeStory'])->name('story.store');
+        Route::delete('/story/{collection}/{story}', [UserCollectionController::class, 'destroyStory'])->name('story.destroy');
     }
 );
