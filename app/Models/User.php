@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('\App\Models\Subscription')->where('status', 2)->with('plan');
     }
+
+    public function my_story()
+    {
+        return $this->hasOne('\App\Models\MyStory');
+    }
 }

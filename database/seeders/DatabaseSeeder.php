@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Story::factory(10)->create([
-            "category_id" => 1,
+            "category_id" => 3,
             "title" => "Dirty Mind",
             "content" => "Story About Dirty Mind",
             "created_at" => now(),

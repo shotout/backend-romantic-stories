@@ -283,7 +283,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|c2hMAgx9ofgV9UIxd3XkNHcv7TGSIhtx2ZjkeOyA",
+									"value": "4|OHuwTXRWph8GeJmisRYBL6CwIf3OcgQC2lVxdweW",
 									"type": "string"
 								}
 							]
@@ -297,7 +297,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/stories?length=10&notif=",
+							"raw": "{{base_url}}/stories?&notif=",
 							"host": [
 								"{{base_url}}"
 							],
@@ -306,8 +306,8 @@
 							],
 							"query": [
 								{
-									"key": "length",
-									"value": "10"
+									"key": null,
+									"value": null
 								},
 								{
 									"key": "notif",
@@ -315,7 +315,7 @@
 								}
 							]
 						},
-						"description": "pagination :\n\ndefautnya 1\n\n/api/v1/quotes?length={int}\n\nuntuk detail notif saat di klik\n\nbody notif={id}\n\n/api/v1/quote?length={int}¬if={id}"
+						"description": "pagination :\n\n/api/v1/stories?notif={id}\n\nuntuk detail notif saat di klik"
 					},
 					"response": []
 				}

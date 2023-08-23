@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Models\User;
 use App\Models\Story;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -12,17 +13,17 @@ class StoryController extends Controller
     public function index(Request $request)
     {
         // limit
-        if ($request->has('length') && $request->input('length') != '') {
-            $length = $request->input('length');
-        } else {
-            $length = 10;
-        }
+        // if ($request->has('length') && $request->input('length') != '') {
+        //     $length = $request->input('length');
+        // } else {
+        //     $length = 1;
+        // }
 
         // order by field
         if ($request->has('column') && $request->input('column') != '') {
             $column = $request->input('column');
         } else {
-            $column = 'sequence';
+            $column = 'id';
         }
 
         // order direction
@@ -34,9 +35,21 @@ class StoryController extends Controller
 
         // query
         $query = Story::where('status', 2)->orderBy($column, $dir);
+
+        // rules
+        $user = User::with('my_story')->findOrFail(auth()->user()->id);
+        if ($user->my_story->actual < count($user->my_story->rules)) {
+            $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+            $user->my_story->actual++;
+            $user->my_story->update();
+        } else {
+            $query->where('category_id', $user->my_story->rules[0]);
+            $user->my_story->actual = 1;
+            $user->my_story->update();
+        }
                     
         // pagination
-        $data = $query->paginate($length);
+        $data = $query->paginate(1);
 
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
