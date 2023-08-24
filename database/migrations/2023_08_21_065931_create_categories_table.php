@@ -56,6 +56,30 @@ return new class extends Migration
                 "created_at" => now()
             ],
         ]);
+
+        DB::table('medias')->insert([
+            [
+                "owner_id" => 1,
+                "type" => "category_cover",
+                "name" => "relationship.png",
+                "url" => "/assets/images/categories/covers/relationship.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 2,
+                "type" => "category_cover",
+                "name" => "i_miss_u.png",
+                "url" => "/assets/images/categories/covers/i_miss_u.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 3,
+                "type" => "category_cover",
+                "name" => "dirty_mind.png",
+                "url" => "/assets/images/categories/covers/dirty_mind.png",
+                "created_at" => now()
+            ],
+        ]);
     }
 
     /**

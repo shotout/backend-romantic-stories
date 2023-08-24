@@ -20,7 +20,6 @@ return new class extends Migration
             $table->bigInteger('avatar_male')->nullable();
             $table->bigInteger('avatar_female')->nullable();
 
-            $table->string('theme_id')->nullable();
             $table->string('language_id')->nullable();
 
             $table->string('name')->nullable();
@@ -36,8 +35,8 @@ return new class extends Migration
             $table->integer('notif_count')->default(0);
             $table->integer('notif_ads_count')->default(0);
 
-            $table->tinyInteger('status')->default(2);
             $table->rememberToken();
+            $table->tinyInteger('status')->default(2);
             $table->timestamps();
         });
     }

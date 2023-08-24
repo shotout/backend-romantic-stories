@@ -276,6 +276,42 @@
 			"name": "stories",
 			"item": [
 				{
+					"name": "share",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stories/share/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories",
+								"share",
+								"1"
+							]
+						},
+						"description": "/api/v1/stories/share/{id_story}"
+					},
+					"response": []
+				},
+				{
 					"name": "list",
 					"request": {
 						"auth": {
@@ -322,7 +358,7 @@
 			]
 		},
 		{
-			"name": "collection",
+			"name": "collection / library",
 			"item": [
 				{
 					"name": "detail collection",
@@ -335,7 +371,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|lzM1ONjEpxLQhd59bTvg5wenwNcZmCEIy5FCR8Xp",
+									"value": "1|RnCjV0x1RchN3Br53oXvAVdDw4AEFv7DN0RddqJ4",
 									"type": "string"
 								}
 							]
@@ -558,7 +594,8 @@
 									"value": ""
 								}
 							]
-						}
+						},
+						"description": "http://story.test/api/v1/collection?column={nama_kolom}&dir={urutan}&search={keyword}\n\nnama_kolom = id\n\nurutan = asc / desc\n\nkeyword = bebas"
 					},
 					"response": []
 				},
@@ -599,7 +636,7 @@
 								"3"
 							]
 						},
-						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+						"description": "/api/v1/collection/story/{id_collection}/{id_story}"
 					},
 					"response": []
 				},
@@ -639,7 +676,7 @@
 								"1"
 							]
 						},
-						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+						"description": "/api/v1/collection/story/{id_story}"
 					},
 					"response": []
 				},
@@ -676,7 +713,7 @@
 								"1"
 							]
 						},
-						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+						"description": "/api/v1/collection/story/{id_collection}/{id_story}"
 					},
 					"response": []
 				},
@@ -712,7 +749,271 @@
 								"1"
 							]
 						},
-						"description": "/api/v1/collection/quote/{id_collection}/{id_quote}"
+						"description": "http://story.test/api/v1/collection/story/{id_story}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "past stories",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/past-story",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"past-story"
+							]
+						},
+						"description": "defaultnya /api/v1/past-story\n\nfree user type 1 :\n\nhanya nampilin 5 quote\n\npaid user type selain 1:\n\npagination :\n\ndefaultnya 10\n\nlength={int}\n\n/api/v1/past-story?length=10"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/past-story/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"past-story",
+								"3"
+							]
+						},
+						"description": "/api/v1/past-story/{story_id}"
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/past-story/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"past-story",
+								"3"
+							]
+						},
+						"description": "/api/v1/past-story/{story_id}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Julian Edit",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Female",
+									"type": "text"
+								},
+								{
+									"key": "often",
+									"value": "15",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "17:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end",
+									"value": "23:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "fcm_token",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "notif_count",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "timezone",
+									"value": "Asia/Bangkok",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "purchasely_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "icon",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "avatar_male",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "avatar_female",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "language_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "notif_ads_count",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
 					},
 					"response": []
 				}

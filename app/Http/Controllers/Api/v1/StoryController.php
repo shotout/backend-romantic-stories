@@ -7,6 +7,7 @@ use App\Models\Story;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PastStory;
 
 class StoryController extends Controller
 {
@@ -33,8 +34,16 @@ class StoryController extends Controller
             $dir = 'asc';
         }
 
+        // past stories
+        $pastStories = PastStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
+
         // query
-        $query = Story::where('status', 2)->orderBy($column, $dir);
+        $query = Story::with('is_collection','category')
+            ->whereNotIn('id', $pastStories)
+            ->where('status', 2)
+            ->orderBy($column, $dir);
 
         // rules
         $user = User::with('my_story')->findOrFail(auth()->user()->id);
@@ -72,6 +81,26 @@ class StoryController extends Controller
             'flag' => (object) array(
                 'month_free' => $month_free
             )
+        ], 200);
+    }
+
+    public function share($id)
+    {
+        $story = Story::find($id);
+
+        if (!$story) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found'
+            ], 404);
+        }
+
+        $story->count_share++;
+        $story->update();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => null
         ], 200);
     }
 }

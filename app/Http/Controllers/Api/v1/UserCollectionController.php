@@ -58,7 +58,7 @@ class UserCollectionController extends Controller
 
     public function show(Request $request, $id)
     {
-        $collection = Collection::find($id);
+        $collection = Collection::withCount('stories')->find($id);
         if (!$collection) {
             return response()->json([
                 'status' => 'failed',

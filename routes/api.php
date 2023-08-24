@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ListController;
 use App\Http\Controllers\Api\v1\StoryController;
+use App\Http\Controllers\Api\v1\UserProfileController;
+use App\Http\Controllers\Api\v1\UserPastStoryController;
 use App\Http\Controllers\Api\v1\UserCollectionController;
 
 /*
@@ -37,6 +39,7 @@ Route::prefix('v1/list')->name('list.')->group(
 Route::middleware('auth:sanctum')->prefix('v1/stories')->name('stories.')->group(
     function() {
         Route::get('/', [StoryController::class, 'index'])->name('index');
+        Route::post('/share/{id}', [StoryController::class, 'share'])->name('share');
     }
 );
 
@@ -53,5 +56,20 @@ Route::middleware('auth:sanctum')->prefix('v1/collection')->name('collection.')-
 
         Route::post('/story/{collection}/{story}', [UserCollectionController::class, 'storeStory'])->name('story.store');
         Route::delete('/story/{collection}/{story}', [UserCollectionController::class, 'destroyStory'])->name('story.destroy');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/past-story')->name('past-story.')->group(
+    function() {
+        Route::get('/', [UserPastStoryController::class, 'index'])->name('index');
+        Route::post('/{id}', [UserPastStoryController::class, 'store'])->name('store');
+        Route::delete('/{id}', [UserPastStoryController::class, 'destroy'])->name('destroy');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/user')->name('user.')->group(
+    function() {
+        Route::get('/', [UserProfileController::class, 'show'])->name('show');
+        Route::patch('/', [UserProfileController::class, 'update'])->name('update');
     }
 );

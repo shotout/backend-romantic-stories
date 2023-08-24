@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function theme()
     {
-        return $this->belongsTo('\App\Models\Theme');
+        return $this->hasOne('\App\Models\UserTheme');
     }
 
     public function language()

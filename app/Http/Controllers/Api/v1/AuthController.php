@@ -10,6 +10,8 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
+use App\Models\UserTheme;
 
 class AuthController extends Controller
 {
@@ -65,7 +67,6 @@ class AuthController extends Controller
             $user = new User;
             $user->icon_id = 1;
             $user->category_id = $request->category_id;
-            $user->theme_id = $request->theme_id;
             $user->language_id = $request->language_id;
 
             if ($request->has('name') && $request->name != '') $user->name = $request->name;
@@ -77,6 +78,22 @@ class AuthController extends Controller
             if ($request->has('fcm_token') && $request->fcm_token) $user->fcm_token = $request->fcm_token;
             if ($request->has('purchasely_id') && $request->purchasely_id) $user->purchasely_id = $request->purchasely_id;
             $user->save();
+
+            // custome theme ---------
+                $theme = Theme::find($request->theme_id);
+                if ($theme) {
+                    $ut = new UserTheme;
+                    $ut->user_id = $user->id;
+                    $ut->theme_id = $theme->id;
+                    $ut->name = $theme->name;
+                    $ut->text_color = $theme->text_color;
+                    $ut->font_size = $theme->font_size;
+                    $ut->font_family = $theme->font_family;
+                    $ut->bg_color = $theme->bg_color;
+                    $ut->theme_color = $theme->theme_color;
+                    $ut->save();
+                }
+            // ----------------------
 
             // subscription ---------
                 $sub = new Subscription;

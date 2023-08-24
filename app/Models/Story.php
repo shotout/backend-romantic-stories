@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Story extends Model
 {
     use HasFactory;
+
+    public function category()
+    {
+        return $this->belongsTo('\App\Models\Category')->with('cover');
+    }
+
+    public function is_collection()
+    {
+        return $this->hasOne('\App\Models\CollectionStory')->where('user_id', auth('sanctum')->user()->id);
+    }
 }

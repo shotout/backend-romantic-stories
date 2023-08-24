@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_free')->default(false);
             $table->bigInteger('sequence')->nullable();
             $table->bigInteger('category_id')->nullable();
             $table->string('author')->nullable();

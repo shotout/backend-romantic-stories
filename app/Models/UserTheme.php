@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CollectionStory extends Model
+class UserTheme extends Model
 {
     use HasFactory;
 
-    public function story()
-    {
-        return $this->belongsTo('\App\Models\Story')->with('category');
-    }
+    protected $table = 'user_theme';
 }
