@@ -51,6 +51,11 @@ class UserProfileController extends Controller
             $user->update();
         }
 
+        if ($request->has('category_id') && $request->category_id != '') {
+            $user->category_id = $request->category_id;
+            $user->update();
+        }
+        
         if ($request->has('language_id') && $request->language_id != '') {
             $user->language_id = $request->language_id;
             $user->update();

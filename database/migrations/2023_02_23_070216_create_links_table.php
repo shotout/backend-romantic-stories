@@ -29,7 +29,7 @@ return new class extends Migration
             ['flag' => 'social', 'title' => 'Twitter','url' => 'https://twitter.com/mcsmart', 'created_at' => now()],
             ['flag' => 'social', 'title' => 'Instagram','url' => 'https://www.instagram.com/mcsmart_app', 'created_at' => now()],
             ['flag' => 'landing', 'title' => 'Imprint','url' => 'https://mcsmartapp.com/imprint', 'created_at' => now()],
-            ['flag' => 'landing', 'title' => 'Terms of use','url' => 'https://mcsmartapp.com/terms', 'created_at' => now()],
+            ['flag' => 'landing', 'title' => 'Terms & Conditions','url' => 'https://mcsmartapp.com/terms', 'created_at' => now()],
             ['flag' => 'landing', 'title' => 'Privacy policy','url' => 'https://mcsmartapp.com/privacy', 'created_at' => now()],
         ]);
 

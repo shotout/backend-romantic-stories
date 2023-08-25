@@ -104,12 +104,9 @@ class ListController extends Controller
 
     public function versions()
     {
-        $data = Version::get();
-        
         return response()->json([
             'status' => 'success',
-            'data' => $data
+            'data' => Version::get()
         ], 200);
-
     }
 }

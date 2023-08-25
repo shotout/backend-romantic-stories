@@ -64,6 +64,24 @@
 					"response": []
 				},
 				{
+					"name": "app version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/versions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"versions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "languages",
 					"request": {
 						"method": "GET",
@@ -103,6 +121,41 @@
 							]
 						},
 						"description": "?gender={value}\n\nvalue = male / female"
+					},
+					"response": []
+				},
+				{
+					"name": "links",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/list/links?flag=&search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"links"
+							],
+							"query": [
+								{
+									"key": "flag",
+									"value": ""
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						},
+						"description": "flag = landing / social\n\nsearch = by title field example facebook"
 					},
 					"response": []
 				}
@@ -1012,6 +1065,207 @@
 							],
 							"path": [
 								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rating",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|tARkdj8U7q93XmvWNw37BtnplsuoDPzx02hIiLhO",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/rating",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|tARkdj8U7q93XmvWNw37BtnplsuoDPzx02hIiLhO",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "value",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/rating",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "setting",
+			"item": [
+				{
+					"name": "paywall",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3|Ow11ZCOuxpcmVm5dK3Tmjino8bfzIaPVFk5Y59WB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/setting/paywall",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"setting",
+								"paywall"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admob",
+			"item": [
+				{
+					"name": "webhook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "custom_data",
+									"value": "theme_1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "custom_data",
+									"value": "quote_1",
+									"type": "text"
+								},
+								{
+									"key": "custom_data",
+									"value": "category_4",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "key_id",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "signature",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/admob?user_id=1&custom_data=icon_2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admob"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1"
+								},
+								{
+									"key": "custom_data",
+									"value": "icon_2"
+								}
 							]
 						}
 					},

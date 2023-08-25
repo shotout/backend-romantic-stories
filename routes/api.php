@@ -3,8 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ListController;
+use App\Http\Controllers\Api\v1\AdmobController;
 use App\Http\Controllers\Api\v1\StoryController;
+use App\Http\Controllers\Api\v1\SettingController;
+use App\Http\Controllers\Api\v1\PurchaselyController;
+use App\Http\Controllers\Api\v1\UserRatingController;
 use App\Http\Controllers\Api\v1\UserProfileController;
+use App\Http\Controllers\api\v1\SubscriptionsController;
 use App\Http\Controllers\Api\v1\UserPastStoryController;
 use App\Http\Controllers\Api\v1\UserCollectionController;
 
@@ -33,6 +38,20 @@ Route::prefix('v1/list')->name('list.')->group(
         Route::get('/themes', [ListController::class, 'themes'])->name('themes');
         Route::get('/languages', [ListController::class, 'languages'])->name('languages');
         Route::get('/icons', [ListController::class, 'icons'])->name('icons');
+        Route::get('/links', [ListController::class, 'links'])->name('links');
+        Route::get('/versions', [ListController::class, 'versions'])->name('versions');
+    }
+);
+
+Route::prefix('v1/admob')->name('admob.')->group(
+    function() {
+        Route::get('/', [AdmobController::class, 'callback'])->name('callback');
+    }
+);
+
+Route::prefix('v1/purchasely')->name('purchasely.')->group(
+    function() {
+        Route::post('/', [PurchaselyController::class, 'index'])->name('purchasely');
     }
 );
 
@@ -71,5 +90,25 @@ Route::middleware('auth:sanctum')->prefix('v1/user')->name('user.')->group(
     function() {
         Route::get('/', [UserProfileController::class, 'show'])->name('show');
         Route::patch('/', [UserProfileController::class, 'update'])->name('update');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/rating')->name('rating.')->group(
+    function() {
+        Route::get('/', [UserRatingController::class, 'show'])->name('show');
+        Route::post('/', [UserRatingController::class, 'store'])->name('store');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/setting')->name('setting.')->group(
+    function() {
+        Route::get('/paywall', [SettingController::class, 'paywall'])->name('paywall');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/subscription')->name('subscription.')->group(
+    function() {
+        Route::get('/', [SubscriptionsController::class, 'index'])->name('index');
+        Route::post('/update', [SubscriptionsController::class, 'subscribe'])->name('subscribe');
     }
 );

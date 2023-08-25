@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('no')->nullable();
             $table->text('desc')->nullable();
-            $table->boolean('status')->default(true);
+            $table->tinyInteger('status')->default(2);
             $table->timestamps();
         });
     }
