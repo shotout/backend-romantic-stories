@@ -6,6 +6,7 @@ use App\Models\Story;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\CollectionStory;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class UserCollectionController extends Controller
@@ -31,18 +32,29 @@ class UserCollectionController extends Controller
             ->where('status', 2)
             ->orderBy($column, $dir);
 
-        $query2 = CollectionStory::with('story')
-            ->where('user_id', auth()->user()->id)
-            ->whereNull('collection_id')
-            ->orderBy($column, $dir);
+        if ($column == 'name') {
+            $stories = CollectionStory::where('user_id', auth()->user()->id)
+                ->whereNull('collection_id')
+                ->pluck('story_id')
+                ->toArray();
+            
+            $query2 = Story::with('category')
+                ->whereIn('id', $stories)
+                ->orderBy('title', $dir);
+        } else {
+            $stories = CollectionStory::where('user_id', auth()->user()->id)
+                ->whereNull('collection_id')
+                ->orderBy($column, $dir)
+                ->pluck('story_id')
+                ->toArray();
+            
+            $query2 = Story::with('category')->whereIn('id', $stories);
+        }
 
         // search
         if ($request->has('search') && $request->search != '') {
             $query1->where('name', 'like', '%' . $request->search . '%');
-
-            $query2->whereHas('story', function($q) use($request) {
-                $q->where('title', 'like', '%' . $request->search . '%');
-            });
+            $query2->where('title', 'like', '%' . $request->search . '%');
         }
 
         // pagination

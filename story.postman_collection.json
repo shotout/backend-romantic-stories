@@ -608,7 +608,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"value": "2|dXIxGlgY1QQEWzDbMcmw3YFDr5ZRQnr90LBjLoIR",
 									"type": "string"
 								}
 							]
@@ -648,7 +648,7 @@
 								}
 							]
 						},
-						"description": "http://story.test/api/v1/collection?column={nama_kolom}&dir={urutan}&search={keyword}\n\nnama_kolom = id\n\nurutan = asc / desc\n\nkeyword = bebas"
+						"description": "[http://story.test/api/v1/collection?column={nama_kolom}&dir={urutan}&search={keyword}](http://story.test/api/v1/collection?column={nama_kolom}&dir={urutan}&search={keyword})\n\nnama_kolom = id / name\n\nurutan = asc / desc\n\nkeyword = bebas\n\nA to Z = column=name&dir=asc\n\nZ to A = column=name&dir=desc\n\nnewest = column=id&dir=desc\n\noldest = column=id&dir=asc"
 					},
 					"response": []
 				},
@@ -961,7 +961,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"value": "2|dXIxGlgY1QQEWzDbMcmw3YFDr5ZRQnr90LBjLoIR",
 									"type": "string"
 								}
 							]
@@ -1054,6 +1054,11 @@
 								{
 									"key": "notif_ads_count",
 									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "notif_enable",
+									"value": "1",
 									"type": "text"
 								}
 							]

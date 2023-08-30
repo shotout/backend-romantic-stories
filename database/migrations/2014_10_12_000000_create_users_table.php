@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('purchasely_id')->nullable();
             $table->string('device_id')->nullable();
             $table->string('fcm_token')->nullable();
+            $table->boolean('notif_enable')->default(false);
             $table->integer('notif_count')->default(0);
             $table->integer('notif_ads_count')->default(0);
 

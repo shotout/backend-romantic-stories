@@ -71,6 +71,12 @@ class UserProfileController extends Controller
             $user->update();
         }
 
+        // enable or disable notif
+        if ($request->has('notif_enable') && $request->notif_enable != '') {
+            $user->notif_enable = $request->notif_enable ;
+            $user->update();
+        }
+
         // reset user notif counter
         if ($request->has('notif_count')) {
             $user->notif_count = 0;
