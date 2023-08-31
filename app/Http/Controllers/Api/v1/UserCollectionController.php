@@ -48,7 +48,7 @@ class UserCollectionController extends Controller
                 ->pluck('story_id')
                 ->toArray();
             
-            $query2 = Story::with('category')->whereIn('id', $stories);
+            $query2 = Story::with('category')->whereIn('id', $stories)->orderBy($column, $dir);
         }
 
         // search

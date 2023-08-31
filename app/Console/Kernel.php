@@ -13,6 +13,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        // broadcast notif story
+        // $schedule->job((new \App\Jobs\StoryNotif)->onQueue(env('SUPERVISOR')))->cron('*/30 * * * *');
     }
 
     /**

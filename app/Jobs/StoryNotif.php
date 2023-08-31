@@ -4,8 +4,7 @@ namespace App\Jobs;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Quote;
-use App\Models\Schedule;
+use App\Models\Story;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -15,7 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Collection;
 
-class QuoteNotif implements ShouldQueue
+class StoryNotif implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -36,19 +35,12 @@ class QuoteNotif implements ShouldQueue
      */
     public function handle()
     {
-        $quote = Quote::where('has_notif', false)
-            ->orderBy('order', 'asc')
-            ->first();
+        $story = Story::where('has_notif', false)->orderBy('id', 'asc')->first();
 
-        // Log::info($quote);
-
-        if ($quote) {
-            // User::whereNotNull('fcm_token')->increment('notif_count', 1);
-            // $users = User::with('schedule')->whereNotNull('fcm_token')->get();
-          
+        if ($story) {  
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
 
-            $desc = strip_tags($quote->title);
+            $desc = strip_tags($story->title);
             $filterDesc = html_entity_decode($desc);
             // $descShort = substr($filterDesc, 0, 100);
             $list_word = explode(" ", $filterDesc);
@@ -58,10 +50,10 @@ class QuoteNotif implements ShouldQueue
             }
             $descShort = implode(" ", $filter_word);
 
-            User::with('schedule')->whereNotNull('fcm_token')
-                ->chunkById(500, function (Collection $users) use ($quote, $descShort, $SERVER_API_KEY) {
+            User::with('schedule','subscription')->whereHas(['schedule','subscription'])->whereNotNull('fcm_token')
+                ->chunkById(500, function (Collection $users) use ($story, $descShort, $SERVER_API_KEY) {
                 foreach ($users as $user) {
-                    if ($user->schedule) {
+                    // if ($user->schedule) {
                         if ($user->subscription->plan_id != 1 || $user->subscription->type != 1) {
                             if ($user->schedule->counter_notif < $user->schedule->often) {
                                 if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= $user->schedule->start && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= Carbon::parse($user->schedule->end)->addMinute(10)->format('H:i:s')) {
@@ -73,7 +65,7 @@ class QuoteNotif implements ShouldQueue
                                             $data = [
                                                 "to" => $user->fcm_token,
                                                 "data" => [
-                                                    "id" => $quote->id,
+                                                    "id" => $story->id,
                                                 ],
                                                 "notification" => [
                                                     "title" => $user->name .", your new Fact is waiting for you.",
@@ -135,7 +127,7 @@ class QuoteNotif implements ShouldQueue
                                             $data = [
                                                 "to" => $user->fcm_token,
                                                 "data" => [
-                                                    "id" => $quote->id,
+                                                    "id" => $story->id,
                                                 ],
                                                 "notification" => [
                                                     "title" => "New Fact unlocked 😎",
@@ -187,18 +179,18 @@ class QuoteNotif implements ShouldQueue
                                 }
                             }
                         }
-                    }
+                    // }
                 }
             });
 
             // update status
-            $quote->has_notif = true;
-            $quote->update();
-
-            Log::info('Job QuoteNotif Success ...');
+            $story->has_notif = true;
+            $story->update();
         } else {
             // reset has notif
-            Quote::where('has_notif', true)->update(['has_notif' => false]);
+            Story::where('has_notif', true)->update(['has_notif' => false]);
         }
+
+        Log::info('Job StoryNotif Success ...');
     }
 }
