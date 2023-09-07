@@ -17,8 +17,10 @@ return new class extends Migration
             $table->bigInteger('sequence')->nullable();
             $table->bigInteger('category_id')->nullable();
             $table->string('author')->nullable();
-            $table->string('title')->nullable();
-            $table->longText('content')->nullable();
+            $table->string('title_en')->nullable();
+            $table->string('title_id')->nullable();
+            $table->longText('content_en')->nullable();
+            $table->longText('content_id')->nullable();
             $table->boolean('has_notif')->default(false);
             $table->integer('count_share')->default(0);
             $table->tinyInteger('status')->default(2);
