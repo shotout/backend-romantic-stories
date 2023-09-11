@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ListController;
 use App\Http\Controllers\Api\v1\AdmobController;
+use App\Http\Controllers\Api\v1\AvatarController;
 use App\Http\Controllers\Api\v1\StoryController;
 use App\Http\Controllers\Api\v1\SettingController;
 use App\Http\Controllers\Api\v1\PurchaselyController;
@@ -110,5 +111,11 @@ Route::middleware('auth:sanctum')->prefix('v1/subscription')->name('subscription
     function() {
         Route::get('/', [SubscriptionsController::class, 'index'])->name('index');
         Route::post('/update', [SubscriptionsController::class, 'subscribe'])->name('subscribe');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/avatar')->name('avatar.')->group(
+    function() {
+        Route::get('/', [AvatarController::class, 'show'])->name('show');
     }
 );

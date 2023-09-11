@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "030e7f5c-aa32-4a95-a424-b9a242083dce",
+		"_postman_id": "7e34a26e-9fae-4788-8253-ecb5cc1e6bf5",
 		"name": "story",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12074833"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -961,7 +960,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|dXIxGlgY1QQEWzDbMcmw3YFDr5ZRQnr90LBjLoIR",
+									"value": "1|ufRDpZr9fhTB56RgwoaArKGyR4sV3JdGUh8CWCsQ",
 									"type": "string"
 								}
 							]
@@ -1059,6 +1058,11 @@
 								{
 									"key": "notif_enable",
 									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "notif_ads_enable",
+									"value": "0",
 									"type": "text"
 								}
 							]
@@ -1273,6 +1277,51 @@
 								}
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "avatar",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|DGDIQo9rWFoJBxjYwJsnuSmntBDtG5w71gLyP553",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/avatar?flag=notif",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"avatar"
+							],
+							"query": [
+								{
+									"key": "flag",
+									"value": "notif"
+								}
+							]
+						},
+						"description": "1. untuk get avatar book\nhttp://domain/api/v1/avatar?flag=book\n\n2. untuk get avatar notif\nhttp://domain/api/v1/avatar?flag=notif"
 					},
 					"response": []
 				}
