@@ -36,6 +36,7 @@ return new class extends Migration
             $table->boolean('notif_ads_enable')->default(false);
             $table->integer('notif_count')->default(0);
             $table->integer('notif_ads_count')->default(0);
+            $table->tinyInteger('random_avatar')->default(0);
 
             $table->rememberToken();
             $table->tinyInteger('status')->default(2);

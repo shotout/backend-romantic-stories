@@ -1322,7 +1322,7 @@
 								}
 							]
 						},
-						"description": "1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think"
+						"description": "1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 10 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think"
 					},
 					"response": []
 				}
