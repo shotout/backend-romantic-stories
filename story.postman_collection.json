@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7e34a26e-9fae-4788-8253-ecb5cc1e6bf5",
+		"_postman_id": "b66e4f16-a4f4-4c6f-a6fe-850a6d195a69",
 		"name": "story",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12074833"
 	},
 	"item": [
 		{
@@ -395,7 +396,7 @@
 							"query": [
 								{
 									"key": null,
-									"value": null
+									"value": ""
 								},
 								{
 									"key": "notif",
@@ -1293,7 +1294,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|DGDIQo9rWFoJBxjYwJsnuSmntBDtG5w71gLyP553",
+									"value": "1|YAtTWCeGYjozxrfAf1nRG8GihWLb90ac5hKn2AcX",
 									"type": "string"
 								}
 							]
@@ -1307,7 +1308,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/avatar?flag=notif",
+							"raw": "{{base_url}}/avatar?flag=book",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1317,11 +1318,11 @@
 							"query": [
 								{
 									"key": "flag",
-									"value": "notif"
+									"value": "book"
 								}
 							]
 						},
-						"description": "1. untuk get avatar book\nhttp://domain/api/v1/avatar?flag=book\n\n2. untuk get avatar notif\nhttp://domain/api/v1/avatar?flag=notif"
+						"description": "1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think"
 					},
 					"response": []
 				}

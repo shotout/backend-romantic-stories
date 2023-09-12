@@ -30,9 +30,7 @@ class AvatarController extends Controller
                         "partner" => "/assets/images/avatars/4/positive.png"
                     );
                 }
-            }
-
-            if ($request->flag == 'notif') {
+            } else if ($request->flag == 'notif') {
                 if (auth()->user()->gender) {
                     if (strtolower(auth()->user()->gender) == "male") {
                         $data = (object) array(
@@ -43,7 +41,7 @@ class AvatarController extends Controller
                     } else {
                         $data = (object) array(
                             "me" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png",
-                            "partner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male."/positive.png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_male."/positive.png",
                             // "banner" => "/assets/images/avatars/banner/notif.png"
                         );
                     }
@@ -53,6 +51,32 @@ class AvatarController extends Controller
                         "me" => "/assets/images/avatars/1/positive.png",
                         "partner" => "/assets/images/avatars/4/positive.png",
                         // "banner" => "/assets/images/avatars/banner/notif.png"
+                    );
+                }
+            } else {
+                if (auth()->user()->gender) {
+                    if (strtolower(auth()->user()->gender) == "male") {
+                        $data = (object) array(
+                            "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$request->flag.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$request->flag.".png",
+                            "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
+                            "heart" => "/assets/images/avatars/banner/heart.png",
+                        );
+                    } else {
+                        $data = (object) array(
+                            "me" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$request->flag.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$request->flag.".png",
+                            "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
+                            "heart" => "/assets/images/avatars/banner/heart.png",
+                        );
+                    }
+                    
+                } else {
+                    $data = (object) array(
+                        "me" => "/assets/images/avatars/1/".$request->flag.".png",
+                        "partner" => "/assets/images/avatars/4/".$request->flag.".png",
+                        "banner" => "/assets/images/avatars/banner/1.png",
+                        "heart" => "/assets/images/avatars/banner/heart.png",
                     );
                 }
             }
