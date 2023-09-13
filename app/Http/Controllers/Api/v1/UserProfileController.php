@@ -14,7 +14,7 @@ class UserProfileController extends Controller
 {
     public function show()
     {
-        $user = User::with('icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $user = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([
@@ -96,7 +96,7 @@ class UserProfileController extends Controller
         }
 
         // new user
-        $data = User::with('icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $data = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([

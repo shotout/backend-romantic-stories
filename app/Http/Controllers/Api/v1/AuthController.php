@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         $request->validate(['device_id' => 'required']);
 
-        $user = User::with('icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $user = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->where('device_id', $request->device_id)
             ->first();
 
@@ -134,7 +134,7 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             // data
-            $data = User::with('icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+            $data = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
                 ->find($user->id);
 
             // count user pool
