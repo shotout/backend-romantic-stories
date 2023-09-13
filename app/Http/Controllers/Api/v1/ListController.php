@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Models\Icon;
 use App\Models\Link;
+use App\Models\Level;
 use App\Models\Theme;
 use App\Models\Avatar;
 use App\Models\Version;
@@ -95,6 +96,16 @@ class ListController extends Controller
         }
 
         $data = $query->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ], 200);
+    }
+
+    public function levels()
+    {
+        $data = Level::with('image')->where('status', 2)->get();
 
         return response()->json([
             'status' => 'success',

@@ -40,6 +40,7 @@ Route::prefix('v1/list')->name('list.')->group(
         Route::get('/languages', [ListController::class, 'languages'])->name('languages');
         Route::get('/icons', [ListController::class, 'icons'])->name('icons');
         Route::get('/links', [ListController::class, 'links'])->name('links');
+        Route::get('/levels', [ListController::class, 'levels'])->name('levels');
         Route::get('/versions', [ListController::class, 'versions'])->name('versions');
     }
 );

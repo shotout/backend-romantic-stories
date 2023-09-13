@@ -64,6 +64,24 @@
 					"response": []
 				},
 				{
+					"name": "levels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/list/levels",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"list",
+								"levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "app version",
 					"request": {
 						"method": "GET",
@@ -961,7 +979,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|ufRDpZr9fhTB56RgwoaArKGyR4sV3JdGUh8CWCsQ",
+									"value": "1|lMaovK69goham9NFpUuix0jT6ivvJSkVvlCDMhxr",
 									"type": "string"
 								}
 							]
@@ -985,12 +1003,14 @@
 								{
 									"key": "name",
 									"value": "Julian Edit",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "gender",
 									"value": "Female",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "often",
@@ -1013,12 +1033,14 @@
 								{
 									"key": "fcm_token",
 									"value": "2",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "notif_count",
 									"value": "0",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "timezone",
@@ -1029,41 +1051,59 @@
 								{
 									"key": "purchasely_id",
 									"value": "2",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "icon",
 									"value": "2",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "avatar_male",
 									"value": "3",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "avatar_female",
 									"value": "6",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "language_id",
 									"value": "1",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "notif_ads_count",
 									"value": "0",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "notif_enable",
 									"value": "1",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "notif_ads_enable",
 									"value": "0",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "3",
 									"type": "text"
 								}
 							]

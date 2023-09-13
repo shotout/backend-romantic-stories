@@ -69,7 +69,9 @@ class UserPoolStory implements ShouldQueue
         if ($this->user->category_id == 4) $rules = [1,2,3,1,2,3,1,2,3,1];
 
         // my story
-        $ms = new MyStory;
+        $ms = MyStory::where('user_id', $this->user->id)->first();
+        if (!$ms) $ms = new MyStory;
+
         $ms->user_id = $this->user->id;
         $ms->total_story = $totalStory;
         $ms->take_story = count($myStory);

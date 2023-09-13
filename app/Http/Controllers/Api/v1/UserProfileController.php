@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Models\User;
+use App\Jobs\UserPool;
 use App\Models\Schedule;
 use App\Jobs\GenerateTimer;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateTimerAds;
 use App\Http\Controllers\Controller;
-use App\Models\Subscription;
 
 class UserProfileController extends Controller
 {
@@ -26,6 +27,11 @@ class UserProfileController extends Controller
     public function update(Request $request)
     {
         $user = User::find(auth('sanctum')->user()->id);
+
+        if ($request->has('level') && $request->level != '') {
+            $user->level_id = $request->level;
+            $user->update();
+        }
 
         if ($request->has('icon') && $request->icon != '') {
             $user->icon_id = $request->icon;
@@ -54,6 +60,9 @@ class UserProfileController extends Controller
         if ($request->has('category_id') && $request->category_id != '') {
             $user->category_id = $request->category_id;
             $user->update();
+
+            // update user pool
+            UserPool::dispatch($user)->onQueue(env('SUPERVISOR'));
         }
         
         if ($request->has('language_id') && $request->language_id != '') {

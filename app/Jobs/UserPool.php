@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Pool;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -39,7 +40,9 @@ class UserPool implements ShouldQueue
 
         if (count($categories)) {
             foreach ($categories as $category) {
-                $pool = new Pool;
+                $pool = Pool::where('user_id', $this->user->id)->where('category_id', $category->id)->first();
+                if (!$pool) $pool = new Pool;
+                
                 $pool->user_id = $this->user->id;
                 $pool->category_id = $category->id;
                 if ($this->user->category_id != 4) $pool->total = $this->user->category_id == $category->id ? 60 : 20;
