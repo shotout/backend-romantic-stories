@@ -27,8 +27,8 @@ class AvatarController extends Controller
                     
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/book/1.png",
-                        "partner" => "/assets/images/avatars/4/positive.png"
+                        "me" => "/assets/images/avatars/book/".auth()->user()->avatar_male.".png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png"
                     );
                 }
             } else if ($request->flag == 'notif') {
@@ -49,8 +49,8 @@ class AvatarController extends Controller
                     
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/1/positive.png",
-                        "partner" => "/assets/images/avatars/4/positive.png",
+                        "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/positive.png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png",
                         // "banner" => "/assets/images/avatars/banner/notif.png"
                     );
                 }
@@ -77,9 +77,9 @@ class AvatarController extends Controller
                     }
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/1/".$random.".png",
-                        "partner" => "/assets/images/avatars/4/".$random.".png",
-                        "banner" => "/assets/images/avatars/banner/1.png",
+                        "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$random.".png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$random.".png",
+                        "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
                         "heart" => "/assets/images/avatars/banner/heart.png",
                     );
                 }
@@ -111,9 +111,9 @@ class AvatarController extends Controller
                     
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/1/".$request->flag.".png",
-                        "partner" => "/assets/images/avatars/4/".$request->flag.".png",
-                        "banner" => "/assets/images/avatars/banner/1.png",
+                        "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$request->flag.".png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$request->flag.".png",
+                        "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
                         "heart" => "/assets/images/avatars/banner/heart.png",
                     );
                 }
