@@ -25,12 +25,12 @@ return new class extends Migration
         });
 
         DB::table('links')->insert([
-            ['flag' => 'social', 'title' => 'Facebook','url' => 'https://www.facebook.com/McSmartApp?mibextid=LQQJ4d', 'created_at' => now()],
-            ['flag' => 'social', 'title' => 'Twitter','url' => 'https://twitter.com/mcsmart', 'created_at' => now()],
-            ['flag' => 'social', 'title' => 'Instagram','url' => 'https://www.instagram.com/mcsmart_app', 'created_at' => now()],
-            ['flag' => 'landing', 'title' => 'Imprint','url' => 'https://mcsmartapp.com/imprint', 'created_at' => now()],
-            ['flag' => 'landing', 'title' => 'Terms & Conditions','url' => 'https://mcsmartapp.com/terms', 'created_at' => now()],
-            ['flag' => 'landing', 'title' => 'Privacy policy','url' => 'https://mcsmartapp.com/privacy', 'created_at' => now()],
+            ['flag' => 'social', 'title' => 'Facebook','url' => 'https://www.facebook.com/erotalesApp?mibextid=LQQJ4d', 'created_at' => now()],
+            ['flag' => 'social', 'title' => 'Twitter','url' => 'https://twitter.com/erotales', 'created_at' => now()],
+            ['flag' => 'social', 'title' => 'Instagram','url' => 'https://www.instagram.com/erotales_app', 'created_at' => now()],
+            ['flag' => 'landing', 'title' => 'Imprint','url' => 'https://erotalesapp.com/imprint', 'created_at' => now()],
+            ['flag' => 'landing', 'title' => 'Terms & Conditions','url' => 'https://erotalesapp.com/terms', 'created_at' => now()],
+            ['flag' => 'landing', 'title' => 'Privacy policy','url' => 'https://erotalesapp.com/privacy', 'created_at' => now()],
         ]);
 
         DB::table('medias')->insert([
