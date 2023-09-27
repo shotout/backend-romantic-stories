@@ -26,6 +26,10 @@ return new class extends Migration
             ["name" => "icon 2", "created_at" => now()],
             ["name" => "icon 3", "created_at" => now()],
             ["name" => "icon 4", "created_at" => now()],
+            ["name" => "icon 5", "created_at" => now()],
+            ["name" => "icon 6", "created_at" => now()],
+            ["name" => "icon 7", "created_at" => now()],
+            ["name" => "icon 8", "created_at" => now()],
         ]);
 
         DB::table('medias')->insert([
@@ -55,6 +59,34 @@ return new class extends Migration
                 "type" => "icon",
                 "name" => "4.png",
                 "url" => "/assets/icons/apps/4.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 5,
+                "type" => "icon",
+                "name" => "5.png",
+                "url" => "/assets/icons/apps/5.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 6,
+                "type" => "icon",
+                "name" => "6.png",
+                "url" => "/assets/icons/apps/6.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 7,
+                "type" => "icon",
+                "name" => "7.png",
+                "url" => "/assets/icons/apps/7.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 8,
+                "type" => "icon",
+                "name" => "8.png",
+                "url" => "/assets/icons/apps/8.png",
                 "created_at" => now()
             ],
         ]);
