@@ -40,7 +40,7 @@ class UserCollectionController extends Controller
             
             $query2 = Story::with('category')
                 ->whereIn('id', $stories)
-                ->orderBy('title', $dir);
+                ->orderBy('title_en', $dir);
         } else {
             $stories = CollectionStory::where('user_id', auth()->user()->id)
                 ->whereNull('collection_id')
@@ -54,7 +54,7 @@ class UserCollectionController extends Controller
         // search
         if ($request->has('search') && $request->search != '') {
             $query1->where('name', 'like', '%' . $request->search . '%');
-            $query2->where('title', 'like', '%' . $request->search . '%');
+            $query2->where('title_en', 'like', '%' . $request->search . '%');
         }
 
         // pagination
@@ -93,7 +93,7 @@ class UserCollectionController extends Controller
         // search
         if ($request->has('search') && $request->input('search') != '') {
             $query->whereHas('story', function($q) use($request) {
-                $q->where('title', 'like', '%' . $request->input('search') . '%');
+                $q->where('title_en', 'like', '%' . $request->input('search') . '%');
             });
         }
 
