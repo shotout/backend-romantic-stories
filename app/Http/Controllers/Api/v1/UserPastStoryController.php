@@ -76,6 +76,8 @@ class UserPastStoryController extends Controller
     public function store($id)
     {
         $story = Story::find($id);
+        $story->count_past++;
+        $story->update();
 
         if (!$story) {
             return response()->json([

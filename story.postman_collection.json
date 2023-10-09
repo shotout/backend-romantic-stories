@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b66e4f16-a4f4-4c6f-a6fe-850a6d195a69",
+		"_postman_id": "5c8c5ac5-ebe0-4a14-a4ee-d61d9a1badb6",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -404,7 +404,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/stories?&notif=",
+							"raw": "{{base_url}}/stories?=&notif=",
 							"host": [
 								"{{base_url}}"
 							],
@@ -423,6 +423,59 @@
 							]
 						},
 						"description": "pagination :\n\n/api/v1/stories?notif={id}\n\nuntuk detail notif saat di klik"
+					},
+					"response": []
+				},
+				{
+					"name": "most",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|LWzGM6fNgt2dyTnXbWlyebNl8bRHAZGsqLsWFHYm",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stories/most?length=5&page=1&column=count_past&dir=desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories",
+								"most"
+							],
+							"query": [
+								{
+									"key": "length",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "column",
+									"value": "count_past"
+								},
+								{
+									"key": "dir",
+									"value": "desc"
+								}
+							]
+						},
+						"description": "?length=5&page=1&order=count_past&dir=desc\n\nmost read story = &column=count_past&dir=desc\n\nsugest story = &column=count_share&dir=desc"
 					},
 					"response": []
 				}

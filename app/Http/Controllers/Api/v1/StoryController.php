@@ -103,4 +103,42 @@ class StoryController extends Controller
             'data' => null
         ], 200);
     }
+
+    public function most(Request $request)
+    {
+        // limit
+        if ($request->has('length') && $request->input('length') != '') {
+            $length = $request->input('length');
+        } else {
+            $length = 10;
+        }
+
+        // order by field
+        if ($request->has('column') && $request->input('column') != '') {
+            $column = $request->input('column');
+        } else {
+            $column = 'count_past';
+        }
+
+        // order direction
+        if ($request->has('dir') && $request->input('dir') != '') {
+            $dir = $request->input('dir');
+        } else {
+            $dir = 'desc';
+        }
+
+        // query
+        $query = Story::with('is_collection','category')
+            ->where('status', 2)
+            ->orderBy($column, $dir);
+                    
+        // pagination
+        $data = $query->paginate($length);
+
+        // retun response
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ], 200);
+    }
 }

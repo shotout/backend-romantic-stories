@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->prefix('v1/stories')->name('stories.')->group
     function() {
         Route::get('/', [StoryController::class, 'index'])->name('index');
         Route::post('/share/{id}', [StoryController::class, 'share'])->name('share');
+        Route::get('/most', [StoryController::class, 'most'])->name('most');
     }
 );
 

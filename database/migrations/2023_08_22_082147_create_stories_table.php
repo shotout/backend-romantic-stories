@@ -23,6 +23,7 @@ return new class extends Migration
             $table->longText('content_id')->nullable();
             $table->boolean('has_notif')->default(false);
             $table->integer('count_share')->default(0);
+            $table->integer('count_past')->default(0);
             $table->tinyInteger('status')->default(2);
             $table->timestamps();
         });
