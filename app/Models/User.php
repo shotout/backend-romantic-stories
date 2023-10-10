@@ -88,8 +88,8 @@ class User extends Authenticatable
         return $this->hasOne('\App\Models\MyStory');
     }
 
-    public function level()
+    public function user_level()
     {
-        return $this->belongsTo('\App\Models\Level')->with('image');
+        return $this->hasOne('\App\Models\UserLevel')->with('level');
     }
 }

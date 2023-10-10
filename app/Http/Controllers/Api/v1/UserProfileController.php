@@ -15,7 +15,7 @@ class UserProfileController extends Controller
 {
     public function show()
     {
-        $user = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $user = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([
@@ -29,7 +29,7 @@ class UserProfileController extends Controller
         $user = User::find(auth('sanctum')->user()->id);
 
         if ($request->has('level') && $request->level != '') {
-            $user->level_id = $request->level;
+            $user->user_level->level_id = $request->level;
             $user->update();
         }
 
@@ -105,7 +105,7 @@ class UserProfileController extends Controller
         }
 
         // new user
-        $data = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([

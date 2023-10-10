@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Theme;
+use App\Models\UserLevel;
 use App\Models\UserTheme;
 
 class AuthController extends Controller
@@ -19,7 +20,7 @@ class AuthController extends Controller
     {
         $request->validate(['device_id' => 'required']);
 
-        $user = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $user = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->where('device_id', $request->device_id)
             ->first();
 
@@ -79,6 +80,14 @@ class AuthController extends Controller
             if ($request->has('purchasely_id') && $request->purchasely_id) $user->purchasely_id = $request->purchasely_id;
             $user->save();
 
+            // user level default -----
+                $ul = UserLevel::where('user_id', $user->id)->first();
+                if (!$ul) $ul = new UserLevel;
+                $ul->user_id = $user->id;
+                $ul->level_id = 1;
+                $ul->save();
+            // --------------------
+
             // custome theme ---------
                 $theme = Theme::find($request->theme_id);
                 if ($theme) {
@@ -134,7 +143,7 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             // data
-            $data = User::with('level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+            $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
                 ->find($user->id);
 
             // count user pool

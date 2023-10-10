@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ListController;
 use App\Http\Controllers\Api\v1\AdmobController;
-use App\Http\Controllers\Api\v1\AvatarController;
 use App\Http\Controllers\Api\v1\StoryController;
+use App\Http\Controllers\Api\v1\AvatarController;
 use App\Http\Controllers\Api\v1\SettingController;
+use App\Http\Controllers\Api\v1\UserLevelController;
 use App\Http\Controllers\Api\v1\PurchaselyController;
 use App\Http\Controllers\Api\v1\UserRatingController;
 use App\Http\Controllers\Api\v1\UserProfileController;
@@ -120,5 +121,11 @@ Route::middleware('auth:sanctum')->prefix('v1/subscription')->name('subscription
 Route::middleware('auth:sanctum')->prefix('v1/avatar')->name('avatar.')->group(
     function() {
         Route::get('/', [AvatarController::class, 'show'])->name('show');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/level')->name('level.')->group(
+    function() {
+        Route::post('/', [UserLevelController::class, 'store'])->name('store');
     }
 );

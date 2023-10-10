@@ -1279,6 +1279,44 @@
 			]
 		},
 		{
+			"name": "level",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|OMZ8YYBAoydGDELyADH0KCVvK0GWOYjU7E5OgMaT",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/level",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"level"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "setting",
 			"item": [
 				{
