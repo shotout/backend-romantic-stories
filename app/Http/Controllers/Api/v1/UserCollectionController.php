@@ -61,10 +61,23 @@ class UserCollectionController extends Controller
         $collections = $query1->get();
         $outsides = $query2->get();
 
+        // sugest story on serach null
+        $alternative = [];
+        if ($request->has('search') && $request->search != '') {
+            if (!count($collections) && !count($outsides)) {
+                $alternative = Story::with('is_collection','category')
+                    ->where('status', 2)
+                    ->orderBy("count_share", "desc")
+                    ->take(5)
+                    ->get();
+            }
+        }
+
         return response()->json([
             'status' => 'success',
             'data' => $collections,
-            'outsides' => $outsides
+            'outsides' => $outsides,
+            'alternative' => $alternative
         ], 200);
     }
 

@@ -60,8 +60,9 @@ Route::prefix('v1/purchasely')->name('purchasely.')->group(
 Route::middleware('auth:sanctum')->prefix('v1/stories')->name('stories.')->group(
     function() {
         Route::get('/', [StoryController::class, 'index'])->name('index');
+        Route::get('/all', [StoryController::class, 'all'])->name('all');
+        Route::get('/{id}', [StoryController::class, 'show'])->name('show');
         Route::post('/share/{id}', [StoryController::class, 'share'])->name('share');
-        Route::get('/most', [StoryController::class, 'most'])->name('most');
     }
 );
 

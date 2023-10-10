@@ -427,14 +427,14 @@
 					"response": []
 				},
 				{
-					"name": "most",
+					"name": "show",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|LWzGM6fNgt2dyTnXbWlyebNl8bRHAZGsqLsWFHYm",
+									"value": "1|lxzx145LjFBebVqrgLS8APtOidxrXUI9lcTOKeHc",
 									"type": "string"
 								}
 							]
@@ -448,34 +448,56 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/stories/most?length=5&page=1&column=count_past&dir=desc",
+							"raw": "{{base_url}}/stories/1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"stories",
-								"most"
-							],
-							"query": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "length",
-									"value": "5"
-								},
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "column",
-									"value": "count_past"
-								},
-								{
-									"key": "dir",
-									"value": "desc"
+									"key": "token",
+									"value": "1|lxzx145LjFBebVqrgLS8APtOidxrXUI9lcTOKeHc",
+									"type": "string"
 								}
 							]
 						},
-						"description": "?length=5&page=1&order=count_past&dir=desc\n\nmost read story = &column=count_past&dir=desc\n\nsugest story = &column=count_share&dir=desc"
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stories/all?search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories",
+								"all"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						},
+						"description": "search={keyword}"
 					},
 					"response": []
 				}
