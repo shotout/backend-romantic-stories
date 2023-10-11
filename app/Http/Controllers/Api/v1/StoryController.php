@@ -75,10 +75,22 @@ class StoryController extends Controller
             $month_free = false;
         }
 
+        // sugest other story for member user
+        $other = [];
+        if (!$isFreeUser) {
+            $other = Story::with('is_collection','category')
+                ->whereNotIn('id', $pastStories)
+                ->where('status', 2)
+                ->orderBy("count_past", "desc")
+                ->take(3)
+                ->get();
+        }
+
         // retun response
         return response()->json([
             'status' => 'success',
             'data' => $data,
+            'other' => $other,
             'flag' => (object) array(
                 'month_free' => $month_free
             )
