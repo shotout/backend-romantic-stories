@@ -135,6 +135,11 @@ class StoryController extends Controller
 
     public function all(Request $request)
     {
+        // past stories
+        $pastStories = PastStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
+
         // limit
         if ($request->has('length') && $request->input('length') != '') {
             $length = $request->input('length');
@@ -147,11 +152,13 @@ class StoryController extends Controller
 
         // most read
         $query1 = Story::with('is_collection','category')
+            ->whereNotIn('id', $pastStories)
             ->where('status', 2)
             ->orderBy("count_past", "desc");
 
         // most share
         $query2 = Story::with('is_collection','category')
+            ->whereNotIn('id', $pastStories)
             ->where('status', 2)
             ->orderBy("count_share", "desc");
 
