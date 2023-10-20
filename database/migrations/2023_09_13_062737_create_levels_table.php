@@ -40,7 +40,7 @@ return new class extends Migration
             ["name" => "level 6", "desc" => "Heartfelt Voyager", "value" => 400, "value_desc" => "400 XP", "created_at" => now()],
             ["name" => "level 7", "desc" => "Sizzling Storyteller", "value" => 600, "value_desc" => "600 XP", "created_at" => now()],
             ["name" => "level 8", "desc" => "Naughty Novelist", "value" => 800, "value_desc" => "800 XP", "created_at" => now()],
-            ["name" => "level 9", "desc" => "Erotales Superstar", "value" => 1200, "value_desc" => "1200 XP", "created_at" => now()],
+            ["name" => "level 9", "desc" => "EroTales Superstar", "value" => 1200, "value_desc" => "1200 XP", "created_at" => now()],
             ["name" => "level 10", "desc" => "EroTales Legend", "value" => 1800, "value_desc" => "1800 XP", "created_at" => now()],
         ]);
 
