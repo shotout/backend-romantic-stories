@@ -41,7 +41,7 @@ class StoryController extends Controller
             ->toArray();
 
         // query
-        $query = Story::with('is_collection','category')
+        $query = Story::with('is_collection','category','audio')
             ->whereNotIn('id', $pastStories)
             ->where('status', 2)
             ->orderBy($column, $dir);
@@ -99,7 +99,7 @@ class StoryController extends Controller
 
     public function show($id)
     {
-        $story = Story::with('is_collection','category')->find($id);
+        $story = Story::with('is_collection','category','audio')->find($id);
         if (!$story) {
             return response()->json([
                 'status' => 'failed',

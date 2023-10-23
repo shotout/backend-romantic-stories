@@ -18,4 +18,9 @@ class Story extends Model
     {
         return $this->hasOne('\App\Models\CollectionStory')->where('user_id', auth('sanctum')->user()->id);
     }
+
+    public function audio()
+    {
+        return $this->hasOne('\App\Models\Media', 'owner_id')->where('type', 'audio');
+    }
 }

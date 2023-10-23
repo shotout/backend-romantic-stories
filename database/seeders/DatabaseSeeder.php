@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -79,5 +80,19 @@ class DatabaseSeeder extends Seeder
             "count_past" => rand(1, 100),
             "created_at" => now(),
         ]);
+
+        
+
+        for ($i=1; $i <= 30; $i++) { 
+            DB::table('medias')->insert([
+                [
+                    "owner_id" => $i,
+                    "type" => "audio",
+                    "name" => "test.mp3",
+                    "url" => "/assets/audio/test.mp3",
+                    "created_at" => now()
+                ],
+            ]);
+        }
     }
 }
