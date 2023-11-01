@@ -12,9 +12,20 @@ use App\Models\Category;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 
 class ListController extends Controller
 {
+    public function plans()
+    {
+        $data = Plan::all();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ], 200);
+    }
+
     public function categories()
     {
         $data = Category::with('image')->where('status', 2)->get();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Plan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('abbreviation')->nullable();
             $table->boolean('is_show')->default(0);
             $table->boolean('is_special')->default(0);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
 
@@ -37,7 +39,7 @@ return new class extends Migration
                 'sequence' => null,
                 'title' => '',
                 'sub_title' => '',
-                'name' => 'free trial',
+                'name' => 'free-trial',
                 'slug' => 'free-trial',
                 'stripe_name' => 'Free Plan',
                 'stripe_id' => '',
@@ -66,9 +68,9 @@ return new class extends Migration
                 'sequence' => 2,
                 'title' => 'ANNUAL USD 19.99/year (only USD 1.67/month)',
                 'sub_title' => '3 DAYS FREE TRIAL',
-                'name' => '1-year subscription',
+                'name' => '1-year-subscription',
                 'slug' => '1-year-subscription',
-                'stripe_name' => 'Yearly Plan',
+                'stripe_name' => '1 Year Subscription',
                 'stripe_id' => 'price_1M4JltKITpzX4txvmoWEcyvm',
                 'price' => 19.99,
                 'abbreviation' => 'year',
@@ -105,6 +107,52 @@ return new class extends Migration
                 'is_special' => 0,
             ],
         ]);
+
+        $free = array(
+            (object) array(
+                'check' => true,
+                'title' => 'Free 1 story per day',
+                'description' => "Use all aspects of the app with Full Access without limits and without ads!",
+            ),
+            (object) array(
+                'check' => false,
+                'title' => "No ads, no limits, no watermarks",
+                'description' => "Use all aspects of the app with Full Access without limits and without ads!",
+            ),
+            (object) array(
+                'check' => false,
+                'title' => "Thousands of Stories that you can't find anywhere else",
+                'description' => "Plus all future themes and new quotes included in the package!",
+            ),
+        );
+
+        $year = array(
+            (object) array(
+                'check' => true,
+                'title' => 'No ads, no limits, no watermarks',
+                'description' => 'Use all aspects of the app with Full Access without limits and without ads!',
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "Unlimited access to thousands of Stories that you can't find anywhere else",
+                'description' => "Don't limit yourself to 1 story per day. Read as much as you want from thousands of stories in the library.",
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "Choose and change category as many as you want",
+                'description' => "Change",
+            ),
+        );
+
+        // free plan
+        $p1 = Plan::where('id', 1)->first();
+        $p1->notes = $free;
+        $p1->update();
+
+        // 1 year plan
+        $p1 = Plan::where('id', 3)->first();
+        $p1->notes = $year;
+        $p1->update();
     }
 
     /**

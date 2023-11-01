@@ -35,6 +35,7 @@ Route::prefix('v1/auth')->name('auth.')->group(
 
 Route::prefix('v1/list')->name('list.')->group(
     function() {
+        Route::get('/plans', [ListController::class, 'plans'])->middleware('auth:sanctum')->name('plans');
         Route::get('/categories', [ListController::class, 'categories'])->name('categories');
         Route::get('/avatars', [ListController::class, 'avatars'])->name('avatars');
         Route::get('/themes', [ListController::class, 'themes'])->name('themes');
