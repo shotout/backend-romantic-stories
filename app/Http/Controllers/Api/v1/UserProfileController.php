@@ -10,6 +10,7 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateTimerAds;
 use App\Http\Controllers\Controller;
+use App\Models\UserAudio;
 
 class UserProfileController extends Controller
 {
@@ -115,6 +116,14 @@ class UserProfileController extends Controller
             if ($user->subscription->audio_take < $user->subscription->audio_limit) {
                 $user->subscription->audio_take++;
                 $user->subscription->update();
+
+                if ($request->has('story') && $request->story != '') {
+                    $ua = UserAudio::where('user_id', $user->id)->where('story_id', $request->story)->first();
+                    if (!$ua) $ua = new UserAudio;
+                    $ua->user_id = $user->id;
+                    $ua->story_id = $request->story;
+                    $ua->save();
+                }
             }
         }
 

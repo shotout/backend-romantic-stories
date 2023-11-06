@@ -9,6 +9,7 @@ use App\Models\PastStory;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\UserAudio;
 
 class StoryController extends Controller
 {
@@ -61,6 +62,11 @@ class StoryController extends Controller
         // pagination
         $data = $query->paginate(1);
 
+        // flag audio
+        $data[0]->audio_enable = UserAudio::where('user_id', auth('sanctum')->user()->id)
+            ->where('story_id', $data[0]->id)
+            ->exists();
+
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
             ->where('type', 1)
@@ -106,6 +112,10 @@ class StoryController extends Controller
                 'message' => 'data not found'
             ], 404);
         }
+
+        $story->audio_enable = UserAudio::where('user_id', auth('sanctum')->user()->id)
+            ->where('story_id', $story->id)
+            ->exists();
 
         return response()->json([
             'status' => 'success',
