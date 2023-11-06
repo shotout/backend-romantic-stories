@@ -104,6 +104,20 @@ class UserProfileController extends Controller
             $user->update();
         }
 
+        // audio
+        if ($request->has('is_audio') && $request->is_audio != '') {
+            $user->subscription->is_audio = $request->is_audio;
+            $user->subscription->audio_limit = $request->audio_limit;
+            $user->subscription->audio_take = 0;
+            $user->subscription->update();
+        }
+        if ($request->has('audio_take') && $request->audio_take != '') {
+            if ($user->subscription->audio_take < $user->subscription->audio_limit) {
+                $user->subscription->audio_take++;
+                $user->subscription->update();
+            }
+        }
+
         // new user
         $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->find(auth('sanctum')->user()->id);

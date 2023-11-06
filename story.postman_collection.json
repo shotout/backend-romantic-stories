@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5a66da82-2cb0-4456-ad0f-8695bf9d8223",
+		"_postman_id": "0de07ea6-2293-4068-b1f8-ad53bb6eda7e",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -1088,7 +1088,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|lMaovK69goham9NFpUuix0jT6ivvJSkVvlCDMhxr",
+									"value": "1|lHF2jPttVciSNti0gp7ASEeTy3zWfgLmifS0Ro9d",
 									"type": "string"
 								}
 							]
@@ -1208,11 +1208,30 @@
 								{
 									"key": "category_id",
 									"value": "3",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "level",
 									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "is_audio",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "audio_limit",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "audio_take",
+									"value": "1",
 									"type": "text"
 								}
 							]

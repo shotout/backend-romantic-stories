@@ -19,6 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('plan_id');
 
             $table->string('name')->nullable();
+            $table->boolean('is_audio')->default(false);
+            $table->integer('audio_limit')->default(0);
+            $table->integer('audio_take')->default(0);
+
             $table->string('stripe_id')->unique()->nullable();
             $table->string('stripe_status')->nullable();
             $table->string('stripe_price')->nullable();
