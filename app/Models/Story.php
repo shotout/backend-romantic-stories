@@ -23,4 +23,9 @@ class Story extends Model
     {
         return $this->hasOne('\App\Models\Media', 'owner_id')->where('type', 'audio');
     }
+
+    public function audio_enable()
+    {
+        return $this->hasOne('\App\Models\UserAudio')->where('user_id', auth('sanctum')->user()->id);
+    }
 }

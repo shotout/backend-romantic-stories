@@ -42,7 +42,7 @@ class StoryController extends Controller
             ->toArray();
 
         // query
-        $query = Story::with('is_collection','category','audio')
+        $query = Story::with('is_collection','category','audio','audio_enable')
             ->whereNotIn('id', $pastStories)
             ->where('status', 2)
             ->orderBy($column, $dir);
@@ -61,11 +61,6 @@ class StoryController extends Controller
                     
         // pagination
         $data = $query->paginate(1);
-
-        // flag audio
-        $data[0]->audio_enable = UserAudio::where('user_id', auth('sanctum')->user()->id)
-            ->where('story_id', $data[0]->id)
-            ->exists();
 
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
@@ -105,17 +100,13 @@ class StoryController extends Controller
 
     public function show($id)
     {
-        $story = Story::with('is_collection','category','audio')->find($id);
+        $story = Story::with('is_collection','category','audio','audio_enable')->find($id);
         if (!$story) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'data not found'
             ], 404);
         }
-
-        $story->audio_enable = UserAudio::where('user_id', auth('sanctum')->user()->id)
-            ->where('story_id', $story->id)
-            ->exists();
 
         return response()->json([
             'status' => 'success',
