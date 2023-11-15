@@ -29,8 +29,8 @@ return new class extends Migration
             [
                 "name" => "theme1",
                 "text_color" => "#000000",
-                "font_size" => "12",
-                "font_family" => "arial",
+                "font_size" => "16",
+                "font_family" => "Roboto",
                 "bg_color" => "#FFFFFF",
                 "theme_color" => "#5873FF",
                 "created_at" => now()
@@ -38,8 +38,8 @@ return new class extends Migration
             [
                 "name" => "theme2",
                 "text_color" => "#000000",
-                "font_size" => "12",
-                "font_family" => "arial",
+                "font_size" => "16",
+                "font_family" => "Roboto",
                 "bg_color" => "#FFFFFF",
                 "theme_color" => "#2C8272",
                 "created_at" => now()
@@ -47,8 +47,8 @@ return new class extends Migration
             [
                 "name" => "theme3",
                 "text_color" => "#000000",
-                "font_size" => "12",
-                "font_family" => "arial",
+                "font_size" => "16",
+                "font_family" => "Roboto",
                 "bg_color" => "#FFFFFF",
                 "theme_color" => "#942AA7",
                 "created_at" => now()
@@ -56,8 +56,8 @@ return new class extends Migration
             [
                 "name" => "theme4",
                 "text_color" => "#000000",
-                "font_size" => "12",
-                "font_family" => "arial",
+                "font_size" => "16",
+                "font_family" => "Roboto",
                 "bg_color" => "#FFFFFF",
                 "theme_color" => "#0D648B",
                 "created_at" => now()
@@ -65,8 +65,8 @@ return new class extends Migration
             [
                 "name" => "theme5",
                 "text_color" => "#000000",
-                "font_size" => "12",
-                "font_family" => "arial",
+                "font_size" => "16",
+                "font_family" => "Roboto",
                 "bg_color" => "#FFFFFF",
                 "theme_color" => "#604A9E",
                 "created_at" => now()
