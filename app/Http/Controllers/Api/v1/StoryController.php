@@ -16,11 +16,11 @@ class StoryController extends Controller
     public function index(Request $request)
     {
         // limit
-        // if ($request->has('length') && $request->input('length') != '') {
-        //     $length = $request->input('length');
-        // } else {
-        //     $length = 1;
-        // }
+        if ($request->has('length') && $request->input('length') != '') {
+            $length = $request->input('length');
+        } else {
+            $length = 10;
+        }
 
         // order by field
         if ($request->has('column') && $request->input('column') != '') {
@@ -48,19 +48,19 @@ class StoryController extends Controller
             ->orderBy($column, $dir);
 
         // rules
-        $user = User::with('my_story')->findOrFail(auth()->user()->id);
-        if ($user->my_story->actual < count($user->my_story->rules)) {
-            $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
-            $user->my_story->actual++;
-            $user->my_story->update();
-        } else {
-            $query->where('category_id', $user->my_story->rules[0]);
-            $user->my_story->actual = 1;
-            $user->my_story->update();
-        }
+        // $user = User::with('my_story')->findOrFail(auth()->user()->id);
+        // if ($user->my_story->actual < count($user->my_story->rules)) {
+        //     $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+        //     $user->my_story->actual++;
+        //     $user->my_story->update();
+        // } else {
+        //     $query->where('category_id', $user->my_story->rules[0]);
+        //     $user->my_story->actual = 1;
+        //     $user->my_story->update();
+        // }
                     
         // pagination
-        $data = $query->paginate(1);
+        $data = $query->paginate($length);
 
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
