@@ -48,19 +48,28 @@ class StoryController extends Controller
             ->orderBy($column, $dir);
 
         // rules
-        // $user = User::with('my_story')->findOrFail(auth()->user()->id);
-        // if ($user->my_story->actual < count($user->my_story->rules)) {
-        //     $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
-        //     $user->my_story->actual++;
-        //     $user->my_story->update();
-        // } else {
-        //     $query->where('category_id', $user->my_story->rules[0]);
-        //     $user->my_story->actual = 1;
-        //     $user->my_story->update();
-        // }
-                    
-        // pagination
-        $data = $query->paginate($length);
+        $user = User::with('subscription','my_story')->findOrFail(auth()->user()->id);
+        if ($user->subscription->type === 1) {
+            if ($user->my_story->actual < count($user->my_story->rules)) {
+                $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+                $user->my_story->actual++;
+                $user->my_story->update();
+            } else {
+                $query->where('category_id', $user->my_story->rules[0]);
+                $user->my_story->actual = 1;
+                $user->my_story->update();
+            }
+            // pagination
+            $data = $query->paginate(1);
+        } else {
+            // pagination 
+            $data = $query->paginate($length);
+
+            foreach ($user->my_story->rules as $index => $item) {
+                $str = Story::where('category_id', $item)->first();
+                if ($str) $data[$index] = $str;
+            }
+        }
 
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
