@@ -106,6 +106,11 @@ class UserProfileController extends Controller
         }
 
         // audio
+        // if ($request->has('audio_unlimit') && $request->audio_unlimit != '') {
+        //     $user->subscription->is_audio = 1;
+        //     $user->subscription->audio_unlimit = $request->audio_unlimit;
+        //     $user->subscription->update();
+        // }
         if ($request->has('is_audio') && $request->is_audio != '') {
             $user->subscription->is_audio = $request->is_audio;
             $user->subscription->audio_limit = $request->audio_limit;
@@ -113,16 +118,18 @@ class UserProfileController extends Controller
             $user->subscription->update();
         }
         if ($request->has('audio_take') && $request->audio_take != '') {
-            if ($user->subscription->audio_take < $user->subscription->audio_limit) {
-                $user->subscription->audio_take++;
-                $user->subscription->update();
+            if ($user->subscription->plan_id == 1 || $user->subscription->type== 1) {
+                if ($user->subscription->audio_take < $user->subscription->audio_limit) {
+                    $user->subscription->audio_take++;
+                    $user->subscription->update();
 
-                if ($request->has('story') && $request->story != '') {
-                    $ua = UserAudio::where('user_id', $user->id)->where('story_id', $request->story)->first();
-                    if (!$ua) $ua = new UserAudio;
-                    $ua->user_id = $user->id;
-                    $ua->story_id = $request->story;
-                    $ua->save();
+                    if ($request->has('story') && $request->story != '') {
+                        $ua = UserAudio::where('user_id', $user->id)->where('story_id', $request->story)->first();
+                        if (!$ua) $ua = new UserAudio;
+                        $ua->user_id = $user->id;
+                        $ua->story_id = $request->story;
+                        $ua->save();
+                    }
                 }
             }
         }
