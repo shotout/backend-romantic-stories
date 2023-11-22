@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->string('name')->nullable();
             $table->boolean('is_audio')->default(false);
+            // $table->boolean('audio_unlimit')->default(false);
             $table->integer('audio_limit')->default(0);
             $table->integer('audio_take')->default(0);
 
