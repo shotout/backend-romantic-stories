@@ -37,7 +37,7 @@ class AdsNotif implements ShouldQueue
     {
         // $users = User::with('schedule')->where('is_member', 0)->where('status', 2)->get();
 
-        User::with('schedule')->where('is_member', 0)->where('status', 2)
+        User::with('schedule')->where('is_member', 0)->where('status', 2)->whereNotNull('fcm_token')
             ->chunkById(500, function (Collection $users) {
 
             foreach ($users as $user) {
@@ -54,16 +54,16 @@ class AdsNotif implements ShouldQueue
                         $message = Message::find($um->message_id);
                         if ($message) {
                             
-                            $boxs = [
-                                "name" => $user->name,
-                                "selected_goal" => "selected_goal"
-                                // "selected_goal" => $user->areas[0]->name
-                            ];
+                            // $boxs = [
+                            //     "name" => $user->name,
+                            //     "selected_goal" => "selected_goal"
+                            // ];
 
-                            foreach ($boxs as $key => $val) {
-                                $descShort = str_replace('['.$key.']', $val, $message->push_text);
-                            }
-                            $descShort = str_replace('[name]', $user->name, $descShort);
+                            // foreach ($boxs as $key => $val) {
+                            //     $descShort = str_replace('['.$key.']', $val, $message->push_text);
+                            // }
+                            // $descShort = str_replace('[name]', $user->name, $descShort);
+                            $descShort = $message->push_text;
 
                             $placement = null;
                             if (in_array($message->id, array(1,2))) {
@@ -76,16 +76,15 @@ class AdsNotif implements ShouldQueue
                                 "to" => $user->fcm_token,
                                 "data" => (object) array(
                                     "type" => "paywall",
-                                    // "placement" => "offer_no_purchase_after_onboarding_paywall",
                                     "placement" => $placement,
                                     "message_count" => $message->id
                                 ),
                                 "notification" => [
-                                    "title" => "McSmart App",
+                                    "title" => "EroTales App",
                                     "body" => $descShort,  
                                     // "title" => "A new Affirmation is waiting for you ✨",
                                     // "body" => "Click here to get inspired and discover your new Quote. Don’t lose your progress. 🌟💪",  
-                                    "icon" => 'https://backend-api.mcsmartapp.com/assets/logos/logo.jpg',
+                                    "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
                                     "sound" => "circle.mp3",
                                     "badge" => $user->notif_count + 1
                                 ]

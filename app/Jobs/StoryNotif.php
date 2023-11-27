@@ -40,7 +40,7 @@ class StoryNotif implements ShouldQueue
         if ($story) {  
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
 
-            $desc = strip_tags($story->title);
+            $desc = strip_tags($story->title_en);
             $filterDesc = html_entity_decode($desc);
             // $descShort = substr($filterDesc, 0, 100);
             $list_word = explode(" ", $filterDesc);
@@ -50,7 +50,7 @@ class StoryNotif implements ShouldQueue
             }
             $descShort = implode(" ", $filter_word);
 
-            User::with('schedule','subscription')->whereHas(['schedule','subscription'])->whereNotNull('fcm_token')
+            User::with('schedule','subscription')->whereHas('schedule')->whereHas('subscription')->whereNotNull('fcm_token')
                 ->chunkById(500, function (Collection $users) use ($story, $descShort, $SERVER_API_KEY) {
                 foreach ($users as $user) {
                     // if ($user->schedule) {
@@ -68,10 +68,12 @@ class StoryNotif implements ShouldQueue
                                                     "id" => $story->id,
                                                 ],
                                                 "notification" => [
-                                                    "title" => $user->name .", your new Fact is waiting for you.",
-                                                    "body" =>  $descShort ."...",  
-                                                    "icon" => 'https://backend-api.mcsmartapp.com/assets/logos/logo.jpg',
-                                                    // "image" => 'https://backend.nftdaily.app/image.png',
+                                                    // "title" => $user->name .", New story alert! 💥🔓",
+                                                    // "body" =>  $descShort ."...",  
+                                                    "title" => "New story alert! 💥🔓",
+                                                    "body" => "Dive into our latest tale of passion and intrigue. Tap to read now!",
+                                                    "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                                    // "image" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
                                                     "sound" => "circle.mp3",
                                                     "badge" => $user->notif_count + 1
                                                 ]
@@ -130,10 +132,10 @@ class StoryNotif implements ShouldQueue
                                                     "id" => $story->id,
                                                 ],
                                                 "notification" => [
-                                                    "title" => "New Fact unlocked 😎",
-                                                    "body" => "Open McSmart to discover your new Fact now. Don't lose your progress! 💪🚀",
-                                                    "icon" => 'https://backend-api.mcsmartapp.com/assets/logos/logo.jpg',
-                                                    // "image" => 'https://backend.nftdaily.app/image.png',
+                                                    "title" => "New story alert! 💥🔓",
+                                                    "body" => "Dive into our latest tale of passion and intrigue. Tap to read now!",
+                                                    "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                                    // "image" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
                                                     "sound" => "circle.mp3",
                                                     "badge" => $user->notif_count + 1
                                                 ]

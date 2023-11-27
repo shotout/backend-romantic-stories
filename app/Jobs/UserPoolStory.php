@@ -79,7 +79,7 @@ class UserPoolStory implements ShouldQueue
         $ms->rules = $rules;
         $ms->save();
 
-        // GenerateTimer::dispatch($this->user->id)->onQueue(env('SUPERVISOR'));
+        GenerateTimer::dispatch($this->user->id)->onQueue(env('SUPERVISOR'));
         Log::info('Job UserPoolStory Success ...');
     }
 }
