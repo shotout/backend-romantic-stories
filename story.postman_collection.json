@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0de07ea6-2293-4068-b1f8-ad53bb6eda7e",
+		"_postman_id": "233b3470-abd8-4b3a-987f-057af44a73aa",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -356,7 +356,7 @@
 							"formdata": [
 								{
 									"key": "device_id",
-									"value": "12345678",
+									"value": "1",
 									"type": "text"
 								}
 							]
@@ -413,6 +413,52 @@
 							]
 						},
 						"description": "/api/v1/stories/share/{id_story}"
+					},
+					"response": []
+				},
+				{
+					"name": "rating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|SkIYp9jHnqOXOxzMxkzFxyYU0WTaM5iKYGO2ijGR",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "value",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/stories/rating/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories",
+								"rating",
+								"1"
+							]
+						},
+						"description": "/api/v1/stories/rating/{story_id}\n\nbody :\n\nvalue = 1 s.d 5"
 					},
 					"response": []
 				},

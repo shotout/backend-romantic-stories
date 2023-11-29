@@ -9,6 +9,7 @@ use App\Models\PastStory;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\StoryRating;
 use App\Models\UserAudio;
 
 class StoryController extends Controller
@@ -179,6 +180,31 @@ class StoryController extends Controller
             'category' => $category,
             'most_share' => $most_share
         ], 200);
+    }
+
+    public function rating(Request $request, $id)
+    {
+        $story = Story::find($id);
+        if (!$story) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found'
+            ], 404);
+        }
+
+        $story_rating = StoryRating::where('story_id', $story->id)
+            ->where('user_id', auth('sanctum')->user()->id)
+            ->first();
+        if (!$story_rating) $story_rating = new StoryRating;
+        $story_rating->user_id = auth('sanctum')->user()->id;
+        $story_rating->story_id = $story->id;
+        $story_rating->value = $request->value ?? 0;
+        $story_rating->save();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $story_rating
+        ], 201);
     }
 
     // public function most(Request $request)

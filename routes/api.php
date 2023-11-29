@@ -65,6 +65,7 @@ Route::middleware('auth:sanctum')->prefix('v1/stories')->name('stories.')->group
         Route::get('/all', [StoryController::class, 'all'])->name('all');
         Route::get('/{id}', [StoryController::class, 'show'])->name('show');
         Route::post('/share/{id}', [StoryController::class, 'share'])->name('share');
+        Route::post('/rating/{id}', [StoryController::class, 'rating'])->name('rating');
     }
 );
 
