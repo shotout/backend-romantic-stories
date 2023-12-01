@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Story;
 use App\Jobs\UserPool;
 use App\Models\Schedule;
+use App\Models\UserAudio;
 use App\Jobs\GenerateTimer;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateTimerAds;
+use App\Models\CollectionStory;
 use App\Http\Controllers\Controller;
-use App\Models\UserAudio;
 
 class UserProfileController extends Controller
 {
@@ -105,7 +108,7 @@ class UserProfileController extends Controller
             $user->update();
         }
 
-        // audio
+        // audio limit
         // if ($request->has('audio_unlimit') && $request->audio_unlimit != '') {
         //     $user->subscription->is_audio = 1;
         //     $user->subscription->audio_unlimit = $request->audio_unlimit;
@@ -130,6 +133,24 @@ class UserProfileController extends Controller
                         $ua->story_id = $request->story;
                         $ua->save();
                     }
+                }
+            }
+        }
+
+        // story limit
+        if ($request->has('story_id') && $request->story_id != '') {
+            if ($request->has('expire') && $request->expire != '') {
+                $story = Story::find($request->story_id);
+                if ($story) {
+                    $cs = CollectionStory::where('user_id', auth()->user()->id)
+                        ->where('story_id', $story->id)
+                        ->first();
+
+                    if (!$cs) $cs = new CollectionStory;
+                    $cs->user_id = auth()->user()->id;
+                    $cs->story_id = $story->id;
+                    $cs->expire = now()->setTimezone($user->schedule->timezone)->addDay($request->expire);
+                    $cs->save();
                 }
             }
         }

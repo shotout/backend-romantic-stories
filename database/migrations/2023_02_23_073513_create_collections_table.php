@@ -23,9 +23,10 @@ return new class extends Migration
 
         Schema::create('collection_stories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->nullable();
             $table->bigInteger('collection_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->bigInteger('story_id')->nullable();
+            $table->dateTime('expire')->nullable();
             $table->timestamps();
         });
     }
