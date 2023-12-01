@@ -50,41 +50,53 @@ class StoryController extends Controller
 
         // rules
         $user = User::with('subscription','my_story')->findOrFail(auth()->user()->id);
-        if ($user->subscription->type === 1) {
-            if ($user->my_story->actual < count($user->my_story->rules)) {
-                $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
-                $user->my_story->actual++;
-                $user->my_story->update();
-            } else {
-                $query->where('category_id', $user->my_story->rules[0]);
-                $user->my_story->actual = 1;
-                $user->my_story->update();
-            }
-            // pagination
-            $data = $query->paginate(1);
+        if ($user->my_story->actual < count($user->my_story->rules)) {
+            $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+            $user->my_story->actual++;
+            $user->my_story->update();
         } else {
-            // pagination 
-            $data = $query->paginate($length);
-
-            foreach ($user->my_story->rules as $index => $item) {
-                $str = Story::where('category_id', $item)->first();
-                if ($str) $data[$index] = $str;
-            }
+            $query->where('category_id', $user->my_story->rules[0]);
+            $user->my_story->actual = 1;
+            $user->my_story->update();
         }
+        // if ($user->subscription->type === 1) {
+        //     if ($user->my_story->actual < count($user->my_story->rules)) {
+        //         $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+        //         $user->my_story->actual++;
+        //         $user->my_story->update();
+        //     } else {
+        //         $query->where('category_id', $user->my_story->rules[0]);
+        //         $user->my_story->actual = 1;
+        //         $user->my_story->update();
+        //     }
+        //     // pagination
+        //     $data = $query->paginate(1);
+        // } else {
+        //     // pagination 
+        //     $data = $query->paginate($length);
+
+        //     foreach ($user->my_story->rules as $index => $item) {
+        //         $str = Story::where('category_id', $item)->first();
+        //         if ($str) $data[$index] = $str;
+        //     }
+        // }
+
+        // pagination
+        $data = $query->paginate(1);
 
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
             ->where('type', 1)
             ->where('status', 2)
             ->exists();
-        $hasMonthFree = Subscription::where('user_id', auth('sanctum')->user()->id)
-            ->where('type', 5)
-            ->exists();
-        if ($isFreeUser && $hasMonthFree) {
-            $month_free = true;
-        } else {
-            $month_free = false;
-        }
+        // $hasMonthFree = Subscription::where('user_id', auth('sanctum')->user()->id)
+        //     ->where('type', 5)
+        //     ->exists();
+        // if ($isFreeUser && $hasMonthFree) {
+        //     $month_free = true;
+        // } else {
+        //     $month_free = false;
+        // }
 
         // sugest other story for member user
         $other = [];
@@ -102,9 +114,9 @@ class StoryController extends Controller
             'status' => 'success',
             'data' => $data,
             'other' => $other,
-            'flag' => (object) array(
-                'month_free' => $month_free
-            )
+            // 'flag' => (object) array(
+            //     'month_free' => $month_free
+            // )
         ], 200);
     }
 
