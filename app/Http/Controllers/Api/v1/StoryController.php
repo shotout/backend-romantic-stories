@@ -109,10 +109,7 @@ class StoryController extends Controller
         }
 
         $en = str_split($data[0]->content_en,1000);
-        $data = $data->map(function ($item, $key) use ($en) {
-            $item['en'] = $en;
-            return $item;
-        })->toArray();
+        $data->put('content_en', $en);
         // retun response
         return response()->json([
             'status' => 'success',
