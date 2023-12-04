@@ -107,11 +107,13 @@ class StoryController extends Controller
                 ->take(3)
                 ->get();
         }
+
         $en = str_split($data[0]->content_en,1000);
+        $data->put('content_en', $en);
         // retun response
         return response()->json([
             'status' => 'success',
-            'data' => array_merge($data->toArray(), [$en]),
+            'data' => $data,
             'other' => $other,
             // 'flag' => (object) array(
             //     'month_free' => $month_free
