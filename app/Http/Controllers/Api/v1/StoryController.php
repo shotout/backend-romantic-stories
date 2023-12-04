@@ -109,7 +109,7 @@ class StoryController extends Controller
         }
 
         $en = str_split($data[0]->content_en,1000);
-        $data->put('content_en', $en);
+        $data->put(1,$en);
         // retun response
         return response()->json([
             'status' => 'success',
