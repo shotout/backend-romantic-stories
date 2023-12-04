@@ -83,7 +83,6 @@ class StoryController extends Controller
 
         // pagination
         $data = $query->paginate(1);
-
         // free 1 month
         $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
             ->where('type', 1)
@@ -108,12 +107,11 @@ class StoryController extends Controller
                 ->take(3)
                 ->get();
         }
-        $content_en = str_split($data[0]->content_en,1000);
+        $en = str_split($data[0]->content_en,1000);
         // retun response
         return response()->json([
             'status' => 'success',
-            'data' => $data,
-            'content_en' => $content_en,
+            'data' => $data,$en,
             'other' => $other,
             // 'flag' => (object) array(
             //     'month_free' => $month_free
