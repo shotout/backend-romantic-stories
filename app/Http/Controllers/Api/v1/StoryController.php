@@ -111,7 +111,7 @@ class StoryController extends Controller
         // retun response
         return response()->json([
             'status' => 'success',
-            'data' => $data,$en,
+            'data' => array_merge($data->toArray(), [$en]),
             'other' => $other,
             // 'flag' => (object) array(
             //     'month_free' => $month_free
