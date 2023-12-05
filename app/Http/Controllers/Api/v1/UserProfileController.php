@@ -121,18 +121,23 @@ class UserProfileController extends Controller
             $user->subscription->update();
         }
         if ($request->has('audio_take') && $request->audio_take != '') {
-            if ($user->subscription->plan_id == 1 || $user->subscription->type== 1) {
+            if ($user->subscription->is_audio) {
                 if ($user->subscription->audio_take < $user->subscription->audio_limit) {
                     $user->subscription->audio_take++;
                     $user->subscription->update();
 
-                    if ($request->has('story') && $request->story != '') {
-                        $ua = UserAudio::where('user_id', $user->id)->where('story_id', $request->story)->first();
+                    if ($request->has('story_id') && $request->story_id != '') {
+                        $ua = UserAudio::where('user_id', $user->id)->where('story_id', $request->story_id)->first();
                         if (!$ua) $ua = new UserAudio;
                         $ua->user_id = $user->id;
-                        $ua->story_id = $request->story;
+                        $ua->story_id = $request->story_id;
                         $ua->save();
                     }
+                }
+
+                if ($user->subscription->audio_take == $user->subscription->audio_limit) {
+                    $user->subscription->is_audio = 0;
+                    $user->subscription->update();
                 }
             }
         }
