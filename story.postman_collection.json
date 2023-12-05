@@ -543,7 +543,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|lxzx145LjFBebVqrgLS8APtOidxrXUI9lcTOKeHc",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -557,7 +557,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/stories/all?search=",
+							"raw": "{{base_url}}/stories/all?search=&dir=desc",
 							"host": [
 								"{{base_url}}"
 							],
@@ -569,6 +569,10 @@
 								{
 									"key": "search",
 									"value": ""
+								},
+								{
+									"key": "dir",
+									"value": "desc"
 								}
 							]
 						},
