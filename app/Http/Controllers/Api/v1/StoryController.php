@@ -82,25 +82,13 @@ class StoryController extends Controller
         // }
 
         // pagination
-        $data = $query->paginate(1);
-
-        // free 1 month
-        $isFreeUser = Subscription::where('user_id', auth('sanctum')->user()->id)
-            ->where('type', 1)
-            ->where('status', 2)
-            ->exists();
-        // $hasMonthFree = Subscription::where('user_id', auth('sanctum')->user()->id)
-        //     ->where('type', 5)
-        //     ->exists();
-        // if ($isFreeUser && $hasMonthFree) {
-        //     $month_free = true;
-        // } else {
-        //     $month_free = false;
-        // }
+        // $data = $query->paginate(1);
+        $data = $query->first();
+        $data->content_en = str_split($data->content_en,950);
 
         // sugest other story for member user
         $other = [];
-        if (!$isFreeUser) {
+        if ($user->subscription->plan_id != 1) {
             $other = Story::with('is_collection','category')
                 ->whereNotIn('id', $pastStories)
                 ->where('status', 2)
@@ -109,16 +97,11 @@ class StoryController extends Controller
                 ->get();
         }
 
-        $en = str_split($data[0]->content_en,950);
-        $data->put('content_en', $en);
         // retun response
         return response()->json([
             'status' => 'success',
             'data' => $data,
-            'other' => $other,
-            // 'flag' => (object) array(
-            //     'month_free' => $month_free
-            // )
+            'other' => $other
         ], 200);
     }
 
