@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_free')->default(false);
-            $table->bigInteger('sequence')->nullable();
+            $table->boolean('is_priority')->default(0);
+            $table->tinyInteger('sequence')->default(1);
             $table->bigInteger('category_id')->nullable();
             $table->string('author')->nullable();
             $table->string('title_en')->nullable();
