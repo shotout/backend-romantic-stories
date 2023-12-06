@@ -115,6 +115,8 @@ class StoryController extends Controller
             ], 404);
         }
 
+        $story->content_en = str_split($story->content_en,950);
+
         return response()->json([
             'status' => 'success',
             'data' => $story
