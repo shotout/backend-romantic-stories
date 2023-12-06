@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3f626fe7-5f0e-4bfe-b167-1f017a48c45f",
+		"_postman_id": "0f8422bb-74df-4753-80ed-94f8694c39e2",
 		"name": "story",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12074833"
 	},
 	"item": [
 		{
@@ -557,7 +558,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/stories/all?search=&dir=desc",
+							"raw": "{{base_url}}/stories/all?column=id&dir=desc&search=",
 							"host": [
 								"{{base_url}}"
 							],
@@ -567,16 +568,20 @@
 							],
 							"query": [
 								{
-									"key": "search",
-									"value": ""
+									"key": "column",
+									"value": "id"
 								},
 								{
 									"key": "dir",
 									"value": "desc"
+								},
+								{
+									"key": "search",
+									"value": ""
 								}
 							]
 						},
-						"description": "search={keyword}"
+						"description": "nama_kolom = id / title_en\n\nurutan = asc / desc\n\nsearch = bebas\n\nA to Z = column=title_en&dir=asc\n\nZ to A = column=title_en&dir=desc\n\nnewest = column=id&dir=desc\n\noldest = column=id&dir=asc"
 					},
 					"response": []
 				}
@@ -1618,7 +1623,7 @@
 		},
 		{
 			"key": "token",
-			"value": "2|lAg85jINQ50SulZezrFgbB6j7RvRI8JPbIjm21YV"
+			"value": "2|WqiVX27vH4f3jSPI8UdGQm22eBnDuWCWnyynExaj"
 		}
 	]
 }

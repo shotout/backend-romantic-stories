@@ -155,6 +155,13 @@ class StoryController extends Controller
             $length = 10;
         }
 
+        // order by field
+        if ($request->has('column') && $request->input('column') != '') {
+            $column = $request->input('column');
+        } else {
+            $column = 'id';
+        }
+
         // order direction
         if ($request->has('dir') && $request->input('dir') != '') {
             $dir = $request->input('dir');
@@ -169,13 +176,15 @@ class StoryController extends Controller
         $query1 = Story::with('is_collection','category')
             ->whereNotIn('id', $pastStories)
             ->where('status', 2)
-            ->orderBy("count_past", $dir);
+            ->orderBy("count_past", "desc")
+            ->orderBy($column, $dir);
 
         // most share
         $query2 = Story::with('is_collection','category')
             ->whereNotIn('id', $pastStories)
             ->where('status', 2)
-            ->orderBy("count_share", $dir);
+            ->orderBy("count_share", "desc")
+            ->orderBy($column, $dir);
 
         // search
         if ($request->has('search') && $request->search != '') {
