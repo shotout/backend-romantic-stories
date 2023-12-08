@@ -160,6 +160,17 @@ class UserProfileController extends Controller
             }
         }
 
+        // membership
+        if ($request->has('is_member') && $request->is_member != '') {
+            if ($request->is_member == 1) $user->is_member = 0;
+            else $user->is_member = 1;
+            $user->update();
+
+            $user->subscription->plan_id = $request->is_member;
+            $user->subscription->type = $request->is_member;
+            $user->subscription->update();
+        }
+
         // new user
         $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
             ->find(auth('sanctum')->user()->id);

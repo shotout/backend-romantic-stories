@@ -35,8 +35,6 @@ class AdsNotif implements ShouldQueue
      */
     public function handle()
     {
-        // $users = User::with('schedule')->where('is_member', 0)->where('status', 2)->get();
-
         User::with('schedule')->where('is_member', 0)->where('status', 2)->whereNotNull('fcm_token')
             ->chunkById(500, function (Collection $users) {
 

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0f8422bb-74df-4753-80ed-94f8694c39e2",
+		"_postman_id": "f9106f5c-b537-4516-b5aa-26ab7cf6c7f9",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -1282,18 +1282,25 @@
 								{
 									"key": "audio_take",
 									"value": "1",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "story_id",
 									"value": "3",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "expire",
 									"value": "7",
 									"type": "text",
 									"disabled": true
+								},
+								{
+									"key": "is_member",
+									"value": "2",
+									"type": "text"
 								}
 							]
 						},
@@ -1623,7 +1630,7 @@
 		},
 		{
 			"key": "token",
-			"value": "2|WqiVX27vH4f3jSPI8UdGQm22eBnDuWCWnyynExaj"
+			"value": "2|LSgQOIuRYnbfwnCnv95y825NIf20tN2EfxP8hWje"
 		}
 	]
 }
