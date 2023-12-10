@@ -162,8 +162,11 @@ class UserProfileController extends Controller
 
         // membership
         if ($request->has('is_member') && $request->is_member != '') {
-            if ($request->is_member == 1) $user->is_member = 0;
-            else $user->is_member = 1;
+            if ($request->is_member == 1) 
+            {
+                $user->is_member = 1;
+            }
+            else $user->is_member = 0;
             $user->update();
 
             $user->subscription->plan_id = $request->is_member;
