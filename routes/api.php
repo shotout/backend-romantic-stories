@@ -131,3 +131,9 @@ Route::middleware('auth:sanctum')->prefix('v1/level')->name('level.')->group(
         Route::post('/', [UserLevelController::class, 'store'])->name('store');
     }
 );
+
+Route::prefix('v1/purchasely')->name('purchasely.')->group(
+    function() {
+        Route::post('/', [PurchaselyController::class, 'index'])->name('purchasely');
+    }
+);

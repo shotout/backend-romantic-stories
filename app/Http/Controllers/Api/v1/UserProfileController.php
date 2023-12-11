@@ -89,6 +89,8 @@ class UserProfileController extends Controller
             $user->notif_enable = $request->notif_enable ;
             $user->update();
         }
+        
+        
 
         // enable or disable notif ads
         if ($request->has('notif_ads_enable') && $request->notif_ads_enable != '') {
