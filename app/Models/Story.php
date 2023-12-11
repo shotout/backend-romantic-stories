@@ -14,6 +14,11 @@ class Story extends Model
         return $this->belongsTo('\App\Models\Category')->with('cover');
     }
 
+    public function is_rating()
+    {
+        return $this->hasOne('\App\Models\StoryRating')->where('user_id', auth('sanctum')->user()->id);
+    }
+
     public function is_collection()
     {
         return $this->hasOne('\App\Models\CollectionStory')->where('user_id', auth('sanctum')->user()->id);

@@ -55,7 +55,7 @@ class StoryController extends Controller
         }
 
         // priority story
-        $query = Story::with('is_collection','category','audio','audio_enable')
+        $query = Story::with('is_rating','is_collection','category','audio','audio_enable')
             ->whereNotIn('id', $pastStories)
             ->where('is_priority', 1)
             ->where('status', 2)
@@ -66,7 +66,7 @@ class StoryController extends Controller
         // if priority story null
         if (!$data) {
             // query
-            $query = Story::with('is_collection','category','audio','audio_enable')
+            $query = Story::with('is_rating','is_collection','category','audio','audio_enable')
                 ->whereNotIn('id', $pastStories)
                 ->where('status', 2)
                 ->orderBy($column, $dir);
@@ -119,7 +119,7 @@ class StoryController extends Controller
 
     public function show($id)
     {
-        $story = Story::with('is_collection','category','audio','audio_enable')->find($id);
+        $story = Story::with('is_rating','is_collection','category','audio','audio_enable')->find($id);
         if (!$story) {
             return response()->json([
                 'status' => 'failed',
