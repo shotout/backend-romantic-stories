@@ -89,6 +89,8 @@ class UserProfileController extends Controller
             $user->notif_enable = $request->notif_enable ;
             $user->update();
         }
+        
+        
 
         // enable or disable notif ads
         if ($request->has('notif_ads_enable') && $request->notif_ads_enable != '') {
@@ -162,11 +164,8 @@ class UserProfileController extends Controller
 
         // membership
         if ($request->has('is_member') && $request->is_member != '') {
-            if ($request->is_member == 1) 
-            {
-                $user->is_member = 1;
-            }
-            else $user->is_member = 0;
+            if ($request->is_member == 1) $user->is_member = 0;
+            else $user->is_member = 1;
             $user->update();
 
             $user->subscription->plan_id = $request->is_member;
