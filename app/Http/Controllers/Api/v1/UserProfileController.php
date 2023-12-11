@@ -162,15 +162,19 @@ class UserProfileController extends Controller
 
         // membership
         if ($request->has('is_member') && $request->is_member != '') {
-            if ($request->is_member == 1) 
-            {
-                $user->is_member = 1;
-            }
-            else $user->is_member = 0;
+            if ($request->is_member == 1) $user->is_member = 0;
+            else $user->is_member = 1;
             $user->update();
 
             $user->subscription->plan_id = $request->is_member;
             $user->subscription->type = $request->is_member;
+            if ($request->is_member == 1) {
+                $user->subscription->started = Carbon::now();
+                $user->subscription->renewal = Carbon::now()->addDay(3);
+            } else {
+                $user->subscription->started = Carbon::now();
+                $user->subscription->renewal = Carbon::now()->addYear(1);
+            }
             $user->subscription->update();
         }
 
