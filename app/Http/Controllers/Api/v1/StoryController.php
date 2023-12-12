@@ -218,6 +218,77 @@ class StoryController extends Controller
         ], 200);
     }
 
+    public function category(Request $request, $id)
+    {
+        // category
+        $category = Category::select('id','name')->find($id);
+        if (!$category) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found'
+            ], 404);
+        }
+
+        // past stories
+        $pastStories = PastStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
+
+        // limit
+        if ($request->has('length') && $request->input('length') != '') {
+            $length = $request->input('length');
+        } else {
+            $length = 10;
+        }
+
+        // order by field
+        if ($request->has('column') && $request->input('column') != '') {
+            $column = $request->input('column');
+        } else {
+            $column = 'title_en';
+        }
+
+        // order direction
+        if ($request->has('dir') && $request->input('dir') != '') {
+            $dir = $request->input('dir');
+        } else {
+            $dir = 'asc';
+        }
+
+        // story
+        $query1 = Story::select('id','category_id','title_en','title_id')
+            ->with('is_collection','category')
+            ->whereNotIn('id', $pastStories)
+            ->where('category_id', $category->id)
+            ->where('status', 2)
+            ->orderBy($column, $dir);
+
+        // most share
+        $query2 = Story::select('id','category_id','title_en','title_id')
+            ->with('is_collection','category:id,name')
+            ->whereNotIn('id', $pastStories)
+            ->where('category_id', $category->id)
+            ->where('status', 2)
+            ->orderBy("count_share", "desc");
+
+        // search
+        if ($request->has('search') && $request->search != '') {
+            $query1->where('title_en', 'like', '%' . $request->search . '%');
+            $query2->where('title_en', 'like', '%' . $request->search . '%');
+        }
+
+        $stories = $query1->get();
+        $most_share = $query2->take($length)->get();
+
+        // retun response
+        return response()->json([
+            'status' => 'success',
+            'category' => $category,
+            'most_share' => $most_share,
+            'data' => $stories,
+        ], 200);
+    }
+
     public function rating(Request $request, $id)
     {
         $story = Story::find($id);
@@ -242,42 +313,4 @@ class StoryController extends Controller
             'data' => $story_rating
         ], 201);
     }
-
-    // public function most(Request $request)
-    // {
-    //     // limit
-    //     if ($request->has('length') && $request->input('length') != '') {
-    //         $length = $request->input('length');
-    //     } else {
-    //         $length = 10;
-    //     }
-
-    //     // order by field
-    //     if ($request->has('column') && $request->input('column') != '') {
-    //         $column = $request->input('column');
-    //     } else {
-    //         $column = 'count_past';
-    //     }
-
-    //     // order direction
-    //     if ($request->has('dir') && $request->input('dir') != '') {
-    //         $dir = $request->input('dir');
-    //     } else {
-    //         $dir = 'desc';
-    //     }
-
-    //     // query
-    //     $query = Story::with('is_collection','category')
-    //         ->where('status', 2)
-    //         ->orderBy($column, $dir);
-                    
-    //     // pagination
-    //     $data = $query->paginate($length);
-
-    //     // retun response
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'data' => $data
-    //     ], 200);
-    // }
 }

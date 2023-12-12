@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f9106f5c-b537-4516-b5aa-26ab7cf6c7f9",
+		"_postman_id": "c5851477-d65c-4a4a-85a2-6b9adc4b636f",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -582,6 +582,41 @@
 							]
 						},
 						"description": "nama_kolom = id / title_en\n\nurutan = asc / desc\n\nsearch = bebas\n\nA to Z = column=title_en&dir=asc\n\nZ to A = column=title_en&dir=desc\n\nnewest = column=id&dir=desc\n\noldest = column=id&dir=asc"
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/stories/category/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories",
+								"category",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1630,7 +1665,7 @@
 		},
 		{
 			"key": "token",
-			"value": "2|LSgQOIuRYnbfwnCnv95y825NIf20tN2EfxP8hWje"
+			"value": "3|DNtnlbox7xHZyYzXH4YSKMgzhOwmH03m5t3kW6FH"
 		}
 	]
 }
