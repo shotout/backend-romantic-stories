@@ -67,6 +67,8 @@ class AuthController extends Controller
         $user = DB::transaction(function () use ($request) {    
             $user = new User;
             $user->icon_id = 1;
+            $user->notif_enable = 1;
+            $user->notif_ads_enable = 1;
             $user->category_id = $request->category_id;
             $user->language_id = $request->language_id;
 

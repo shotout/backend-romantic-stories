@@ -50,11 +50,12 @@ class StoryNotif implements ShouldQueue
             }
             $descShort = implode(" ", $filter_word);
 
-            User::with('schedule','subscription')->whereHas('schedule')->whereHas('subscription')->whereNotNull('fcm_token')
+            User::with('schedule','subscription')->whereHas('schedule')->whereHas('subscription')
+                ->where('notif_enable',1)->whereNotNull('fcm_token')
                 ->chunkById(500, function (Collection $users) use ($story, $descShort, $SERVER_API_KEY) {
                 foreach ($users as $user) {
                     // if ($user->schedule) {
-                        if ($user->subscription->plan_id != 1 || $user->subscription->type != 1) {
+                        if ($user->is_member == 1) {
                             if ($user->schedule->counter_notif < $user->schedule->often) {
                                 if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= $user->schedule->start && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= Carbon::parse($user->schedule->end)->addMinute(10)->format('H:i:s')) {
                                     if ($user->schedule->timer) {
