@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('name')->nullable();
             $table->string('url')->nullable();
+            $table->string('audio_en')->nullable();
+            $table->string('audio_id')->nullable();
             $table->timestamps();
         });
     }

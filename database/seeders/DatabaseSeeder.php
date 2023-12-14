@@ -87,7 +87,8 @@ class DatabaseSeeder extends Seeder
                     "owner_id" => $i,
                     "type" => "audio",
                     "name" => "test.mp3",
-                    "url" => "/assets/audio/test.mp3",
+                    "audio_en" => "/assets/audio/test.mp3",
+                    "audio_id" => "/assets/audio/test.mp3",
                     "created_at" => now()
                 ],
             ]);
