@@ -224,17 +224,12 @@ class UserCollectionController extends Controller
             ], 404);
         }
 
-        $cs = CollectionStory::where('collection_id', $collection)
-            ->where('story_id', $story)
-            ->first();
-
-        if (!$cs) {
-            $cs = new CollectionStory;
-            $cs->user_id = auth()->user()->id;
-            $cs->collection_id = $collection;
-            $cs->story_id = $story;
-            $cs->save();
-        }
+        $cs = CollectionStory::where('story_id', $story)->first();
+        if (!$cs) $cs = new CollectionStory;   
+        $cs->user_id = auth()->user()->id;
+        $cs->collection_id = $collection;
+        $cs->story_id = $story;
+        $cs->save();
 
         return response()->json([
             'status' => 'success',

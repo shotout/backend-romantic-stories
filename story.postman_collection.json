@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c5851477-d65c-4a4a-85a2-6b9adc4b636f",
+		"_postman_id": "bbb50a28-d743-4122-ba6b-4061d556dfcb",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -723,7 +723,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|lzM1ONjEpxLQhd59bTvg5wenwNcZmCEIy5FCR8Xp",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -820,7 +820,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|dXIxGlgY1QQEWzDbMcmw3YFDr5ZRQnr90LBjLoIR",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -872,7 +872,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -890,15 +890,15 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{base_url}}/collection/story/2/3",
+							"raw": "{{base_url}}/collection/story/1/1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"collection",
 								"story",
-								"2",
-								"3"
+								"1",
+								"1"
 							]
 						},
 						"description": "/api/v1/collection/story/{id_collection}/{id_story}"
@@ -913,7 +913,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1665,7 +1665,7 @@
 		},
 		{
 			"key": "token",
-			"value": "3|DNtnlbox7xHZyYzXH4YSKMgzhOwmH03m5t3kW6FH"
+			"value": "6|YoIrD6AMpWZzYPstnsXIoc2Lqj46yCr57VY5ivqu"
 		}
 	]
 }
