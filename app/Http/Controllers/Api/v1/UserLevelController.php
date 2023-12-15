@@ -11,6 +11,11 @@ class UserLevelController extends Controller
 {
     public function store(Request $request)
     {
+        // $user = User::with('user_level')->find(auth('sanctum')->user()->id);
+        // return Level::whereBetween('value', [0, $user->user_level->point + $request->value])
+        //     ->orderBy('value', 'desc')
+        //     ->first();
+
         $request->validate(['value' => 'required']);
 
         $user = User::with('user_level')->find(auth('sanctum')->user()->id);
@@ -26,8 +31,11 @@ class UserLevelController extends Controller
         $user->user_level->update();
 
         // check level
-        $level = Level::where('value', '<=', $user->user_level->point)
-            ->where('value', '>=', $user->user_level->point)
+        // $level = Level::where('value', '<=', $user->user_level->point)
+        //     ->where('value', '>=', $user->user_level->point)
+        //     ->first();
+        $level = Level::whereBetween('value', [0, $user->user_level->point])
+            ->orderBy('value', 'desc')
             ->first();
 
         if ($level && $level->id != $user->user_level->level_id) {
