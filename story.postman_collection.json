@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "bbb50a28-d743-4122-ba6b-4061d556dfcb",
-		"name": "story",
+		"_postman_id": "3bb4bd67-9da6-40f3-88c0-6b838fc75235",
+		"name": "story Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
 	},
@@ -1445,7 +1445,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|OMZ8YYBAoydGDELyADH0KCVvK0GWOYjU7E5OgMaT",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1458,6 +1458,16 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "value",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{base_url}}/level",
 							"host": [
@@ -1665,7 +1675,7 @@
 		},
 		{
 			"key": "token",
-			"value": "6|YoIrD6AMpWZzYPstnsXIoc2Lqj46yCr57VY5ivqu"
+			"value": "2|NVQtmX7qcF8Cix9rPXFzX82JkOKoPWfcn2l2a7Q3"
 		}
 	]
 }

@@ -9,12 +9,20 @@ use App\Models\Level;
 
 class UserLevelController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
-        $user = User::with('user_level')->findOrFail(auth('sanctum')->user()->id);
+        $request->validate(['value' => 'required']);
 
-        // add 1 point
-        $user->user_level->point++;
+        $user = User::with('user_level')->find(auth('sanctum')->user()->id);
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found'
+            ], 404);
+        }
+
+        // add point
+        $user->user_level->point = $user->user_level->point + $request->value;
         $user->user_level->update();
 
         // check level
