@@ -1352,7 +1352,7 @@
 					"response": []
 				},
 				{
-					"name": "usage",
+					"name": "tracking",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1381,22 +1381,28 @@
 									"type": "text"
 								},
 								{
+									"key": "flag",
+									"value": "time",
+									"type": "text"
+								},
+								{
 									"key": "value",
-									"value": "100",
+									"value": "7",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/user/usage",
+							"raw": "{{base_url}}/user/tracking",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"user",
-								"usage"
+								"tracking"
 							]
-						}
+						},
+						"description": "pilihan flag : read/listen/time\n\nuntuk flag read, piliahan value : 3/7/10\n\nuntuk flag listen, piliahan value : 3/7/10\n\nuntuk flag time, piliahan value bebas dalam detik, misal 100 detik : 100"
 					},
 					"response": []
 				}
@@ -1724,7 +1730,7 @@
 		},
 		{
 			"key": "token",
-			"value": "1|miI4bpatpv5xSU8ASKGxLceIPpYcru5UwD8Vz3MS"
+			"value": "1|1ouahTlH68DGF3gC0HVNsIEL4RI4j3RjeljdyqIC"
 		}
 	]
 }

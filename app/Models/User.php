@@ -92,4 +92,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('\App\Models\UserLevel')->with('level');
     }
+
+    public function track()
+    {
+        return $this->hasOne('\App\Models\UserTrack');
+    }
 }

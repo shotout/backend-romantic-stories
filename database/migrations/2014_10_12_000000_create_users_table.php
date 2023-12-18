@@ -39,8 +39,6 @@ return new class extends Migration
             $table->integer('notif_ads_count')->default(0);
             $table->tinyInteger('random_avatar')->default(0);
 
-            $table->bigInteger('time_usage')->default(0);
-
             $table->rememberToken();
             $table->tinyInteger('status')->default(2);
             $table->timestamps();

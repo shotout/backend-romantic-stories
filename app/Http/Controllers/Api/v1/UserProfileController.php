@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Jobs\GenerateTimerAds;
 use App\Models\CollectionStory;
 use App\Http\Controllers\Controller;
+use App\Models\UserTrack;
 
 class UserProfileController extends Controller
 {
@@ -190,24 +191,32 @@ class UserProfileController extends Controller
         ], 200);
     }
 
-    public function usage(Request $request)
+    public function tracking(Request $request)
     {
-        $request->validate(['value' => 'required']);
+        $request->validate([
+            'flag' => 'required',
+            'value' => 'required'
+        ]);
 
-        $user = User::find(auth('sanctum')->user()->id);
-        if (!$user) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'data not found'
-            ], 404);
+        $user_track = UserTrack::where('user_id', auth('sanctum')->user()->id)->first();
+        if (!$user_track) $user_track = new UserTrack;
+
+        if ($request->flag == 'read') {
+            $user_track->{'read_'.$request->value.'_story'} = 1;
         }
-
-        $user->time_usage = $user->time_usage + $request->value;
-        $user->update();
+        if ($request->flag == 'listen') {
+            $user_track->{'listen_'.$request->value.'_story'}  = 1;
+        }
+        if ($request->flag == 'time') {
+            $user_track->time_usage = $user_track->time_usage + $request->value;
+        }
+        
+        $user_track->user_id = auth('sanctum')->user()->id;
+        $user_track->save();
 
         return response()->json([
             'status' => 'success',
-            'data' => $user
+            'data' => $user_track
         ], 200);
     }
 }

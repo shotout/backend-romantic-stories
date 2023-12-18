@@ -98,7 +98,7 @@ Route::middleware('auth:sanctum')->prefix('v1/user')->name('user.')->group(
     function() {
         Route::get('/', [UserProfileController::class, 'show'])->name('show');
         Route::patch('/', [UserProfileController::class, 'update'])->name('update');
-        Route::patch('/usage', [UserProfileController::class, 'usage'])->name('usage');
+        Route::patch('/tracking', [UserProfileController::class, 'tracking'])->name('tracking');
     }
 );
 
