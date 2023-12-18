@@ -107,7 +107,7 @@ class StoryController extends Controller
         }
 
         // parsing story from backend
-        $data->content_en = str_split($data->content_en,950);
+        $data->content_en = mb_str_split($data->content_en, 950);
 
         // retun response
         return response()->json([
@@ -127,7 +127,7 @@ class StoryController extends Controller
             ], 404);
         }
 
-        $story->content_en = str_split($story->content_en,950);
+        $story->content_en = mb_str_split($story->content_en, 950);
 
         return response()->json([
             'status' => 'success',
