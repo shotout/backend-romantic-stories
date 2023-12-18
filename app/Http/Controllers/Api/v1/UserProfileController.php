@@ -189,4 +189,25 @@ class UserProfileController extends Controller
             'data' => $data
         ], 200);
     }
+
+    public function usage(Request $request)
+    {
+        $request->validate(['value' => 'required']);
+
+        $user = User::find(auth('sanctum')->user()->id);
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found'
+            ], 404);
+        }
+
+        $user->time_usage = $user->time_usage + $request->value;
+        $user->update();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $user
+        ], 200);
+    }
 }
