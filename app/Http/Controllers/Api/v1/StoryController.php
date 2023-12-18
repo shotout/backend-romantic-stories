@@ -184,7 +184,7 @@ class StoryController extends Controller
         }
 
         // categories
-        $category = Category::with('image')->whereNot('id', 4)->where('status', 2)->get();
+        $category = Category::with('image','cover')->whereNot('id', 4)->where('status', 2)->get();
 
         // most read
         $query1 = Story::with('is_collection','category')
