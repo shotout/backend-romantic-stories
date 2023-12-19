@@ -224,7 +224,7 @@ class UserCollectionController extends Controller
             ], 404);
         }
 
-        $cs = CollectionStory::where('story_id', $story)->first();
+        $cs = CollectionStory::where('story_id', $story)->where('user_id', auth()->user()->id)->first();
         if (!$cs) $cs = new CollectionStory;   
         $cs->user_id = auth()->user()->id;
         $cs->collection_id = $collection;
