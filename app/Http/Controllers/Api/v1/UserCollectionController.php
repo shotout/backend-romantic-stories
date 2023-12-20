@@ -196,7 +196,7 @@ class UserCollectionController extends Controller
             ], 404);
         }
 
-        CollectionStory::where('collection_id', $collection->id)->delete();
+        CollectionStory::where('collection_id', $collection->id)->update(['collection_id' => null]);
         $collection->delete();
 
         return response()->json([
@@ -258,9 +258,7 @@ class UserCollectionController extends Controller
 
         $cs = CollectionStory::where('collection_id', $collection)
             ->where('story_id', $story)
-            ->first();
-
-        if ($cs) $cs->delete();
+            ->update(['collection_id' => null]);
 
         return response()->json([
             'status' => 'success',

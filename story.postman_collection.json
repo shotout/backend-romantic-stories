@@ -685,7 +685,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|hQMsKzZ3jfSEABUbbD3GUlBwZSh9fs5u1Oepkta6",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1730,7 +1730,7 @@
 		},
 		{
 			"key": "token",
-			"value": "1|1ouahTlH68DGF3gC0HVNsIEL4RI4j3RjeljdyqIC"
+			"value": "2|GPuDC8ZulijGaMGLNJUYgK5iOEmRlm7efqWSMqti"
 		}
 	]
 }
