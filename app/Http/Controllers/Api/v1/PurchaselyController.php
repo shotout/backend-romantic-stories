@@ -32,8 +32,8 @@ class PurchaselyController extends Controller
 
                 // update the subscription end
                 $subscription->type = $type;
-                $subscription->started = date('Y-m-d', strtotime($data['purchased_at']));
-                $subscription->renewal = date('Y-m-d', strtotime($data['next_renewal_at']));
+                // $subscription->started = date('Y-m-d', strtotime($data['purchased_at']));
+                // $subscription->renewal = date('Y-m-d', strtotime($data['next_renewal_at']));
                 $subscription->purchasely_data = $data;
                 $subscription->save();
             }
