@@ -22,4 +22,9 @@ class Category extends Model
     {
         return $this->hasOne('\App\Models\Media', 'owner_id')->where('type', 'category_cover');
     }
+
+    public function cover_audio()
+    {
+        return $this->hasOne('\App\Models\Media', 'owner_id')->where('type', 'cover_audio');
+    }
 }

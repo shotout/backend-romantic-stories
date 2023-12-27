@@ -11,7 +11,8 @@ class Story extends Model
 
     public function category()
     {
-        return $this->belongsTo('\App\Models\Category')->with('cover:id,owner_id,name,url');
+        return $this->belongsTo('\App\Models\Category')
+            ->with('cover:id,owner_id,name,url','cover_audio:id,owner_id,name,url');
     }
 
     public function is_rating()

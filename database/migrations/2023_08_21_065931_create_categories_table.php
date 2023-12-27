@@ -80,6 +80,30 @@ return new class extends Migration
                 "created_at" => now()
             ],
         ]);
+
+        DB::table('medias')->insert([
+            [
+                "owner_id" => 1,
+                "type" => "cover_audio",
+                "name" => "relationship.png",
+                "url" => "/assets/images/categories/covers/audio/relationship.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 2,
+                "type" => "cover_audio",
+                "name" => "i_miss_u.png",
+                "url" => "/assets/images/categories/covers/audio/i_miss_u.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 3,
+                "type" => "cover_audio",
+                "name" => "dirty_mind.png",
+                "url" => "/assets/images/categories/covers/audio/dirty_mind.png",
+                "created_at" => now()
+            ],
+        ]);
     }
 
     /**
