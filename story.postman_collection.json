@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "eebb81d7-ca7c-41c0-8d5a-d635f6b0c6a6",
+		"_postman_id": "3671713d-3a3d-49d4-9e57-e442cda14e5e",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -1701,6 +1701,61 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "audio",
+			"item": [
+				{
+					"name": "track",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "patch",
+									"type": "text"
+								},
+								{
+									"key": "play",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/audio/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"audio",
+								"1"
+							]
+						},
+						"description": "http://story.test/api/v1/audio/{story_id}"
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1730,7 +1785,7 @@
 		},
 		{
 			"key": "token",
-			"value": "2|GPuDC8ZulijGaMGLNJUYgK5iOEmRlm7efqWSMqti"
+			"value": "1|O0TvbadPXxszNeXTztjTcZ1cfuZSx8C9fNmX6xc6"
 		}
 	]
 }

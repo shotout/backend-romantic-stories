@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\v1\AdmobController;
 use App\Http\Controllers\Api\v1\StoryController;
 use App\Http\Controllers\Api\v1\AvatarController;
 use App\Http\Controllers\Api\v1\SettingController;
+use App\Http\Controllers\Api\v1\UserAudioController;
 use App\Http\Controllers\Api\v1\UserLevelController;
 use App\Http\Controllers\Api\v1\PurchaselyController;
 use App\Http\Controllers\Api\v1\UserRatingController;
@@ -99,6 +100,12 @@ Route::middleware('auth:sanctum')->prefix('v1/user')->name('user.')->group(
         Route::get('/', [UserProfileController::class, 'show'])->name('show');
         Route::patch('/', [UserProfileController::class, 'update'])->name('update');
         Route::patch('/tracking', [UserProfileController::class, 'tracking'])->name('tracking');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/audio')->name('audio.')->group(
+    function() {
+        Route::patch('/{id}', [UserAudioController::class, 'update'])->name('update');
     }
 );
 

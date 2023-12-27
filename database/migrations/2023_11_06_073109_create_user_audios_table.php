@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('story_id')->nullable();
+            $table->integer('play')->default(0);
             $table->timestamps();
         });
     }
