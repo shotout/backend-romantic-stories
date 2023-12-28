@@ -4,15 +4,24 @@ namespace App\Http\Controllers\Api\v1;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Theme;
 use App\Jobs\UserPool;
 use App\Models\Schedule;
+use App\Models\UserLevel;
+use App\Models\UserTheme;
+use App\Jobs\GenerateTimer;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Theme;
-use App\Models\UserLevel;
-use App\Models\UserTheme;
+use App\Jobs\UserReset;
+use App\Models\Collection;
+use App\Models\CollectionStory;
+use App\Models\PastStory;
+use App\Models\Rating;
+use App\Models\StoryRating;
+use App\Models\UserAudio;
+use App\Models\UserTrack;
 
 class AuthController extends Controller
 {
@@ -20,17 +29,42 @@ class AuthController extends Controller
     {
         $request->validate(['device_id' => 'required']);
 
-        $user = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
-            ->where('device_id', $request->device_id)
-            ->first();
+        $user = User::with('user_level','subscription')->where('device_id', $request->device_id)->first();
 
         if ($user) {
             $token = $user->createToken('auth_token')->plainTextToken;
 
+            // reset onboarding
+                $user->is_member = 0;
+                $user->notif_ads_count = 0;
+                $user->notif_count = 0;
+                $user->notif_enable = 1;
+                $user->notif_ads_enable = 1;
+                $user->update();
+
+                $user->user_level->level_id = 1; 
+                $user->user_level->point = 0;
+                $user->user_level->update();
+
+                $user->subscription->plan_id = 1;
+                $user->subscription->type = 1;
+                $user->subscription->is_audio = 0;
+                $user->subscription->audio_limit = 0;
+                $user->subscription->audio_take = 0;
+                $user->subscription->started = now();
+                $user->subscription->renewal = Carbon::now()->addDay(3);
+                $user->subscription->update();
+
+                UserReset::dispatch($user->id)->onQueue(env('SUPERVISOR'));
+            // ------------
+
+            $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+                ->find($user->id);
+
             return response()->json([
                 'status' => 'success',
                 'token' => $token,
-                'data' => $user
+                'data' => $data
             ], 200); 
         }
 
