@@ -35,6 +35,7 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             // reset onboarding
+            if ($request->has('purchasely_id') || $user->purchasely_id) {
                 $user->is_member = 0;
                 $user->notif_ads_count = 0;
                 $user->notif_count = 0;
@@ -56,6 +57,7 @@ class AuthController extends Controller
                 $user->subscription->update();
 
                 UserReset::dispatch($user->id)->onQueue(env('SUPERVISOR'));
+            }
             // ------------
 
             $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
