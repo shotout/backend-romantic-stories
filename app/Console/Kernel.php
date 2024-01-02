@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         // broadcast notif story
-        $schedule->job((new \App\Jobs\StoryNotif)->onQueue(env('SUPERVISOR')))->cron('*/6 * * * *');
+        $schedule->job((new \App\Jobs\StoryNotif)->onQueue(env('SUPERVISOR')))->everyTenMinutes();
 
         // broadcast notif ads
         $schedule->job((new \App\Jobs\AdsNotif)->onQueue(env('SUPERVISOR')))->everyTenMinutes();
