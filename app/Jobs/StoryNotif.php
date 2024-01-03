@@ -29,7 +29,7 @@ class StoryNotif implements ShouldQueue
                 ->chunkById(500, function (Collection $users) use ($story, $SERVER_API_KEY) {
                 foreach ($users as $user) {
                     if ($user->schedule->counter_notif < 1) {
-                        if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '00:00:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '00:30:00') {
+                        if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '00:00:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '00:10:00') {
 
                             $data = [
                                 "to" => $user->fcm_token,
@@ -74,7 +74,7 @@ class StoryNotif implements ShouldQueue
                         }
                     } else {
                         // reset schedule counter
-                        if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '01:00:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '01:30:00') {
+                        if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '00:20:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '00:30:00') {
                             $user->schedule->counter_notif = 0;
                             $user->schedule->update();
                         }
