@@ -79,9 +79,7 @@ class AdsNotif implements ShouldQueue
                                 ),
                                 "notification" => [
                                     "title" => "EroTales App",
-                                    "body" => $descShort,  
-                                    // "title" => "A new Affirmation is waiting for you ✨",
-                                    // "body" => "Click here to get inspired and discover your new Quote. Don’t lose your progress. 🌟💪",  
+                                    "body" => $descShort,   
                                     "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
                                     "sound" => "circle.mp3",
                                     "badge" => $user->notif_count + 1
