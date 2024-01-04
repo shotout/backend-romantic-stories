@@ -16,9 +16,9 @@ class PurchaselyController extends Controller
 
         if ($user && $data['next_renewal_at'] && $data['next_renewal_at'] != '') {
             if ($data['event_name'] == 'ACTIVATE') {
-                if ($data['store_product_id'] == 'erotales_unlimited_stories_audio_annual') {
+                if ($data['plan'] === 'ErotalesUnlimitedStoriesandAudioAnnual') {
                     $type = 3;
-                } else {
+                } else if ($data['plan'] === 'Erotales_unlimitted_stories_annual') {
                     $type = 2;
                 }
 
