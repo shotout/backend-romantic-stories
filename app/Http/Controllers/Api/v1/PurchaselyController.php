@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Subscription;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -14,42 +12,39 @@ class PurchaselyController extends Controller
     public function index(request $request)
     {
         $data = $request->all();
-        Log::info($data);
-        $user = User::where('purchasely_id', $data['anonymous_user_id'])->first();
+        $user = User::with('subscription')->where('purchasely_id', $data['anonymous_user_id'])->first();
 
         if ($user && $data['next_renewal_at'] && $data['next_renewal_at'] != '') {
-           
-            $subscription = Subscription::where('user_id', $user->id)->first();
-
             if ($data['event_name'] == 'ACTIVATE') {
-                if ($data['store_product_id'] == 'erotales_unlimited_stories_audio_annual') {
-                    $type = 3;
-                } else {
-                    $type = 2;
-                }
+                if ($data['store_product_id'] == 'erotales_unlimited_stories_audio_annual') $type = 3;
+                else $type = 2;
 
-                // update the subscription end
-                $subscription->type = $type;
-                $subscription->started = date('Y-m-d', strtotime($data['purchased_at']));
-                $subscription->renewal = date('Y-m-d', strtotime($data['next_renewal_at']));
-                $subscription->purchasely_data = $data;
-                $subscription->save();
+                $user->is_member = 1;
+                $user->update();
+
+                $user->subscription->plan_id = $type;
+                $user->subscription->type = $type;
+                $user->subscription->started = date('Y-m-d', strtotime($data['purchased_at']));
+                $user->subscription->renewal = date('Y-m-d', strtotime($data['next_renewal_at']));
+                $user->subscription->purchasely_data = $data;
+                $user->subscription->update();
             }
 
             if ($data['event_name'] == 'DEACTIVATE') {
-                // update the subscription status
-
                 $user->is_member = 0;
-                $user->save();
+                $user->update();
                 
-                $subscription->type = 1;
-                $subscription->started = null;
-                $subscription->renewal = null;
-                $subscription->subscription_data = null;
-                $subscription->purchasely_data = $data;
-                $subscription->save();
+                $user->subscription->plan_id = 1;
+                $user->subscription->type = 1;
+                $user->subscription->started = null;
+                $user->subscription->renewal = null;
+                $user->subscription->subscription_data = null;
+                $user->subscription->purchasely_data = $data;
+                $user->subscription->update();
             }
         }
+
+        Log::info($data);
 
         return response()->json([
             'status' => 'success'
