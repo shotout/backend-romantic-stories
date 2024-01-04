@@ -53,8 +53,8 @@ class CreateMessagesTable extends Migration
                 "name" => "Push 2",
                 "time" => 250,
                 "sendout_time" => "4 h after push 1",
-                "offer" => "-75% (USD5)",
-                "push_text" => "Unlimited Stories, Themes and more - with no advertising! Get EroTales UNLIMITED now with 75% discount! 🔥😏",
+                "offer" => "-50% (USD10)",
+                "push_text" => "Unlimited Stories, Themes and more - with no advertising! Get EroTales UNLIMITED now with 50% discount! 🔥😏",
                 "paywall" => "Standard - PUSH after Onboarding (NO TRIAL / UNSKIPPABLE) - Weekly vs. 10 instead 20",
                 "created_at" => now()
             ],

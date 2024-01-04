@@ -65,9 +65,9 @@ class AdsNotif implements ShouldQueue
 
                             $placement = null;
                             if (in_array($message->id, array(1,2))) {
-                                $placement = "offer_no_purchase_after_onboarding_paywall";
+                                $placement = "offer_50";
                             } else {
-                                $placement = "offer_no_purchase_after_onboarding_paywall_2nd";
+                                $placement = "offer_75";
                             }
 
                             $data = [
