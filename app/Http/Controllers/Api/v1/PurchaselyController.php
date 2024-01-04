@@ -16,8 +16,12 @@ class PurchaselyController extends Controller
 
         if ($user && $data['next_renewal_at'] && $data['next_renewal_at'] != '') {
             if ($data['event_name'] == 'ACTIVATE') {
-                if ($data['store_product_id'] == 'erotales_unlimited_stories_audio_annual') $type = 3;
-                else $type = 2;
+                if ($data['store_product_id'] == 'erotales_unlimited_stories_audio_annual') {
+                    $type = 3;
+                } else {
+                    $type = 2;
+                }
+
 
                 $user->is_member = 1;
                 $user->update();
@@ -33,7 +37,7 @@ class PurchaselyController extends Controller
             if ($data['event_name'] == 'DEACTIVATE') {
                 $user->is_member = 0;
                 $user->update();
-                
+
                 $user->subscription->plan_id = 1;
                 $user->subscription->type = 1;
                 $user->subscription->started = null;
