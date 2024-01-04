@@ -17,29 +17,31 @@ class PurchaselyController extends Controller
         Log::info($data);
         $user = User::where('purchasely_id', $data['anonymous_user_id'])->first();
 
-        if ($user) {
-            $user->is_member = 1;
-            $user->save();
-
+        if ($user && $data['next_renewal_at'] && $data['next_renewal_at'] != '') {
+           
             $subscription = Subscription::where('user_id', $user->id)->first();
 
             if ($data['event_name'] == 'ACTIVATE') {
-                if ($data['store_product_id'] == 'mooti_annual_package') {
-                    $type = 2;
-                } else {
+                if ($data['store_product_id'] == 'erotales_unlimited_stories_audio_annual') {
                     $type = 3;
+                } else {
+                    $type = 2;
                 }
 
                 // update the subscription end
                 $subscription->type = $type;
-                // $subscription->started = date('Y-m-d', strtotime($data['purchased_at']));
-                // $subscription->renewal = date('Y-m-d', strtotime($data['next_renewal_at']));
+                $subscription->started = date('Y-m-d', strtotime($data['purchased_at']));
+                $subscription->renewal = date('Y-m-d', strtotime($data['next_renewal_at']));
                 $subscription->purchasely_data = $data;
                 $subscription->save();
             }
 
             if ($data['event_name'] == 'DEACTIVATE') {
                 // update the subscription status
+
+                $user->is_member = 0;
+                $user->save();
+                
                 $subscription->type = 1;
                 $subscription->started = null;
                 $subscription->renewal = null;
