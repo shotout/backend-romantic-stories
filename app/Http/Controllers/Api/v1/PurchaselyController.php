@@ -47,11 +47,7 @@ class PurchaselyController extends Controller
                 $user->subscription->update();
             }
         }
-        else
-        {
-            $user->subscription->stripe_status = $data;
-            $user->subscription->update();
-        }
+   
 
         Log::info($data);
 
