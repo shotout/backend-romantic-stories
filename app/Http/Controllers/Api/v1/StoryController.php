@@ -105,7 +105,7 @@ class StoryController extends Controller
 
             $data = $query->first();
         }
-
+        // rollback 
         // parsing story from backend
         // $data->content_en = mb_str_split($data->content_en, 950);
 
