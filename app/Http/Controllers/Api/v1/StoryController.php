@@ -43,10 +43,10 @@ class StoryController extends Controller
             ->toArray();
 
         // sugest other story for member user
-        $user = User::with('subscription','my_story')->findOrFail(auth()->user()->id);
+        $user = User::with('subscription', 'my_story')->findOrFail(auth()->user()->id);
         $other = [];
         if ($user->subscription->plan_id != 1) {
-            $other = Story::with('is_collection','category')
+            $other = Story::with('is_collection', 'category')
                 ->whereNotIn('id', $pastStories)
                 ->where('status', 2)
                 ->orderBy("count_past", "desc")
@@ -55,7 +55,7 @@ class StoryController extends Controller
         }
 
         // priority story
-        $query = Story::with('is_rating','is_collection','category','audio','audio_enable')
+        $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
             ->whereNotIn('id', $pastStories)
             ->where('is_priority', 1)
             ->where('status', 2)
@@ -66,7 +66,7 @@ class StoryController extends Controller
         // if priority story null
         if (!$data) {
             // query
-            $query = Story::with('is_rating','is_collection','category','audio','audio_enable')
+            $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
                 ->whereNotIn('id', $pastStories)
                 ->where('status', 2)
                 ->orderBy($column, $dir);
@@ -107,7 +107,7 @@ class StoryController extends Controller
         }
 
         // parsing story from backend
-        $data->content_en = mb_str_split($data->content_en, 950);
+        // $data->content_en = mb_str_split($data->content_en, 950);
 
         // retun response
         return response()->json([
@@ -119,15 +119,13 @@ class StoryController extends Controller
 
     public function show($id)
     {
-        $story = Story::with('is_rating','is_collection','category','audio','audio_enable')->find($id);
+        $story = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')->find($id);
         if (!$story) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'data not found'
             ], 404);
         }
-
-        $story->content_en = mb_str_split($story->content_en, 950);
 
         return response()->json([
             'status' => 'success',
@@ -184,17 +182,17 @@ class StoryController extends Controller
         }
 
         // categories
-        $category = Category::with('image','cover')->whereNot('id', 4)->where('status', 2)->get();
+        $category = Category::with('image', 'cover')->whereNot('id', 4)->where('status', 2)->get();
 
         // most read
-        $query1 = Story::with('is_collection','category')
+        $query1 = Story::with('is_collection', 'category')
             ->whereNotIn('id', $pastStories)
             ->where('status', 2)
             ->orderBy("count_past", "desc")
             ->orderBy($column, $dir);
 
         // most share
-        $query2 = Story::with('is_collection','category')
+        $query2 = Story::with('is_collection', 'category')
             ->whereNotIn('id', $pastStories)
             ->where('status', 2)
             ->orderBy("count_share", "desc")
@@ -221,7 +219,7 @@ class StoryController extends Controller
     public function category(Request $request, $id)
     {
         // category
-        $category = Category::select('id','name')->find($id);
+        $category = Category::select('id', 'name')->find($id);
         if (!$category) {
             return response()->json([
                 'status' => 'failed',
@@ -256,16 +254,16 @@ class StoryController extends Controller
         }
 
         // story
-        $query1 = Story::select('id','category_id','title_en','title_id')
-            ->with('is_collection','category')
+        $query1 = Story::select('id', 'category_id', 'title_en', 'title_id')
+            ->with('is_collection', 'category')
             ->whereNotIn('id', $pastStories)
             ->where('category_id', $category->id)
             ->where('status', 2)
             ->orderBy($column, $dir);
 
         // most share
-        $query2 = Story::select('id','category_id','title_en','title_id')
-            ->with('is_collection','category:id,name')
+        $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
+            ->with('is_collection', 'category:id,name')
             ->whereNotIn('id', $pastStories)
             ->where('category_id', $category->id)
             ->where('status', 2)
