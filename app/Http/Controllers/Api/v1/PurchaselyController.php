@@ -49,7 +49,7 @@ class PurchaselyController extends Controller
             }
         }
         if($user){
-            $user->stripe_status = $data;
+            $user->subscription_data = $data;
             $user->update();
         }
 
