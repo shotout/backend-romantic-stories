@@ -49,7 +49,7 @@ class PurchaselyController extends Controller
             }
         }
         if($user){
-            $user->subscription_data = $data;
+            $user->subscription->subscription_data = $data;
             $user->update();
         }
 
