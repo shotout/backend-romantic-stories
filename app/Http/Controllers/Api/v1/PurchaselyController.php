@@ -14,7 +14,8 @@ class PurchaselyController extends Controller
         $data = $request->all();
         $user = User::with('subscription')->where('purchasely_id', $data['anonymous_user_id'])->first();
 
-        if ($user && $data['next_renewal_at'] ) {
+        if ($user && array_key_exists('next_renewal_at', $data) ) {
+            
             if ($data['event_name'] == 'ACTIVATE') {
                 if ($data['plan'] === 'ErotalesUnlimitedStoriesandAudioAnnual') {
                     $type = 3;
@@ -47,6 +48,11 @@ class PurchaselyController extends Controller
                 $user->subscription->update();
             }
         }
+        if($user){
+            $user->stripe_status = $data;
+            $user->update();
+        }
+
    
 
         Log::info($data);
