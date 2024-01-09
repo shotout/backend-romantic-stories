@@ -157,7 +157,11 @@ class UserProfileController extends Controller
                     if (!$cs) $cs = new CollectionStory;
                     $cs->user_id = auth()->user()->id;
                     $cs->story_id = $story->id;
-                    $cs->expire = now()->setTimezone($user->schedule->timezone)->addDay($request->expire);
+                    if ($request->expire == 0) {
+                        $cs->expire = null;
+                    } else {
+                        $cs->expire = now()->setTimezone($user->schedule->timezone)->addDay($request->expire);
+                    }
                     $cs->save();
                 }
             }
