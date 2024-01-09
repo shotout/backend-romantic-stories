@@ -38,7 +38,8 @@ class UserCollectionController extends Controller
                 ->pluck('story_id')
                 ->toArray();
             
-            $query2 = Story::with('category')
+            $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
+                ->with('category')
                 ->whereIn('id', $stories)
                 ->orderBy('title_en', $dir);
         } else {
@@ -48,7 +49,10 @@ class UserCollectionController extends Controller
                 ->pluck('story_id')
                 ->toArray();
             
-            $query2 = Story::with('category')->whereIn('id', $stories)->orderBy($column, $dir);
+            $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
+                ->with('category')
+                ->whereIn('id', $stories)
+                ->orderBy($column, $dir);
         }
 
         // search
@@ -71,6 +75,14 @@ class UserCollectionController extends Controller
                     ->take(5)
                     ->get();
             }
+        }
+
+        // expire
+        foreach ($outsides as $item) {
+            $cs = CollectionStory::where('user_id', auth()->user()->id)
+                ->where('story_id', $item->id)
+                ->first();
+            $item->expire = $cs?->expire;
         }
 
         return response()->json([
@@ -99,7 +111,7 @@ class UserCollectionController extends Controller
         }
 
         // query
-        $query = CollectionStory::with('story')
+        $query = CollectionStory::with('story:id,category_id,title_en,title_id')
             ->where('collection_id', $collection->id)
             ->orderBy('id', 'desc');
 
