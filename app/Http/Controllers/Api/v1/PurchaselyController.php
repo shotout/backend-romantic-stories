@@ -15,14 +15,12 @@ class PurchaselyController extends Controller
         $user = User::with('subscription')->where('purchasely_id', $data['anonymous_user_id'])->first();
 
         if ($user && array_key_exists('next_renewal_at', $data) ) {
-            
             if ($data['event_name'] == 'ACTIVATE') {
                 if ($data['plan'] === 'ErotalesUnlimitedStoriesandAudioAnnual') {
                     $type = 3;
                 } else if ($data['plan'] === 'Erotales_unlimitted_stories_annual') {
                     $type = 2;
                 }
-
 
                 $user->is_member = 1;
                 $user->update();
@@ -48,12 +46,11 @@ class PurchaselyController extends Controller
                 $user->subscription->update();
             }
         }
-        if($user){
-            $user->subscription->subscription_data = $data;
-            $user->update();
-        }
 
-   
+        if ($user) {
+            $user->subscription->subscription_data = $data;
+            $user->subscription->update();
+        }
 
         Log::info($data);
 
