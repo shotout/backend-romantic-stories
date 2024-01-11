@@ -114,7 +114,7 @@ class StoryController extends Controller
         }
         // rollback 
         // parsing story from backend
-        $data->content_en = str_replace("\r", " ", $data->content_en);
+        $data->content_en = str_replace("\r\n", " ", $data->content_en);
 
         // retun response
         return response()->json([
@@ -133,7 +133,7 @@ class StoryController extends Controller
                 'message' => 'data not found'
             ], 404);
         }
-        $story->content_en = str_replace("\r", " ", $story->content_en);
+        $story->content_en = str_replace("\r\n", " ", $story->content_en);
         
 
         return response()->json([
