@@ -6,11 +6,10 @@ use App\Models\User;
 use App\Models\Story;
 use App\Models\Category;
 use App\Models\PastStory;
-use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CollectionStory;
 use App\Models\StoryRating;
-use App\Models\UserAudio;
 
 class StoryController extends Controller
 {
@@ -42,12 +41,18 @@ class StoryController extends Controller
             ->pluck('story_id')
             ->toArray();
 
+        // my collections
+        $myCollections = CollectionStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
+
         // sugest other story for member user
         $user = User::with('subscription', 'my_story')->findOrFail(auth()->user()->id);
         $other = [];
         if ($user->subscription->plan_id != 1) {
             $other = Story::with('is_collection', 'category')
                 ->whereNotIn('id', $pastStories)
+                ->whereNotIn('id', $myCollections)
                 ->where('status', 2)
                 ->orderBy("count_past", "desc")
                 ->take(3)
@@ -57,6 +62,7 @@ class StoryController extends Controller
         // priority story
         $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
             ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
             ->where('is_priority', 1)
             ->where('status', 2)
             ->orderBy($column, $dir);
@@ -68,6 +74,7 @@ class StoryController extends Controller
             // query
             $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
                 ->whereNotIn('id', $pastStories)
+                ->whereNotIn('id', $myCollections)
                 ->where('status', 2)
                 ->orderBy($column, $dir);
 
@@ -162,6 +169,11 @@ class StoryController extends Controller
             ->pluck('story_id')
             ->toArray();
 
+        // my collections
+        $myCollections = CollectionStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
+
         // limit
         if ($request->has('length') && $request->input('length') != '') {
             $length = $request->input('length');
@@ -189,6 +201,7 @@ class StoryController extends Controller
         // most read
         $query1 = Story::with('is_collection', 'category')
             ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
             ->where('status', 2)
             ->orderBy("count_past", "desc")
             ->orderBy($column, $dir);
@@ -196,6 +209,7 @@ class StoryController extends Controller
         // most share
         $query2 = Story::with('is_collection', 'category')
             ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
             ->where('status', 2)
             ->orderBy("count_share", "desc")
             ->orderBy($column, $dir);
@@ -234,6 +248,11 @@ class StoryController extends Controller
             ->pluck('story_id')
             ->toArray();
 
+        // my collections
+        $myCollections = CollectionStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
+
         // limit
         if ($request->has('length') && $request->input('length') != '') {
             $length = $request->input('length');
@@ -259,6 +278,7 @@ class StoryController extends Controller
         $query1 = Story::select('id', 'category_id', 'title_en', 'title_id')
             ->with('is_collection', 'category')
             ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
             ->where('category_id', $category->id)
             ->where('status', 2)
             ->orderBy($column, $dir);
@@ -267,6 +287,7 @@ class StoryController extends Controller
         $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
             ->with('is_collection', 'category:id,name')
             ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
             ->where('category_id', $category->id)
             ->where('status', 2)
             ->orderBy("count_share", "desc");
