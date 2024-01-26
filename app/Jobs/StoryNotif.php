@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Models\CollectionStory;
+use App\Models\PastStory;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Story;
@@ -31,20 +33,40 @@ class StoryNotif implements ShouldQueue
                     if ($user->schedule->counter_notif < 1) {
                         if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '18:00:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '18:10:00') {
 
-                            $data = [
-                                "to" => $user->fcm_token,
-                                "type" => "story",
-                                "data" => [
-                                    "id" => $story->id,
-                                ],
-                                "notification" => [
-                                    "title" => "New story alert! 💥🔓",
-                                    "body" => "Dive into our latest tale of passion and intrigue. Tap to read now!",
-                                    "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
-                                    "sound" => "circle.mp3",
-                                    "badge" => $user->notif_count + 1
-                                ]
-                            ];
+                            $is_past = PastStory::where('user_id', $user->id)->where('story_id', $story->id)->exists();
+                            $is_coll = CollectionStory::where('user_id', $user->id)->where('story_id', $story->id)->exists();
+
+                            if ($is_past || $is_coll) {
+                                $data = [
+                                    "to" => $user->fcm_token,
+                                    "type" => "story",
+                                    "data" => [
+                                        "id" => $story->id,
+                                    ],
+                                    "notification" => [
+                                        "title" => "Have you already read today's story?❤️🌶️",
+                                        "body" => "Read the story of the day and experience the magic.",
+                                        "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                        "sound" => "circle.mp3",
+                                        "badge" => $user->notif_count + 1
+                                    ]
+                                ];
+                            } else {
+                                $data = [
+                                    "to" => $user->fcm_token,
+                                    "type" => "story",
+                                    "data" => [
+                                        "id" => $story->id,
+                                    ],
+                                    "notification" => [
+                                        "title" => "New story alert! 💥🔓",
+                                        "body" => "Dive into our latest tale of passion and intrigue. Tap to read now!",
+                                        "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                        "sound" => "circle.mp3",
+                                        "badge" => $user->notif_count + 1
+                                    ]
+                                ];
+                            }
                             
                             $dataString = json_encode($data);
                                     
