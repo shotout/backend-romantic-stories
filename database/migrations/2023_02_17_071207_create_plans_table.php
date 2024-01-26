@@ -80,7 +80,7 @@ return new class extends Migration
 
         $free = array(
             (object) array(
-                'check' => true,
+                'check' => false,
                 'title' => 'Unlimited Stories every day',
                 'description' => 'Read as many Stories as you like - No waiting or interruptions',
             ),
