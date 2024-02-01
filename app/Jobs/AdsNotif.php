@@ -40,78 +40,81 @@ class AdsNotif implements ShouldQueue
 
             foreach ($users as $user) {
                 if ($user->schedule) {
-                    $time = now()->setTimezone($user->schedule->timezone);
+                    if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '18:00:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '18:10:00') {
+                        continue;
+                    } else {
+                        $time = now()->setTimezone($user->schedule->timezone);
+                        $um = UserMessage::where('user_id', $user->id)
+                            ->where('has_notif', false)
+                            ->whereDate('time', $time)
+                            ->whereTime('time', '<=', $time)
+                            ->first();
 
-                    $um = UserMessage::where('user_id', $user->id)
-                        ->where('has_notif', false)
-                        ->whereDate('time', $time)
-                        ->whereTime('time', '<=', $time)
-                        ->first();
-
-                    if ($um) {
-                        $message = Message::find($um->message_id);
-                        if ($message) {
-                            
-                            // $boxs = [
-                            //     "name" => $user->name,
-                            //     "selected_goal" => "selected_goal"
-                            // ];
-
-                            // foreach ($boxs as $key => $val) {
-                            //     $descShort = str_replace('['.$key.']', $val, $message->push_text);
-                            // }
-                            // $descShort = str_replace('[name]', $user->name, $descShort);
-                            $descShort = $message->push_text;
-
-                            $placement = null;
-                            if (in_array($message->id, array(1,2))) {
-                                $placement = "offer_50";
-                            } else {
-                                $placement = "offer_75";
-                            }
-
-                            $data = [
-                                "to" => $user->fcm_token,
-                                "data" => (object) array(
-                                    "type" => "paywall",
-                                    "placement" => $placement,
-                                    "message_count" => $message->id
-                                ),
-                                "notification" => [
-                                    "title" => "EroTales App",
-                                    "body" => $descShort,   
-                                    "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
-                                    "sound" => "circle.mp3",
-                                    "badge" => $user->notif_count + 1
-                                ]
-                            ];
-                
-                            Log::info($data);
-                
-                            $dataString = json_encode($data);
-                        
-                            $headers = [
-                                'Authorization: key=' . env('FIREBASE_SERVER_API_KEY'),
-                                'Content-Type: application/json',
-                            ];
-                        
-                            $ch = curl_init();
-                    
-                            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-                            curl_setopt($ch, CURLOPT_POST, true);
-                            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                        if ($um) {
+                            $message = Message::find($um->message_id);
+                            if ($message) {
                                 
-                            $response = curl_exec($ch);
-                            Log::info($response);
+                                // $boxs = [
+                                //     "name" => $user->name,
+                                //     "selected_goal" => "selected_goal"
+                                // ];
 
-                            $um->has_notif = true;
-                            $um->update();
+                                // foreach ($boxs as $key => $val) {
+                                //     $descShort = str_replace('['.$key.']', $val, $message->push_text);
+                                // }
+                                // $descShort = str_replace('[name]', $user->name, $descShort);
+                                $descShort = $message->push_text;
 
-                            $user->notif_ads_count++;
-                            $user->update();
+                                $placement = null;
+                                if (in_array($message->id, array(1,2))) {
+                                    $placement = "offer_50";
+                                } else {
+                                    $placement = "offer_75";
+                                }
+
+                                $data = [
+                                    "to" => $user->fcm_token,
+                                    "data" => (object) array(
+                                        "type" => "paywall",
+                                        "placement" => $placement,
+                                        "message_count" => $message->id
+                                    ),
+                                    "notification" => [
+                                        "title" => "EroTales App",
+                                        "body" => $descShort,   
+                                        "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                        "sound" => "circle.mp3",
+                                        "badge" => $user->notif_count + 1
+                                    ]
+                                ];
+                    
+                                Log::info($data);
+                    
+                                $dataString = json_encode($data);
+                            
+                                $headers = [
+                                    'Authorization: key=' . env('FIREBASE_SERVER_API_KEY'),
+                                    'Content-Type: application/json',
+                                ];
+                            
+                                $ch = curl_init();
+                        
+                                curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                                curl_setopt($ch, CURLOPT_POST, true);
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                                    
+                                $response = curl_exec($ch);
+                                Log::info($response);
+
+                                $um->has_notif = true;
+                                $um->update();
+
+                                $user->notif_ads_count++;
+                                $user->update();
+                            }
                         }
                     }
                 }

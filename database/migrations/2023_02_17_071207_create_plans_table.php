@@ -77,10 +77,15 @@ return new class extends Migration
                 'is_special' => 0,
             ],
         ]);
-
+        
         $free = array(
             (object) array(
                 'check' => true,
+                'title' => '1 new Story per day',
+                'description' => 'You can only unlock 1 new story per day.',
+            ),
+            (object) array(
+                'check' => false,
                 'title' => 'Unlimited Stories every day',
                 'description' => 'Read as many Stories as you like - No waiting or interruptions',
             ),
