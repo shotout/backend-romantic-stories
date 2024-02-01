@@ -14,11 +14,11 @@ class PurchaselyController extends Controller
         $data = $request->all();
         $user = User::with('subscription')->where('purchasely_id', $data['anonymous_user_id'])->first();
 
-        if ($user && array_key_exists('next_renewal_at', $data) ) {
+        if ($user && array_key_exists('next_renewal_at', $data)) {
             if ($data['event_name'] == 'ACTIVATE') {
-                if ($data['plan'] === 'ErotalesUnlimitedStoriesandAudioAnnual') {
+                if ($data['plan'] === 'ErotalesUnlimitedStoriesandAudioAnnual' || $data['plan'] === 'erotales_unlimited_stories_audio_annual_50' || $data['plan'] === 'erotales_unlimited_stories_audio_annual_75' || $data['plan'] === 'upgrade_to_unlimited_stories_audio') {
                     $type = 3;
-                } else if ($data['plan'] === 'Erotales_unlimitted_stories_annual') {
+                } else if ($data['plan'] === 'Erotales_unlimitted_stories_annual' || $data['plan'] === 'Erotales_unlimitted_stories_annual_50' || $data['plan'] === 'Erotales_unlimitted_stories_annual_75') {
                     $type = 2;
                 }
 
