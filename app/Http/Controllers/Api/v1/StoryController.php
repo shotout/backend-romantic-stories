@@ -59,59 +59,39 @@ class StoryController extends Controller
                 ->get();
         }
 
-        // priority story
+        // query
         $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
-            ->where('is_priority', 1)
             ->where('status', 2)
             ->orderBy($column, $dir);
 
+        // rules
+        if ($user->my_story->actual < count($user->my_story->rules)) {
+            $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+            $user->my_story->actual++;
+            $user->my_story->update();
+        } else {
+            $query->where('category_id', $user->my_story->rules[0]);
+            $user->my_story->actual = 1;
+            $user->my_story->update();
+        }
+
         $data = $query->first();
 
-        // if priority story null
+        // if logic story null
         if (!$data) {
-            // query
+            // priority story
             $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
                 ->whereNotIn('id', $pastStories)
                 ->whereNotIn('id', $myCollections)
+                ->where('is_priority', 1)
                 ->where('status', 2)
                 ->orderBy($column, $dir);
 
-            // rules
-            if ($user->my_story->actual < count($user->my_story->rules)) {
-                $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
-                $user->my_story->actual++;
-                $user->my_story->update();
-            } else {
-                $query->where('category_id', $user->my_story->rules[0]);
-                $user->my_story->actual = 1;
-                $user->my_story->update();
-            }
-            // if ($user->subscription->type === 1) {
-            //     if ($user->my_story->actual < count($user->my_story->rules)) {
-            //         $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
-            //         $user->my_story->actual++;
-            //         $user->my_story->update();
-            //     } else {
-            //         $query->where('category_id', $user->my_story->rules[0]);
-            //         $user->my_story->actual = 1;
-            //         $user->my_story->update();
-            //     }
-            //     // pagination
-            //     $data = $query->paginate(1);
-            // } else {
-            //     // pagination 
-            //     $data = $query->paginate($length);
-
-            //     foreach ($user->my_story->rules as $index => $item) {
-            //         $str = Story::where('category_id', $item)->first();
-            //         if ($str) $data[$index] = $str;
-            //     }
-            // }
-
             $data = $query->first();
         }
+
         // rollback 
         // parsing story from backend
         $data->content_en = str_replace("\r\n", " ", $data->content_en);
