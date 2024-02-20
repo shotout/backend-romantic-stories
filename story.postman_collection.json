@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "3671713d-3a3d-49d4-9e57-e442cda14e5e",
+		"_postman_id": "9a7481d7-d9dc-42fc-9a35-c3fe56d2821e",
 		"name": "story",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12074833"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -926,12 +925,8 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
 						"url": {
-							"raw": "{{base_url}}/collection/story/1",
+							"raw": "{{base_url}}/collection/story/1?flag=read_later",
 							"host": [
 								"{{base_url}}"
 							],
@@ -939,6 +934,12 @@
 								"collection",
 								"story",
 								"1"
+							],
+							"query": [
+								{
+									"key": "flag",
+									"value": "read_later"
+								}
 							]
 						},
 						"description": "/api/v1/collection/story/{id_story}"
@@ -1100,7 +1101,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1114,13 +1115,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/past-story/3",
+							"raw": "{{base_url}}/past-story/2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"past-story",
-								"3"
+								"2"
 							]
 						},
 						"description": "/api/v1/past-story/{story_id}"
@@ -1140,7 +1141,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|GBz67qiaQLp9nzMrTSbyHN2jlfA1w6Y6LBVdi0Am",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1785,7 +1786,7 @@
 		},
 		{
 			"key": "token",
-			"value": "1|O0TvbadPXxszNeXTztjTcZ1cfuZSx8C9fNmX6xc6"
+			"value": "1|LlO7sfaKq9SaRTWFOg6YI3AxnHF8cPly3pMMWTjt"
 		}
 	]
 }

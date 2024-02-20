@@ -27,6 +27,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('story_id')->nullable();
             $table->dateTime('expire')->nullable();
+            $table->boolean('is_read_later')->default(false);
             $table->timestamps();
         });
     }

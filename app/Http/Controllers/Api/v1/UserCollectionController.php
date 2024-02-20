@@ -278,10 +278,9 @@ class UserCollectionController extends Controller
         ], 200);
     }
 
-    public function storeStoryOutside($story)
+    public function storeStoryOutside(Request $request, $story)
     {
         $findStory = Story::find($story);
-
         if (!$findStory) {
             return response()->json([
                 'status' => 'failed',
@@ -297,6 +296,7 @@ class UserCollectionController extends Controller
             $cs = new CollectionStory;
             $cs->user_id = auth()->user()->id;
             $cs->story_id = $story;
+            if ($request->flag == 'read_later') $cs->is_read_later = 1;
             $cs->save();
         }
 

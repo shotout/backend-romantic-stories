@@ -75,16 +75,15 @@ class UserPastStoryController extends Controller
 
     public function store($id)
     {
-        $story = Story::find($id);
-        $story->count_past++;
-        $story->update();
-
+        $story = Story::with('is_collection')->find($id);
         if (!$story) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'data not found'
             ], 404);
         }
+        $story->count_past++;
+        $story->update();
 
         $ps = PastStory::where('user_id', auth('sanctum')->user()->id)
             ->where('story_id', $id)
@@ -95,6 +94,10 @@ class UserPastStoryController extends Controller
             $ps->user_id = auth('sanctum')->user()->id;
             $ps->story_id = $id;
             $ps->save();
+        }
+
+        if ($story->is_collection?->is_read_later == 1) {
+            $story->is_collection->delete();
         }
 
         return response()->json([
