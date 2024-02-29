@@ -83,6 +83,7 @@ class UserCollectionController extends Controller
                 ->where('story_id', $item->id)
                 ->first();
             $item->expire = $cs?->expire;
+            $item->is_read_later = $cs?->is_read_later;
         }
 
         return response()->json([
