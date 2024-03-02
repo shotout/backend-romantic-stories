@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('listen_3_story')->default(false);
             $table->boolean('listen_7_story')->default(false);
             $table->boolean('listen_10_story')->default(false);
+            $table->dateTime('last_get_story')->nullable();
             $table->timestamps();
         });
     }

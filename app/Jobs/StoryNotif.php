@@ -7,6 +7,7 @@ use App\Models\PastStory;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Story;
+use App\Models\UserTrack;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -27,16 +28,20 @@ class StoryNotif implements ShouldQueue
         if ($story) {  
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
 
-            User::with('schedule')->whereHas('schedule')->where('notif_enable',1)->whereNotNull('fcm_token')
+            User::with('schedule','track')->whereHas('schedule')->where('notif_enable',1)->whereNotNull('fcm_token')
                 ->chunkById(500, function (Collection $users) use ($story, $SERVER_API_KEY) {
                 foreach ($users as $user) {
                     if ($user->schedule->counter_notif < 1) {
                         if ($user->schedule->timezone && now()->setTimezone($user->schedule->timezone)->format('H:i:s') >= '18:00:00' && now()->setTimezone($user->schedule->timezone)->format('H:i:s') <= '18:10:00') {
 
-                            $is_past = PastStory::where('user_id', $user->id)->where('story_id', $story->id)->exists();
-                            $is_coll = CollectionStory::where('user_id', $user->id)->where('story_id', $story->id)->exists();
+                            // $is_past = PastStory::where('user_id', $user->id)->where('story_id', $story->id)->exists();
+                            // $is_coll = CollectionStory::where('user_id', $user->id)->where('story_id', $story->id)->exists();
 
-                            if ($is_past || $is_coll) {
+                            $has_read = UserTrack::where('user_id', $user->id)
+                                ->whereDate('last_get_story', now()->setTimezone($user->schedule->timezone))
+                                ->exists();
+
+                            if ($has_read) {
                                 $data = [
                                     "to" => $user->fcm_token,
                                     "type" => "story",

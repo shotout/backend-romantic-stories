@@ -6,10 +6,11 @@ use App\Models\User;
 use App\Models\Story;
 use App\Models\Category;
 use App\Models\PastStory;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\CollectionStory;
+use App\Models\UserTrack;
 use App\Models\StoryRating;
+use Illuminate\Http\Request;
+use App\Models\CollectionStory;
+use App\Http\Controllers\Controller;
 
 class StoryController extends Controller
 {
@@ -47,7 +48,7 @@ class StoryController extends Controller
             ->toArray();
 
         // sugest other story for member user
-        $user = User::with('subscription', 'my_story')->findOrFail(auth()->user()->id);
+        $user = User::with('subscription','my_story','schedule')->findOrFail(auth()->user()->id);
         $other = [];
         if ($user->subscription->plan_id != 1) {
             $other = Story::with('is_collection', 'category')
@@ -92,9 +93,15 @@ class StoryController extends Controller
             $data = $query->first();
         }
 
-        // rollback 
         // parsing story from backend
         $data->content_en = str_replace("\r\n", " ", $data->content_en);
+
+        // user tracking
+        $ut = UserTrack::where('user_id', $user->id)->first();
+        if (!$ut) $ut = new UserTrack;
+        $ut->user_id = $user->id;
+        $ut->last_get_story = now()->setTimezone($user->schedule->timezone);
+        $ut->save();
 
         // retun response
         return response()->json([
