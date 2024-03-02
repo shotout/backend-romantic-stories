@@ -135,6 +135,13 @@ class UserProfileController extends Controller
                         $ua->user_id = $user->id;
                         $ua->story_id = $request->story_id;
                         $ua->save();
+
+                        // user tracking
+                        $ut = UserTrack::where('user_id', $user->id)->first();
+                        if (!$ut) $ut = new UserTrack;
+                        $ut->user_id = $user->id;
+                        $ut->listen_story++;
+                        $ut->save();
                     }
                 }
 

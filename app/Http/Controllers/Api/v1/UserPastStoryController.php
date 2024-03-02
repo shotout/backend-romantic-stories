@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Models\User;
 use App\Models\Story;
 use App\Models\PastStory;
+use App\Models\UserTrack;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -94,6 +96,14 @@ class UserPastStoryController extends Controller
             $ps->user_id = auth('sanctum')->user()->id;
             $ps->story_id = $id;
             $ps->save();
+
+            // user tracking
+            $user = User::findOrFail(auth()->user()->id);
+            $ut = UserTrack::where('user_id', $user->id)->first();
+            if (!$ut) $ut = new UserTrack;
+            $ut->user_id = $user->id;
+            $ut->read_story++;
+            $ut->save();
         }
 
         if ($story->is_collection?->is_read_later == 1) {
