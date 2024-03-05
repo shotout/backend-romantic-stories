@@ -42,28 +42,42 @@ class UserCollectionController extends Controller
                 ->with('category')
                 ->whereIn('id', $stories)
                 ->orderBy('title_en', $dir);
+
+            // search
+            if ($request->has('search') && $request->search != '') {
+                $query2->where('title_en', 'like', '%' . $request->search . '%');
+            }
+
+            $query2 = $query2->get();
         } else {
-            $stories = CollectionStory::where('user_id', auth()->user()->id)
+            $stories = CollectionStory::with('story:id,category_id,title_en,title_id')
+                ->where('user_id', auth()->user()->id)
                 ->whereNull('collection_id')
-                ->orderBy($column, $dir)
-                ->pluck('story_id')
-                ->toArray();
-            
-            $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
-                ->with('category')
-                ->whereIn('id', $stories)
                 ->orderBy($column, $dir);
+
+            // search
+            if ($request->has('search') && $request->search != '') {
+                $stories->whereHas('story',function($q) use($request){
+                    $q->where('title_en', 'like', '%' . $request->search . '%');
+                });
+            }
+            
+            $result = $stories->get();
+            $query2 = array();
+
+            foreach ($result as $item) {
+                $query2[] = $item->story;
+            }
         }
 
         // search
         if ($request->has('search') && $request->search != '') {
             $query1->where('name', 'like', '%' . $request->search . '%');
-            $query2->where('title_en', 'like', '%' . $request->search . '%');
         }
 
         // pagination
         $collections = $query1->get();
-        $outsides = $query2->get();
+        $outsides = $query2;
 
         // sugest story on serach null
         $alternative = [];
