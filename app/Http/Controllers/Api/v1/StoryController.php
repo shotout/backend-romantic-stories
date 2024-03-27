@@ -68,14 +68,16 @@ class StoryController extends Controller
             ->orderBy($column, $dir);
 
         // rules
-        if ($user->my_story->actual < count($user->my_story->rules)) {
-            $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
-            $user->my_story->actual++;
-            $user->my_story->update();
-        } else {
-            $query->where('category_id', $user->my_story->rules[0]);
-            $user->my_story->actual = 1;
-            $user->my_story->update();
+        if ($user->my_story) {
+            if ($user->my_story->actual < count($user->my_story->rules)) {
+                $query->where('category_id', $user->my_story->rules[$user->my_story->actual]);
+                $user->my_story->actual++;
+                $user->my_story->update();
+            } else {
+                $query->where('category_id', $user->my_story->rules[0]);
+                $user->my_story->actual = 1;
+                $user->my_story->update();
+            }
         }
 
         $data = $query->first();
