@@ -67,7 +67,7 @@ class AdsNotif implements ShouldQueue
 
                                 $placement = null;
                                 if (in_array($message->id, array(1,2,3,4,5))) {
-                                    $placement = null;
+                                    $placement = "in_app";
                                 } else {
                                     $placement = "offer_50";
                                 }
