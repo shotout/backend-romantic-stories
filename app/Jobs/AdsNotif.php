@@ -66,10 +66,10 @@ class AdsNotif implements ShouldQueue
                                 $descShort = $message->push_text;
 
                                 $placement = null;
-                                if (in_array($message->id, array(1,2))) {
-                                    $placement = "offer_50";
+                                if (in_array($message->id, array(1,2,3,4))) {
+                                    $placement = null;
                                 } else {
-                                    $placement = "offer_75";
+                                    $placement = "offer_50";
                                 }
 
                                 $data = [
