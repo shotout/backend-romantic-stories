@@ -22,7 +22,7 @@ class PurchaselyController extends Controller
                     $type = 2;
                 }
                 else if ($data['plan'] === 'erotales_unlimited_stories_audio_monthly' || $data['plan'] === 'erotales_unlimited_stories_audio_monthly_25') {
-                    $type = 4;
+                    $type = 3;
                 } else {
                     $type = 1;
                 }
