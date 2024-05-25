@@ -21,6 +21,11 @@ class PurchaselyController extends Controller
                 } else if ($data['plan'] === 'Erotales_unlimitted_stories_annual' || $data['plan'] === 'Erotales_unlimitted_stories_annual_50' || $data['plan'] === 'Erotales_unlimitted_stories_annual_75') {
                     $type = 2;
                 }
+                else if ($data['plan'] === 'erotales_unlimited_stories_audio_monthly' || $data['plan'] === 'erotales_unlimited_stories_audio_monthly_25') {
+                    $type = 4;
+                } else {
+                    $type = 1;
+                }
 
                 $user->is_member = 1;
                 $user->update();
