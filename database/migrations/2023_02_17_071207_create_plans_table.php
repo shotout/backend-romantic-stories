@@ -76,6 +76,20 @@ return new class extends Migration
                 'is_show' => 1,
                 'is_special' => 0,
             ],
+            [
+                'type' => 4,
+                'sequence' => 4,
+                'title' => 'EroTales UNLIMITED + Audio',
+                'sub_title' => '',
+                'name' => '1 month subscription',
+                'slug' => '1-month-subscription',
+                'stripe_name' => '1 Month Subscription',
+                'stripe_id' => '',
+                'price' => 9.99,
+                'abbreviation' => 'month',
+                'is_show' => 1,
+                'is_special' => 0,
+            ],
         ]);
         
         $free = array(
@@ -197,6 +211,44 @@ return new class extends Migration
             ),
         );
 
+        $month_audio = array(
+            (object) array(
+                'check' => true,
+                'title' => 'Unlimited Stories every day',
+                'description' => 'Read as many Stories as you like - No waiting or interruptions',
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "Access to Hundreds of Stories in our Library",
+                'description' => "Choose freely from all Stories and all Genres in our Library",
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "All Features unlocked",
+                'description' => "Includes Full Access to all new Stories",
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "Unlimited Custom Themes, Fonts and more",
+                'description' => "Change anytime - without Ads",
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "Adjust your character and your partner character anytime",
+                'description' => "",
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "No ads, no watermarks, no limitations",
+                'description' => "Enjoy EroTales without Ads and Watermarks",
+            ),
+            (object) array(
+                'check' => true,
+                'title' => "LISTEN TO STORIES AS AUDIO-BOOKS ",
+                'description' => "Enjoy all Stories as Audio-Books - Hands-free!",
+            ),
+        );
+
         // free plan
         $p1 = Plan::where('id', 1)->first();
         $p1->notes = $free;
@@ -211,6 +263,11 @@ return new class extends Migration
         $p3 = Plan::where('id', 3)->first();
         $p3->notes = $year_audio;
         $p3->update();
+
+        // 1 month plan + audio
+        $p4 = Plan::where('id', 4)->first();
+        $p4->notes = $month_audio;
+        $p4->update();
     }
 
     /**
