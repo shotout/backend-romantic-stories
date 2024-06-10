@@ -20,7 +20,17 @@ class UserProfileController extends Controller
 {
     public function show()
     {
-        $user = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $user = User::with([
+            'user_level',
+            'icon',
+            'category.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'get_avatar_male.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'get_avatar_female.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'theme',
+            'language',
+            'schedule',
+            'subscription'
+        ])
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([
@@ -196,7 +206,17 @@ class UserProfileController extends Controller
         }
 
         // new user
-        $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $data = User::with([
+            'user_level',
+            'icon',
+            'category.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'get_avatar_male.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'get_avatar_female.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'theme',
+            'language',
+            'schedule',
+            'subscription'
+        ])
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([

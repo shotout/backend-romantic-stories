@@ -60,7 +60,17 @@ class AuthController extends Controller
             }
             // ------------
 
-            $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+            $data = User::with([
+                'user_level',
+                'icon',
+                'category.image' => fn($q) => $q->where('model',$user->type),
+                'get_avatar_male.image' => fn($q) => $q->where('model',$user->type),
+                'get_avatar_female.image' => fn($q) => $q->where('model',$user->type),
+                'theme',
+                'language',
+                'schedule',
+                'subscription'
+            ])
                 ->find($user->id);
 
             return response()->json([
@@ -80,6 +90,7 @@ class AuthController extends Controller
     {
         // validate -------------
         $request->validate([
+            'type' => 'required',
             'device_id' => 'required',
             'category_id' => 'required',
             'avatar_male' => 'required',
@@ -102,6 +113,7 @@ class AuthController extends Controller
         // register user --------------------------
         $user = DB::transaction(function () use ($request) {    
             $user = new User;
+            $user->type = $request->type;
             $user->icon_id = 1;
             $user->notif_enable = 1;
             $user->notif_ads_enable = 1;
@@ -185,7 +197,17 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             // data
-            $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+            $data = User::with([
+                'user_level',
+                'icon',
+                'category.image' => fn($q) => $q->where('model',$user->type),
+                'get_avatar_male.image' => fn($q) => $q->where('model',$user->type),
+                'get_avatar_female.image' => fn($q) => $q->where('model',$user->type),
+                'theme',
+                'language',
+                'schedule',
+                'subscription'
+            ])
                 ->find($user->id);
 
             // count user pool

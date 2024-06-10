@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('owner_id')->nullable();
             $table->string('type')->nullable();
+            $table->string('model')->nullable();
             $table->string('name')->nullable();
             $table->string('url')->nullable();
             $table->string('audio_en')->nullable();

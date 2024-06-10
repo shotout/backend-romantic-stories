@@ -33,43 +33,98 @@ return new class extends Migration
             [
                 "owner_id" => 1,
                 "type" => "avatar",
+                "model" => "anime",
                 "name" => "1.png",
-                "url" => "/assets/images/avatars/1.png",
+                "url" => "/assets/images/avatars/anime/1.png",
                 "created_at" => now()
             ],
             [
                 "owner_id" => 2,
                 "type" => "avatar",
+                "model" => "anime",
                 "name" => "2.png",
-                "url" => "/assets/images/avatars/2.png",
+                "url" => "/assets/images/avatars/anime/2.png",
                 "created_at" => now()
             ],
             [
                 "owner_id" => 3,
                 "type" => "avatar",
+                "model" => "anime",
                 "name" => "3.png",
-                "url" => "/assets/images/avatars/3.png",
+                "url" => "/assets/images/avatars/anime/3.png",
                 "created_at" => now()
             ],
             [
                 "owner_id" => 4,
                 "type" => "avatar",
+                "model" => "anime",
                 "name" => "4.png",
-                "url" => "/assets/images/avatars/4.png",
+                "url" => "/assets/images/avatars/anime/4.png",
                 "created_at" => now()
             ],
             [
                 "owner_id" => 5,
                 "type" => "avatar",
+                "model" => "anime",
                 "name" => "5.png",
-                "url" => "/assets/images/avatars/5.png",
+                "url" => "/assets/images/avatars/anime/5.png",
                 "created_at" => now()
             ],
             [
                 "owner_id" => 6,
                 "type" => "avatar",
+                "model" => "anime",
                 "name" => "6.png",
-                "url" => "/assets/images/avatars/6.png",
+                "url" => "/assets/images/avatars/anime/6.png",
+                "created_at" => now()
+            ],
+
+            [
+                "owner_id" => 1,
+                "type" => "avatar",
+                "model" => "realistic",
+                "name" => "1.png",
+                "url" => "/assets/images/avatars/realistic/1.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 2,
+                "type" => "avatar",
+                "model" => "realistic",
+                "name" => "2.png",
+                "url" => "/assets/images/avatars/realistic/2.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 3,
+                "type" => "avatar",
+                "model" => "realistic",
+                "name" => "3.png",
+                "url" => "/assets/images/avatars/realistic/3.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 4,
+                "type" => "avatar",
+                "model" => "realistic",
+                "name" => "4.png",
+                "url" => "/assets/images/avatars/realistic/4.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 5,
+                "type" => "avatar",
+                "model" => "realistic",
+                "name" => "5.png",
+                "url" => "/assets/images/avatars/realistic/5.png",
+                "created_at" => now()
+            ],
+            [
+                "owner_id" => 6,
+                "type" => "avatar",
+                "model" => "realistic",
+                "name" => "6.png",
+                "url" => "/assets/images/avatars/realistic/6.png",
                 "created_at" => now()
             ],
         ]);

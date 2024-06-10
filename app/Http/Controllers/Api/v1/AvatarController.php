@@ -15,43 +15,43 @@ class AvatarController extends Controller
                 if (auth()->user()->gender) {
                     if (strtolower(auth()->user()->gender) == "male") {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/book/".auth()->user()->avatar_male.".png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png"
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/book/".auth()->user()->avatar_male.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/positive.png"
                         );
                     } else {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/book/".auth()->user()->avatar_female.".png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_male."/positive.png"
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/book/".auth()->user()->avatar_female.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/positive.png"
                         );
                     }
                     
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/book/".auth()->user()->avatar_male.".png",
-                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png"
+                        "me" => "/assets/images/avatars/".auth()->user()->type."/book/".auth()->user()->avatar_male.".png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/positive.png"
                     );
                 }
             } else if ($request->flag == 'notif') {
                 if (auth()->user()->gender) {
                     if (strtolower(auth()->user()->gender) == "male") {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/positive.png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png",
-                            // "banner" => "/assets/images/avatars/banner/notif.png"
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/positive.png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/positive.png",
+                            // "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/notif.png"
                         );
                     } else {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_male."/positive.png",
-                            // "banner" => "/assets/images/avatars/banner/notif.png"
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/positive.png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/positive.png",
+                            // "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/notif.png"
                         );
                     }
                     
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/positive.png",
-                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/positive.png",
-                        // "banner" => "/assets/images/avatars/banner/notif.png"
+                        "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/positive.png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/positive.png",
+                        // "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/notif.png"
                     );
                 }
             } else if ($request->flag == 'random') {
@@ -62,25 +62,25 @@ class AvatarController extends Controller
                 if (auth()->user()->gender) {
                     if (strtolower(auth()->user()->gender) == "male") {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$random.".png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$random.".png",
-                            "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
-                            "heart" => "/assets/images/avatars/banner/heart.png",
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/".$random.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/".$random.".png",
+                            "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/".auth()->user()->avatar_male.".png",
+                            "heart" => "/assets/images/avatars/".auth()->user()->type."/banner/heart.png",
                         );
                     } else {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$random.".png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$random.".png",
-                            "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
-                            "heart" => "/assets/images/avatars/banner/heart.png",
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/".$random.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/".$random.".png",
+                            "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/".auth()->user()->avatar_male.".png",
+                            "heart" => "/assets/images/avatars/".auth()->user()->type."/banner/heart.png",
                         );
                     }
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$random.".png",
-                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$random.".png",
-                        "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
-                        "heart" => "/assets/images/avatars/banner/heart.png",
+                        "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/".$random.".png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/".$random.".png",
+                        "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/".auth()->user()->avatar_male.".png",
+                        "heart" => "/assets/images/avatars/".auth()->user()->type."/banner/heart.png",
                     );
                 }
 
@@ -95,26 +95,26 @@ class AvatarController extends Controller
                 if (auth()->user()->gender) {
                     if (strtolower(auth()->user()->gender) == "male") {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$request->flag.".png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$request->flag.".png",
-                            "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
-                            "heart" => "/assets/images/avatars/banner/heart.png",
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/".$request->flag.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/".$request->flag.".png",
+                            "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/".auth()->user()->avatar_male.".png",
+                            "heart" => "/assets/images/avatars/".auth()->user()->type."/banner/heart.png",
                         );
                     } else {
                         $data = (object) array(
-                            "me" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$request->flag.".png",
-                            "partner" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$request->flag.".png",
-                            "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
-                            "heart" => "/assets/images/avatars/banner/heart.png",
+                            "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/".$request->flag.".png",
+                            "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/".$request->flag.".png",
+                            "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/".auth()->user()->avatar_male.".png",
+                            "heart" => "/assets/images/avatars/".auth()->user()->type."/banner/heart.png",
                         );
                     }
                     
                 } else {
                     $data = (object) array(
-                        "me" => "/assets/images/avatars/".auth()->user()->avatar_male."/".$request->flag.".png",
-                        "partner" => "/assets/images/avatars/".auth()->user()->avatar_female."/".$request->flag.".png",
-                        "banner" => "/assets/images/avatars/banner/".auth()->user()->avatar_male.".png",
-                        "heart" => "/assets/images/avatars/banner/heart.png",
+                        "me" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_male."/".$request->flag.".png",
+                        "partner" => "/assets/images/avatars/".auth()->user()->type."/".auth()->user()->avatar_female."/".$request->flag.".png",
+                        "banner" => "/assets/images/avatars/".auth()->user()->type."/banner/".auth()->user()->avatar_male.".png",
+                        "heart" => "/assets/images/avatars/".auth()->user()->type."/banner/heart.png",
                     );
                 }
             }

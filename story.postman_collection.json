@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9a7481d7-d9dc-42fc-9a35-c3fe56d2821e",
+		"_postman_id": "ade017a3-59e2-44ff-b895-bc7c5c234090",
 		"name": "story",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12074833"
 	},
 	"item": [
 		{
@@ -12,15 +13,27 @@
 					"name": "categories",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{base_url}}/list/categories",
+							"raw": "{{base_url}}/list/categories?type=realistic",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"list",
 								"categories"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "realistic"
+								}
 							]
 						}
 					},
@@ -156,7 +169,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/list/avatars?gender=female",
+							"raw": "{{base_url}}/list/avatars?gender=female&type=realistic",
 							"host": [
 								"{{base_url}}"
 							],
@@ -168,6 +181,10 @@
 								{
 									"key": "gender",
 									"value": "female"
+								},
+								{
+									"key": "type",
+									"value": "realistic"
 								}
 							]
 						},
@@ -236,7 +253,7 @@
 								},
 								{
 									"key": "device_id",
-									"value": "1",
+									"value": "18",
 									"type": "text"
 								},
 								{
@@ -322,6 +339,11 @@
 								{
 									"key": "language_id",
 									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "realistic",
 									"type": "text"
 								}
 							]
@@ -1669,7 +1691,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|YAtTWCeGYjozxrfAf1nRG8GihWLb90ac5hKn2AcX",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1786,7 +1808,7 @@
 		},
 		{
 			"key": "token",
-			"value": "1|LlO7sfaKq9SaRTWFOg6YI3AxnHF8cPly3pMMWTjt"
+			"value": "22|HTM0m4xwBcr72GzeTHPjMRmf30emElog5q3Tt9b1"
 		}
 	]
 }
