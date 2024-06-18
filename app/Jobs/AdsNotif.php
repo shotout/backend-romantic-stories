@@ -11,8 +11,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Google\Auth\HttpHandler\HttpHandlerFactory;
+use Google\Auth\Credentials\ServiceAccountCredentials;
 
 class AdsNotif implements ShouldQueue
 {
@@ -53,6 +55,12 @@ class AdsNotif implements ShouldQueue
                         if ($um) {
                             $message = Message::find($um->message_id);
                             if ($message) {
+                                $scope = "https://www.googleapis.com/auth/firebase.messaging";
+                                $config = env("FIREBASE_FILE");
+                                $creadentials = new ServiceAccountCredentials($scope, $config);
+                                $token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
+                                $access_token = $token['access_token'];
+                                $counter = $user->notif_count + 1;
                                 
                                 // $boxs = [
                                 //     "name" => $user->name,
@@ -72,34 +80,53 @@ class AdsNotif implements ShouldQueue
                                     $placement = "offer_50";
                                 }
 
+                                // $data = [
+                                //     "to" => $user->fcm_token,
+                                //     "data" => (object) array(
+                                //         "type" => "paywall",
+                                //         "placement" => $placement,
+                                //         "message_count" => $message->id
+                                //     ),
+                                //     "notification" => [
+                                //         "title" => "EroTales App",
+                                //         "body" => $descShort,   
+                                //         "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                //         "sound" => "circle.mp3",
+                                //         "badge" => $user->notif_count + 1
+                                //     ]
+                                // ];
                                 $data = [
-                                    "to" => $user->fcm_token,
-                                    "data" => (object) array(
-                                        "type" => "paywall",
-                                        "placement" => $placement,
-                                        "message_count" => $message->id
-                                    ),
-                                    "notification" => [
-                                        "title" => "EroTales App",
-                                        "body" => $descShort,   
-                                        "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
-                                        "sound" => "circle.mp3",
-                                        "badge" => $user->notif_count + 1
+                                    "message" => [
+                                        "token" => $user->fcm_token,
+                                        "notification" => [
+                                            "title" => "EroTales App",
+                                            "body" => $descShort,   
+                                        ],
+                                        "data" => (object) [
+                                            "type" => "paywall",
+                                            "placement" => $placement,
+                                            "message_count" => "$message->id",
+                                            "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
+                                            "sound" => "circle.mp3",
+                                            "badge" => "$counter"
+                                        ],
                                     ]
                                 ];
-                    
+                                
                                 Log::info($data);
                     
                                 $dataString = json_encode($data);
                             
                                 $headers = [
-                                    'Authorization: key=' . env('FIREBASE_SERVER_API_KEY'),
+                                    'Authorization: Bearer ' . $access_token,
+                                    // 'Authorization: key=' . env('FIREBASE_SERVER_API_KEY'),
                                     'Content-Type: application/json',
                                 ];
                             
                                 $ch = curl_init();
                         
-                                curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                                curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/v1/projects/'.env('FIREBASE_PROJECT_ID').'/messages:send');
+                                // curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
                                 curl_setopt($ch, CURLOPT_POST, true);
                                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
                                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
