@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ade017a3-59e2-44ff-b895-bc7c5c234090",
+		"_postman_id": "bbc08812-8e65-45b6-b780-901a35da8c83",
 		"name": "story",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
@@ -1705,7 +1705,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/avatar?flag=book",
+							"raw": "{{base_url}}/avatar?flag=sport",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1715,11 +1715,11 @@
 							"query": [
 								{
 									"key": "flag",
-									"value": "book"
+									"value": "sport"
 								}
 							]
 						},
-						"description": "1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 10 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think"
+						"description": "anime :\n\n1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 10 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think\n    \n\nrealistic :\n\n1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 5 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 5 macam (beach,casual,cocktail,professional,sport)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)sport"
 					},
 					"response": []
 				}
@@ -1808,7 +1808,7 @@
 		},
 		{
 			"key": "token",
-			"value": "22|HTM0m4xwBcr72GzeTHPjMRmf30emElog5q3Tt9b1"
+			"value": "2|ToueuAS5W3JBVeeTeEOVatXQ8MhelOs2YJE59k9V"
 		}
 	]
 }
