@@ -58,7 +58,7 @@ class AvatarController extends Controller
                 } else if ($request->flag == 'random') {
                     $avatars = array('angry','confused','cry','dizzy','excited','friendly','inlove','positive','scare','think');
                     $user = User::findOrFail(auth()->user()->id);
-                    $random = $avatars[$user->random_avatar];
+                    $random = $avatars[$user->random_avatar] ?? $avatars[0];
 
                     if (auth()->user()->gender) {
                         if (strtolower(auth()->user()->gender) == "male") {
@@ -175,21 +175,23 @@ class AvatarController extends Controller
                 } else if ($request->flag == 'random') {
                     $avatars = array('beach','casual','cocktail','professional','sport');
                     $user = User::findOrFail(auth()->user()->id);
-                    $random = $avatars[$user->random_avatar];
+                    $random = $avatars[$user->random_avatar] ?? $avatars[0];
+                    $banner = "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png";
+                    if ($random == 'beach') $banner = "/assets/images/avatars/realistic/banner/beach.png";
 
                     if (auth()->user()->gender) {
                         if (strtolower(auth()->user()->gender) == "male") {
                             $data = (object) array(
                                 "me" => "/assets/images/avatars/realistic/".auth()->user()->avatar_male."/".$random.".png",
                                 "partner" => "/assets/images/avatars/realistic/".auth()->user()->avatar_female."/".$random.".png",
-                                "banner" => "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png",
+                                "banner" => $banner,
                                 "heart" => "/assets/images/avatars/realistic/banner/heart.png",
                             );
                         } else {
                             $data = (object) array(
                                 "me" => "/assets/images/avatars/realistic/".auth()->user()->avatar_female."/".$random.".png",
                                 "partner" => "/assets/images/avatars/realistic/".auth()->user()->avatar_male."/".$random.".png",
-                                "banner" => "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png",
+                                "banner" => $banner,
                                 "heart" => "/assets/images/avatars/realistic/banner/heart.png",
                             );
                         }
@@ -197,7 +199,7 @@ class AvatarController extends Controller
                         $data = (object) array(
                             "me" => "/assets/images/avatars/realistic/".auth()->user()->avatar_male."/".$random.".png",
                             "partner" => "/assets/images/avatars/realistic/".auth()->user()->avatar_female."/".$random.".png",
-                            "banner" => "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png",
+                            "banner" => $banner,
                             "heart" => "/assets/images/avatars/realistic/banner/heart.png",
                         );
                     }
@@ -210,19 +212,22 @@ class AvatarController extends Controller
                         $user->update();
                     }
                 } else {
+                    $banner = "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png";
+                    if ($request->flag == 'beach') $banner = "/assets/images/avatars/realistic/banner/beach.png";
+
                     if (auth()->user()->gender) {
                         if (strtolower(auth()->user()->gender) == "male") {
                             $data = (object) array(
                                 "me" => "/assets/images/avatars/realistic/".auth()->user()->avatar_male."/".$request->flag.".png",
                                 "partner" => "/assets/images/avatars/realistic/".auth()->user()->avatar_female."/".$request->flag.".png",
-                                "banner" => "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png",
+                                "banner" => $banner,
                                 "heart" => "/assets/images/avatars/realistic/banner/heart.png",
                             );
                         } else {
                             $data = (object) array(
                                 "me" => "/assets/images/avatars/realistic/".auth()->user()->avatar_female."/".$request->flag.".png",
                                 "partner" => "/assets/images/avatars/realistic/".auth()->user()->avatar_male."/".$request->flag.".png",
-                                "banner" => "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png",
+                                "banner" => $banner,
                                 "heart" => "/assets/images/avatars/realistic/banner/heart.png",
                             );
                         }
@@ -231,7 +236,7 @@ class AvatarController extends Controller
                         $data = (object) array(
                             "me" => "/assets/images/avatars/realistic/".auth()->user()->avatar_male."/".$request->flag.".png",
                             "partner" => "/assets/images/avatars/realistic/".auth()->user()->avatar_female."/".$request->flag.".png",
-                            "banner" => "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png",
+                            "banner" => $banner,
                             "heart" => "/assets/images/avatars/realistic/banner/heart.png",
                         );
                     }

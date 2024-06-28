@@ -51,7 +51,11 @@ class StoryController extends Controller
         $user = User::with('subscription','my_story','schedule')->findOrFail(auth()->user()->id);
         $other = [];
         if ($user->subscription->plan_id != 1) {
-            $other = Story::with('is_collection', 'category')
+            $other = Story::with([
+                    'is_collection',
+                    'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                    'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                ])
                 ->whereNotIn('id', $pastStories)
                 ->whereNotIn('id', $myCollections)
                 ->where('status', 2)
@@ -61,7 +65,14 @@ class StoryController extends Controller
         }
 
         // query
-        $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
+        $query = Story::with([
+                'is_rating',
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
+                'audio_enable'
+            ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
             ->where('status', 2)
@@ -85,7 +96,14 @@ class StoryController extends Controller
         // if logic story null
         if (!$data) {
             // priority story
-            $query = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')
+            $query = Story::with([
+                    'is_rating',
+                    'is_collection',
+                    'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                    'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                    'audio',
+                    'audio_enable'
+                ])
                 ->whereNotIn('id', $pastStories)
                 ->whereNotIn('id', $myCollections)
                 ->where('is_priority', 1)
@@ -115,7 +133,15 @@ class StoryController extends Controller
 
     public function show($id)
     {
-        $story = Story::with('is_rating', 'is_collection', 'category', 'audio', 'audio_enable')->find($id);
+        $story = Story::with([
+                'is_rating',
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
+                'audio_enable'
+            ])
+            ->find($id);
         if (!$story) {
             return response()->json([
                 'status' => 'failed',
@@ -185,10 +211,20 @@ class StoryController extends Controller
         }
 
         // categories
-        $category = Category::with('image', 'cover')->whereNot('id', 4)->where('status', 2)->get();
+        $category = Category::with([
+                'image' => fn($q) => $q->where('model',auth()->user()->type),
+                'cover' => fn($q) => $q->where('model',auth()->user()->type),
+            ])
+            ->whereNot('id', 4)
+            ->where('status', 2)
+            ->get();
 
         // most read
-        $query1 = Story::with('is_collection', 'category')
+        $query1 = Story::with([
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+            ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
             ->where('status', 2)
@@ -196,7 +232,11 @@ class StoryController extends Controller
             ->orderBy($column, $dir);
 
         // most share
-        $query2 = Story::with('is_collection', 'category')
+        $query2 = Story::with([
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+            ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
             ->where('status', 2)
@@ -265,7 +305,11 @@ class StoryController extends Controller
 
         // story
         $query1 = Story::select('id', 'category_id', 'title_en', 'title_id')
-            ->with('is_collection', 'category')
+            ->with([
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+            ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
             ->where('category_id', $category->id)
@@ -274,7 +318,11 @@ class StoryController extends Controller
 
         // most share
         $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
-            ->with('is_collection', 'category:id,name')
+            ->with([
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+            ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
             ->where('category_id', $category->id)
