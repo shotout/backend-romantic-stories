@@ -53,7 +53,10 @@ class UserCollectionController extends Controller
 
             $query2 = $query2->get();
         } else {
-            $stories = CollectionStory::with('story:id,category_id,title_en,title_id')
+            $stories = CollectionStory::with([
+                'story.category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'story.category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                ])
                 ->where('user_id', auth()->user()->id)
                 ->whereNull('collection_id')
                 ->orderBy($column, $dir);
@@ -133,7 +136,10 @@ class UserCollectionController extends Controller
         }
 
         // query
-        $query = CollectionStory::with('story:id,category_id,title_en,title_id')
+        $query = CollectionStory::with([
+                'story.category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'story.category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+            ])
             ->where('collection_id', $collection->id)
             ->orderBy('id', 'desc');
 
