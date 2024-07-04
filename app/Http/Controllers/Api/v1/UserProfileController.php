@@ -43,6 +43,11 @@ class UserProfileController extends Controller
     {
         $user = User::find(auth('sanctum')->user()->id);
 
+        if ($request->has('type') && $request->type != '') {
+            $user->type = $request->type;
+            $user->update();
+        }
+
         if ($request->has('level') && $request->level != '') {
             $user->user_level->level_id = $request->level;
             $user->update();
@@ -209,15 +214,15 @@ class UserProfileController extends Controller
         $data = User::with([
             'user_level',
             'icon',
-            'category.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
-            'get_avatar_male.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
-            'get_avatar_female.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'category.image' => fn($q) => $q->where('model',$user->type),
+            'get_avatar_male.image' => fn($q) => $q->where('model',$user->type),
+            'get_avatar_female.image' => fn($q) => $q->where('model',$user->type),
             'theme',
             'language',
             'schedule',
             'subscription'
         ])
-            ->find(auth('sanctum')->user()->id);
+            ->find($user->id);
 
         return response()->json([
             'status' => 'success',

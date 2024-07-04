@@ -1358,6 +1358,12 @@
 								{
 									"key": "is_member",
 									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "anime",
 									"type": "text"
 								}
 							]
