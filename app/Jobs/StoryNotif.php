@@ -63,6 +63,14 @@ class StoryNotif implements ShouldQueue
                                             "sound" => "circle.mp3",
                                             "badge" => "$counter"
                                         ],
+                                        "apns" => (object) [
+                                            "payload" => (object) [
+                                                "aps" => (object) [
+                                                    "sound" => "circle.mp3",
+                                                    "badge" => "$counter"
+                                                ]
+                                            ]
+                                        ],
                                     ]
                                 ];
                                 // $data = [
@@ -93,6 +101,14 @@ class StoryNotif implements ShouldQueue
                                             "icon" => 'https://erotalesapp.com/assets/logo/favicon.jpg',
                                             "sound" => "circle.mp3",
                                             "badge" => "$counter"
+                                        ],
+                                        "apns" => (object) [
+                                            "payload" => (object) [
+                                                "aps" => (object) [
+                                                    "sound" => "circle.mp3",
+                                                    "badge" => "$counter"
+                                                ]
+                                            ]
                                         ],
                                     ]
                                 ];
