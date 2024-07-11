@@ -114,7 +114,7 @@ class AdsNotif implements ShouldQueue
                                             "payload" => (object) [
                                                 "aps" => (object) [
                                                     "sound" => "circle.mp3",
-                                                    "badge" => "$counter"
+                                                    "badge" => $counter
                                                 ]
                                             ]
                                         ],
