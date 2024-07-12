@@ -1683,6 +1683,54 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "tes notif",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ya29.a0AXooCgstX5M_hyGH7BLX5cVyvqq5T9nKBoMqBqp-vsBMDA4FXhoIOUDQeTDrgHuj-oDeqjLjr9NYSKbhxEyW-Uw_Op5T1DtkS841jZ1sk-WHqajSceABAWxRbsZigcBXsD9oM4vHzenAu6AzhX4HTQjhVsLAfKeThgfcaCgYKAQoSARESFQHGX2MicHAgVh5DTrUdJFXFkkfW-g0171",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": {\n        \"token\": \"eosy4cZtQA-9CSLfx9WRRA:APA91bHGaoJieIw3EBC27Hm71pQ5Pdwrd3Unq9wZQEKYKvOg00MuMRzXMjiQR_LsCgomen7NrpV3kVviONa_6pLl55h3DnDeJTl_gYakXUR5lh910QNK45a7rIT9xJR0Vq-IEh6TTa3U\",\n        \"notification\": {\n            \"title\": \"EroTales App\",\n            \"body\": \"tes\"  \n        },\n        \"data\": {\n            \"type\": \"paywall\",\n            \"placement\": \"in_app\",\n            \"message_count\": \"1\",\n            \"icon\": \"https://erotalesapp.com/assets/logo/favicon.jpg\",\n            \"sound\": \"circle.mp3\",\n            \"badge\": \"1\"\n        },\n        \"apns\": {\n            \"payload\": {\n                \"aps\": {\n                    \"sound\": \"circle.mp3\",\n                    \"badge\": 1\n                }\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fcm.googleapis.com/v1/projects/romantic-story-8b2e1/messages:send",
+							"protocol": "https",
+							"host": [
+								"fcm",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"v1",
+								"projects",
+								"romantic-story-8b2e1",
+								"messages:send"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1810,11 +1858,11 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://story.test/api/v1"
+			"value": "https://staging-api.erotalesapp.com/api/v1"
 		},
 		{
 			"key": "token",
-			"value": "2|ToueuAS5W3JBVeeTeEOVatXQ8MhelOs2YJE59k9V"
+			"value": "51|bL5pDcYX9v9pvfDsflver7eg10c5SD3WolYg5Mg6"
 		}
 	]
 }
