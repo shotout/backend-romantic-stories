@@ -26,9 +26,17 @@ class ListController extends Controller
         ], 200);
     }
 
-    public function categories()
+    public function categories(Request $request)
     {
-        $data = Category::with('image')->where('status', 2)->get();
+        if ($request->has('type') && $request->type != '') {
+            $model = $request->type;
+        } else {
+            $model = 'anime';
+        }
+
+        $data = Category::with(['image' => fn($q) => $q->where('model',$model)])
+            ->where('status', 2)
+            ->get();
 
         return response()->json([
             'status' => 'success',
@@ -38,7 +46,13 @@ class ListController extends Controller
 
     public function avatars(Request $request)
     {
-        $query = Avatar::with('image')->where('status', 2);
+        if ($request->has('type') && $request->type != '') {
+            $model = $request->type;
+        } else {
+            $model = 'anime';
+        }
+
+        $query = Avatar::with(['image' => fn($q) => $q->where('model',$model)])->where('status', 2);
         if ($request->has('gender') && $request->gender != '') $query->where('gender', $request->gender);
         $data = $query->get();
 

@@ -20,7 +20,17 @@ class UserProfileController extends Controller
 {
     public function show()
     {
-        $user = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
+        $user = User::with([
+            'user_level',
+            'icon',
+            'category.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'get_avatar_male.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'get_avatar_female.image' => fn($q) => $q->where('model',auth('sanctum')->user()->type),
+            'theme',
+            'language',
+            'schedule',
+            'subscription'
+        ])
             ->find(auth('sanctum')->user()->id);
 
         return response()->json([
@@ -32,6 +42,11 @@ class UserProfileController extends Controller
     public function update(Request $request)
     {
         $user = User::find(auth('sanctum')->user()->id);
+
+        if ($request->has('type') && $request->type != '') {
+            $user->type = $request->type;
+            $user->update();
+        }
 
         if ($request->has('level') && $request->level != '') {
             $user->user_level->level_id = $request->level;
@@ -196,8 +211,18 @@ class UserProfileController extends Controller
         }
 
         // new user
-        $data = User::with('user_level','icon','category','get_avatar_male','get_avatar_female','theme','language','schedule','subscription')
-            ->find(auth('sanctum')->user()->id);
+        $data = User::with([
+            'user_level',
+            'icon',
+            'category.image' => fn($q) => $q->where('model',$user->type),
+            'get_avatar_male.image' => fn($q) => $q->where('model',$user->type),
+            'get_avatar_female.image' => fn($q) => $q->where('model',$user->type),
+            'theme',
+            'language',
+            'schedule',
+            'subscription'
+        ])
+            ->find($user->id);
 
         return response()->json([
             'status' => 'success',
