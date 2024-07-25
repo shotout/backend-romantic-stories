@@ -173,7 +173,7 @@ class AvatarController extends Controller
                         );
                     }
                 } else if ($request->flag == 'random') {
-                    $avatars = array('beach','casual','cocktail','professional','sport');
+                    $avatars = array('beach','casual','cocktail','professional','sport','winter','travelling','relaxed','autumn','street');
                     $user = User::findOrFail(auth()->user()->id);
                     $random = $avatars[$user->random_avatar] ?? $avatars[0];
                     $banner = "/assets/images/avatars/realistic/banner/".auth()->user()->avatar_male.".png";
@@ -204,7 +204,7 @@ class AvatarController extends Controller
                         );
                     }
 
-                    if ($user->random_avatar < 4) {
+                    if ($user->random_avatar < 9) {
                         $user->random_avatar++;
                         $user->update();
                     } else {
