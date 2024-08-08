@@ -43,6 +43,16 @@ class UserProfileController extends Controller
     {
         $user = User::find(auth('sanctum')->user()->id);
 
+        // update timezone user
+        if ($request->has('timezone') && $request->timezone != '') {
+            if ($user->schedule->timezone != $request->timezone) {
+                $user->schedule->timezone = $request->timezone;
+                $user->schedule->update();
+
+                // GenerateTimerAds::dispatch($user->id)->onQueue(env('SUPERVISOR'));
+            } 
+        }
+
         if ($request->has('type') && $request->type != '') {
             $user->type = $request->type;
             $user->update();
