@@ -304,11 +304,12 @@ class StoryController extends Controller
         }
 
         // story
-        $query1 = Story::select('id', 'category_id', 'title_en', 'title_id')
+        $query1 = Story::select('id', 'category_id', 'title_en', 'title_id', 'content_en', 'content_id')
             ->with([
                 'is_collection',
                 'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
                 'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
             ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
@@ -317,11 +318,12 @@ class StoryController extends Controller
             ->orderBy($column, $dir);
 
         // most share
-        $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
+        $query2 = Story::select('id', 'category_id', 'title_en', 'title_id', 'content_en', 'content_id')
             ->with([
                 'is_collection',
                 'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
                 'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
             ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
