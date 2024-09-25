@@ -1773,7 +1773,7 @@
 								}
 							]
 						},
-						"description": "anime :\n\n1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 10 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think\n    \n\nrealistic :\n\n1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 5 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 5 macam (beach,casual,cocktail,professional,sport,winter,relaxed,travelling,autumn,street)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)sport"
+						"description": "anime :\n\n1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 10 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n4. untuk get avatar lainnya 10 macam (angry,confused,cry,dizzy,excited,friendly,inlove,positive.scare,think)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)think\n    \n\nrealistic :\n\n1. untuk get avatar book  \n    [http://domain/api/v1/avatar?flag=book](http://domain/api/v1/avatar?flag=book)\n2. untuk get avatar notif  \n    [http://domain/api/v1/avatar?flag=notif](http://domain/api/v1/avatar?flag=notif)\n3. untuk get avatar random 10 macam  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)random\n    \n4. untuk get avatar lainnya 10 macam (beach,casual,cocktail,professional,sport,winter,relaxed,travelling,autumn,street)  \n    [http://domain/api/v1/avatar?flag=](http://domain/api/v1/avatar?flag=notif)sport"
 					},
 					"response": []
 				}
@@ -1833,6 +1833,100 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "offline",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/offline/stories/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offline",
+								"stories",
+								"all"
+							],
+							"query": [
+								{
+									"key": "column",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "dir",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "nama_kolom = id / title_en\n\nurutan = asc / desc\n\nsearch = bebas\n\nA to Z = column=title_en&dir=asc\n\nZ to A = column=title_en&dir=desc\n\nnewest = column=id&dir=desc\n\noldest = column=id&dir=asc"
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/offline/stories/category/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offline",
+								"stories",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1862,7 +1956,7 @@
 		},
 		{
 			"key": "token",
-			"value": "51|bL5pDcYX9v9pvfDsflver7eg10c5SD3WolYg5Mg6"
+			"value": "23|Aep7fT6lKddFvGVpblxhrczt7vqsngzCLVffcJSH"
 		}
 	]
 }

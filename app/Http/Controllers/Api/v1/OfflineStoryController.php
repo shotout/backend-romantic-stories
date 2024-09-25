@@ -105,35 +105,35 @@ class OfflineStoryController extends Controller
     public function all(Request $request)
     {
         // past stories
-        // $pastStories = PastStory::where('user_id', auth('sanctum')->user()->id)
-        //     ->pluck('story_id')
-        //     ->toArray();
+        $pastStories = PastStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
 
         // my collections
-        // $myCollections = CollectionStory::where('user_id', auth('sanctum')->user()->id)
-        //     ->pluck('story_id')
-        //     ->toArray();
+        $myCollections = CollectionStory::where('user_id', auth('sanctum')->user()->id)
+            ->pluck('story_id')
+            ->toArray();
 
         // limit
-        // if ($request->has('length') && $request->input('length') != '') {
-        //     $length = $request->input('length');
-        // } else {
-        //     $length = 10;
-        // }
+        if ($request->has('length') && $request->input('length') != '') {
+            $length = $request->input('length');
+        } else {
+            $length = 10;
+        }
 
         // order by field
-        // if ($request->has('column') && $request->input('column') != '') {
-        //     $column = $request->input('column');
-        // } else {
-        //     $column = 'id';
-        // }
+        if ($request->has('column') && $request->input('column') != '') {
+            $column = $request->input('column');
+        } else {
+            $column = 'id';
+        }
 
         // order direction
-        // if ($request->has('dir') && $request->input('dir') != '') {
-        //     $dir = $request->input('dir');
-        // } else {
-        //     $dir = 'desc';
-        // }
+        if ($request->has('dir') && $request->input('dir') != '') {
+            $dir = $request->input('dir');
+        } else {
+            $dir = 'desc';
+        }
 
         // categories
         $category = Category::with([
@@ -152,46 +152,46 @@ class OfflineStoryController extends Controller
             ->get();
 
         // most read
-        // $query1 = Story::with([
-        //         'is_collection',
-        //         'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
-        //         'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
-        //         'audio',
-        //     ])
-        //     ->whereNotIn('id', $pastStories)
-        //     ->whereNotIn('id', $myCollections)
-        //     ->where('status', 2)
-        //     ->orderBy("count_past", "desc")
-        //     ->orderBy($column, $dir);
+        $query1 = Story::with([
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
+            ])
+            ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
+            ->where('status', 2)
+            ->orderBy("count_past", "desc")
+            ->orderBy($column, $dir);
 
         // most share
-        // $query2 = Story::with([
-        //         'is_collection',
-        //         'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
-        //         'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
-        //         'audio',
-        //     ])
-        //     ->whereNotIn('id', $pastStories)
-        //     ->whereNotIn('id', $myCollections)
-        //     ->where('status', 2)
-        //     ->orderBy("count_share", "desc")
-        //     ->orderBy($column, $dir);
+        $query2 = Story::with([
+                'is_collection',
+                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
+            ])
+            ->whereNotIn('id', $pastStories)
+            ->whereNotIn('id', $myCollections)
+            ->where('status', 2)
+            ->orderBy("count_share", "desc")
+            ->orderBy($column, $dir);
 
         // search
-        // if ($request->has('search') && $request->search != '') {
-        //     $query1->where('title_en', 'like', '%' . $request->search . '%');
-        //     $query2->where('title_en', 'like', '%' . $request->search . '%');
-        // }
+        if ($request->has('search') && $request->search != '') {
+            $query1->where('title_en', 'like', '%' . $request->search . '%');
+            $query2->where('title_en', 'like', '%' . $request->search . '%');
+        }
 
-        // $most_read = $query1->take($length)->get();
-        // $most_share = $query2->take($length)->get();
+        $most_read = $query1->take($length)->get();
+        $most_share = $query2->take($length)->get();
 
         // retun response
         return response()->json([
             'status' => 'success',
-            // 'most_read' => $most_read,
+            'most_read' => $most_read,
             'data' => $category,
-            // 'most_share' => $most_share
+            'most_share' => $most_share
         ], 200);
     }
 }
