@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\v1\UserLevelController;
 use App\Http\Controllers\Api\v1\PurchaselyController;
 use App\Http\Controllers\Api\v1\UserRatingController;
 use App\Http\Controllers\Api\v1\UserProfileController;
+use App\Http\Controllers\Api\v1\OfflineStoryController;
 use App\Http\Controllers\api\v1\SubscriptionsController;
 use App\Http\Controllers\Api\v1\UserPastStoryController;
 use App\Http\Controllers\Api\v1\UserCollectionController;
@@ -144,5 +145,12 @@ Route::middleware('auth:sanctum')->prefix('v1/level')->name('level.')->group(
 Route::prefix('v1/purchasely')->name('purchasely.')->group(
     function() {
         Route::post('/', [PurchaselyController::class, 'index'])->name('purchasely');
+    }
+);
+
+Route::middleware('auth:sanctum')->prefix('v1/offline/stories')->name('offline.stories.')->group(
+    function() {
+        Route::get('/all', [OfflineStoryController::class, 'all'])->name('all');
+        Route::get('/category/{id}', [OfflineStoryController::class, 'category'])->name('category');
     }
 );

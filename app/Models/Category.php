@@ -13,6 +13,11 @@ class Category extends Model
     const IN_ACTIVE = 1;
     const ACTIVE = 2;
 
+    public function stories()
+    {
+        return $this->hasMany('\App\Models\Story');
+    }
+
     public function image()
     {
         return $this->hasOne('\App\Models\Media', 'owner_id')->where('type', 'category');
