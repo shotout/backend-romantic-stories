@@ -151,47 +151,51 @@ class OfflineStoryController extends Controller
             ->where('status', 2)
             ->get();
 
-        // most read
-        $query1 = Story::with([
+        foreach ($category as $c) {
+            // most share
+            $query2 = Story::with([
                 'is_collection',
                 'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
                 'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
                 'audio',
             ])
-            ->whereNotIn('id', $pastStories)
-            ->whereNotIn('id', $myCollections)
-            ->where('status', 2)
-            ->orderBy("count_past", "desc")
-            ->orderBy($column, $dir);
-
-        // most share
-        $query2 = Story::with([
-                'is_collection',
-                'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
-                'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
-                'audio',
-            ])
+            ->where('category_id', $c->id)
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
             ->where('status', 2)
             ->orderBy("count_share", "desc")
             ->orderBy($column, $dir);
 
-        // search
-        if ($request->has('search') && $request->search != '') {
-            $query1->where('title_en', 'like', '%' . $request->search . '%');
-            $query2->where('title_en', 'like', '%' . $request->search . '%');
+            // search
+            if ($request->has('search') && $request->search != '') {
+                // $query1->where('title_en', 'like', '%' . $request->search . '%');
+                $query2->where('title_en', 'like', '%' . $request->search . '%');
+            }
+
+            // $most_read = $query1->take($length)->get();
+            $most_share = $query2->take($length)->get();
+            $c->most_share = $most_share;
         }
 
-        $most_read = $query1->take($length)->get();
-        $most_share = $query2->take($length)->get();
+        // most read
+        // $query1 = Story::with([
+        //         'is_collection',
+        //         'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
+        //         'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+        //         'audio',
+        //     ])
+        //     ->whereNotIn('id', $pastStories)
+        //     ->whereNotIn('id', $myCollections)
+        //     ->where('status', 2)
+        //     ->orderBy("count_past", "desc")
+        //     ->orderBy($column, $dir);
 
         // retun response
         return response()->json([
             'status' => 'success',
-            'most_read' => $most_read,
+            // 'most_read' => $most_read,
             'data' => $category,
-            'most_share' => $most_share
+            // 'most_share' => $most_share
         ], 200);
     }
 }
