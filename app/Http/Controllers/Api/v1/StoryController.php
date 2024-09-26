@@ -114,7 +114,7 @@ class StoryController extends Controller
         }
 
         // parsing story from backend
-        $data->content_en = str_replace("\r\n", " ", $data->content_en);
+        // $data->content_en = str_replace("\r\n", " ", $data->content_en);
 
         // user tracking
         $ut = UserTrack::where('user_id', $user->id)->first();
@@ -148,9 +148,7 @@ class StoryController extends Controller
                 'message' => 'data not found'
             ], 404);
         }
-        $story->content_en = str_replace("\r\n", " ", $story->content_en);
         
-
         return response()->json([
             'status' => 'success',
             'data' => $story
