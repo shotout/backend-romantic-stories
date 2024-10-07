@@ -2,12 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Story extends Model
 {
     use HasFactory;
+
+    
+    protected function contentEn(): Attribute
+    {
+        return new Attribute(
+            get: fn () => str_replace("\r\n", " ", $this->attributes['content_en'])
+        );
+    }
 
     public function category()
     {

@@ -114,7 +114,7 @@ class StoryController extends Controller
         }
 
         // parsing story from backend
-        $data->content_en = str_replace("\r\n", " ", $data->content_en);
+        // $data->content_en = str_replace("\r\n", " ", $data->content_en);
 
         // user tracking
         $ut = UserTrack::where('user_id', $user->id)->first();
@@ -148,9 +148,7 @@ class StoryController extends Controller
                 'message' => 'data not found'
             ], 404);
         }
-        $story->content_en = str_replace("\r\n", " ", $story->content_en);
         
-
         return response()->json([
             'status' => 'success',
             'data' => $story
@@ -304,11 +302,12 @@ class StoryController extends Controller
         }
 
         // story
-        $query1 = Story::select('id', 'category_id', 'title_en', 'title_id')
+        $query1 = Story::select('id', 'category_id', 'title_en', 'title_id', 'content_en', 'content_id')
             ->with([
                 'is_collection',
                 'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
                 'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
             ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
@@ -317,11 +316,12 @@ class StoryController extends Controller
             ->orderBy($column, $dir);
 
         // most share
-        $query2 = Story::select('id', 'category_id', 'title_en', 'title_id')
+        $query2 = Story::select('id', 'category_id', 'title_en', 'title_id', 'content_en', 'content_id')
             ->with([
                 'is_collection',
                 'category.cover' => fn($q) => $q->where('model',auth()->user()->type),
                 'category.cover_audio' => fn($q) => $q->where('model',auth()->user()->type),
+                'audio',
             ])
             ->whereNotIn('id', $pastStories)
             ->whereNotIn('id', $myCollections)
