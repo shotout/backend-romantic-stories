@@ -144,8 +144,9 @@ class AdsNotif implements ShouldQueue
                                 $response = curl_exec($ch);
                                 Log::info($response);
 
-                                $um->has_notif = true;
-                                $um->update();
+                                // $um->has_notif = true;
+                                // $um->update();
+                                $um->delete();
 
                                 $user->notif_ads_count++;
                                 $user->update();
